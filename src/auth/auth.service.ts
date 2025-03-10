@@ -7,6 +7,9 @@ import { Protocol } from '@util/protocol';
 
 @Injectable()
 export class AuthService {
+  refreshToken(user: UserTokenData, res: Response<any, Record<string, any>>) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     private readonly usersService: UsersService,
     private readonly utilService: UtilService,
@@ -21,16 +24,13 @@ export class AuthService {
     this.utilService.compareInputPasswordWith(message, user.password);
 
     try {
-      const tokenData = this.utilService.createToken(user);
-      res.cookie('token', tokenData.token, {
+      const { accessToken, refreshToken } = this.utilService.createToken(user);
+      res.cookie('refresh', refreshToken, {
         httpOnly: true,
-        maxAge: 5 * 60 * 1000,
+        sameSite: 'strict',
+        maxAge: 1 * 24 * 60 * 60 * 1000,
       });
-      res.cookie('refresh', tokenData.refreshToken, {
-        httpOnly: true,
-        maxAge: 30 * 60 * 1000,
-      });
-      return tokenData;
+      return { accessToken };
     } catch (error) {
       const errorProtocol = Protocol.ServerError;
       throw new InternalServerErrorException(
@@ -41,7 +41,6 @@ export class AuthService {
   }
 
   logout(res: Response) {
-    res.clearCookie('token');
     res.clearCookie('refresh');
   }
 }
