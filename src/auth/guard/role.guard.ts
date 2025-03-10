@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { UserRole } from '@users/enums/UserRole';
 import { Protocol } from '@util/protocol';
+import { Request } from 'express';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -16,16 +17,17 @@ export class RoleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<Request>();
     const user = request.user;
-    console.log(user);
     const roles =
       this.reflector.get('roles', context.getHandler()) ||
       this.reflector.get('roles', context.getClass());
 
     if (!user) {
       const errorProtocol = Protocol.UnAuthorized;
-      throw new UnauthorizedException(errorProtocol);
+      throw new UnauthorizedException(errorProtocol, {
+        cause: '인증이 필요합니다.',
+      });
     }
 
     if (!roles || roles.length === 0) {
