@@ -7,13 +7,15 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { Request } from 'express';
-import { Roles } from '@middleware/roles.decorator';
+import { Roles } from '@auth/guard/roles.decorator';
+import { RoleGuard } from '@auth/guard/role.guard';
 
 @Controller('users')
 export class UsersController {
@@ -25,6 +27,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @UseGuards(RoleGuard)
   @Roles()
   @ApiOperation({ summary: '로그인 회원 정보 조회' })
   @Get('me')

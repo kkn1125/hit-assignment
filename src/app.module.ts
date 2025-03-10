@@ -16,7 +16,7 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { UsersModule } from './users/users.module';
 import { UtilModule } from './util/util.module';
-import { CookieParserMiddleware } from '@middleware/cookie-parser.middleware';
+import { BearerParserMiddleware } from '@auth/middleware/bearer-parser.middleware';
 
 @Module({
   imports: [
@@ -39,6 +39,6 @@ import { CookieParserMiddleware } from '@middleware/cookie-parser.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware, CookieParserMiddleware).forRoutes('*api');
+    consumer.apply(LoggerMiddleware, BearerParserMiddleware).forRoutes('*api');
   }
 }

@@ -3,7 +3,7 @@ import { CommonOption } from '@common/variables/commonConf';
 import { SwaggerOption } from '@common/variables/swaggerConf';
 import { LoggerService } from '@logger/logger.service';
 import { ResponseInterceptor } from '@middleware/repsonse.interceptor';
-import { RoleGuard } from '@middleware/role.guard';
+import { RoleGuard } from '@auth/guard/role.guard';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -32,7 +32,7 @@ async function bootstrap() {
   });
   app.useGlobalGuards(new RoleGuard(reflector));
   app.useGlobalInterceptors(new ResponseInterceptor(logger));
-  app.useGlobalFilters(new GlobalExceptionFilter());
+  app.useGlobalFilters(new GlobalExceptionFilter(logger));
 
   const config = new DocumentBuilder()
     .setTitle('HIT 식당 시스템')
