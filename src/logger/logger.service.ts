@@ -1,3 +1,4 @@
+import { RUN_MODE } from '@common/variables/environment';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 
@@ -5,6 +6,7 @@ type LogMethod = (...messages: any) => void;
 
 @Injectable()
 export class LoggerService {
+  private readonly isOutput = RUN_MODE !== 'production';
   private context: string = 'System';
   private levels = ['log', 'info', 'debug', 'warn', 'error'] as const;
   private icons = ['📄', '✨', '🐛', '⚠️', '❌'] as const;
@@ -33,9 +35,10 @@ export class LoggerService {
       const icon = this.icons[this.levels.indexOf(level)];
       Object.defineProperty(this, level, {
         get() {
+          if (!this.isOutput) return () => {};
           return console[level].bind(
             this,
-            `${this.timestamp} ${icon} [${level.toUpperCase()}]`,
+            `${icon} [${level.toUpperCase()}] ${this.timestamp} --`,
           ) as LogMethod;
         },
         configurable: true,

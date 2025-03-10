@@ -1,3 +1,4 @@
+import { LoggerService } from '@logger/logger.service';
 import {
   ArgumentsHost,
   Catch,
@@ -12,6 +13,8 @@ import { Request, Response } from 'express';
 export class GlobalExceptionFilter<T extends HttpException>
   implements ExceptionFilter
 {
+  constructor(private readonly logger: LoggerService) {}
+
   catch(exception: T, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -22,7 +25,8 @@ export class GlobalExceptionFilter<T extends HttpException>
     const method = request.method;
     const path = request.originalUrl;
     const detail = exception.cause;
-    console.log(exception);
+
+    this.logger.debug('exception:', exception);
 
     const exceptionFormat = new ExceptionResponseFormat(
       status,
