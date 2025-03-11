@@ -3,6 +3,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -24,24 +25,27 @@ export class UsersService {
   async isDuplicatedEmail(email: string) {
     const count = await this.userRepository.countBy({ email });
     const errorProtocol = Protocol.Conflict;
-    if (count > 0)
+    if (count > 0) {
       throw new ConflictException(errorProtocol, 'email이 중복됩니다.');
+    }
     return true;
   }
 
   async isDuplicatedUserId(userId: string) {
     const count = await this.userRepository.countBy({ userId });
     const errorProtocol = Protocol.Conflict;
-    if (count > 0)
+    if (count > 0) {
       throw new ConflictException(errorProtocol, 'userId가 중복됩니다.');
+    }
     return true;
   }
 
   async isDuplicatedPhoneNumber(phone: string) {
     const count = await this.userRepository.countBy({ phone });
     const errorProtocol = Protocol.Conflict;
-    if (count > 0)
+    if (count > 0) {
       throw new ConflictException(errorProtocol, 'phoneNumber가 중복됩니다.');
+    }
     return true;
   }
   /* user domain validate 📄 */
@@ -96,10 +100,9 @@ export class UsersService {
       },
     });
     if (!user) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '토큰 정보와 일치하는 사용자가 없습니다.',
-      });
+      /* 토큰 정보가 조작 또는 잘못 되었기 때문에 400 반환 */
+      const errorProtocol = Protocol.NoMatchTokenUser;
+      throw new BadRequestException(errorProtocol);
     }
     return user;
   }
@@ -127,10 +130,8 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     const userExists = await this.userRepository.countBy({ id });
     if (userExists === 0) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '사용자 정보를 찾을 수 없습니다.',
-      });
+      const errorProtocol = Protocol.NoMatchTokenUser;
+      throw new BadRequestException(errorProtocol);
     }
     if (updateUserDto.email) {
       await this.isDuplicatedEmail(updateUserDto.email);
@@ -147,10 +148,8 @@ export class UsersService {
   async remove(id: number) {
     const userExists = await this.userRepository.countBy({ id });
     if (userExists === 0) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '사용자 정보를 찾을 수 없습니다.',
-      });
+      const errorProtocol = Protocol.NoMatchTokenUser;
+      throw new BadRequestException(errorProtocol);
     }
     return this.userRepository.softDelete(id);
   }
