@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,23 +12,40 @@ export class MenusService {
     private readonly menuRepository: Repository<Menu>,
   ) {}
 
-  create(createMenuDto: CreateMenuDto) {
-    return this.menuRepository.save(createMenuDto);
+  async createBulk(restaurantId: number, createMenuDto: CreateMenuDto[]) {
+    const bulkMenus = await this.menuRepository.save(
+      createMenuDto.map((menu) => ({ restaurantId, ...menu })),
+    );
+    return bulkMenus.map(({ id }) => ({
+      id,
+    }));
   }
 
-  findAll() {
-    return this.menuRepository.find();
+  async create(restaurantId: number, createMenuDto: CreateMenuDto) {
+    const menu = await this.menuRepository.save({
+      restaurantId,
+      ...createMenuDto,
+    });
+    return { id: menu.id };
   }
 
-  findOne(id: number) {
-    return this.menuRepository.findOneBy({ id });
+  findAll(restaurantId: number) {
+    return this.menuRepository.find({
+      where: {
+        restaurantId,
+      },
+    });
   }
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return this.menuRepository.update(id, updateMenuDto);
+  findOne(menuId: number) {
+    return this.menuRepository.findOneBy({ id: menuId });
   }
 
-  remove(id: number) {
-    return this.menuRepository.delete(id);
+  update(menuId: number, updateMenuDto: UpdateMenuDto) {
+    return this.menuRepository.update(menuId, updateMenuDto);
+  }
+
+  remove(menuId: number) {
+    return this.menuRepository.delete(menuId);
   }
 }

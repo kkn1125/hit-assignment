@@ -7,55 +7,90 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
-import { UserRole } from '@users/enums/UserRole';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  getSchemaPath,
+} from '@nestjs/swagger';
+import { UserRole } from '@util/enums/UserRole';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenusService } from './menus.service';
+import { ParseArrayOrOnePipe } from './pipe/parse-array-or-one.pipe';
+import { CheckOwnerGuard } from '@restaurants/guard/check-owner.guard';
+import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 
 @Controller('menus')
 export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
+  @ApiResponse({
+    examples: {
+      one: {
+        summary: '개별추가',
+        value: {
+          id: 1,
+        },
+      },
+      bulk: {
+        summary: '다중추가',
+        value: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+      },
+    },
+    schema: {
+      oneOf: [{ $ref: 'getSchemaPath()' }],
+    },
+  })
+  @ApiBodyWithModel({ CreateMenuDto })
+  @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 메뉴 추가' })
+  @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Post()
   create(
     @Param('restaurantId') restaurantId: number,
-    @Body() createMenuDto: CreateMenuDto,
+    @Body(ParseArrayOrOnePipe) createMenuDto: CreateMenuDto | CreateMenuDto[],
   ) {
-    return this.menusService.create(createMenuDto);
+    if (Array.isArray(createMenuDto)) {
+      return this.menusService.createBulk(+restaurantId, createMenuDto);
+    }
+    return this.menusService.create(+restaurantId, createMenuDto);
   }
 
   @ApiOperation({ summary: '식당 메뉴 전체 조회' })
   @Roles()
   @Get()
   findAll(@Param('restaurantId') restaurantId: number) {
-    return this.menusService.findAll();
+    return this.menusService.findAll(+restaurantId);
   }
 
   @ApiOperation({ summary: '식당 메뉴 상세 조회' })
   @Roles()
   @Get(':menuId')
-  findOne(
-    @Param('restaurantId') restaurantId: number,
-    @Param('menuId') menuId: string,
-  ) {
+  findOne(@Param('menuId') menuId: string) {
     return this.menusService.findOne(+menuId);
   }
 
+  @ApiBodyWithModel({ UpdateMenuDto })
   @ApiOperation({ summary: '식당 메뉴 수정' })
+  @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMenuDto: UpdateMenuDto) {
-    return this.menusService.update(+id, updateMenuDto);
+  @Patch(':menuId')
+  update(
+    @Param('menuId') menuId: string,
+    @Body() updateMenuDto: UpdateMenuDto,
+  ) {
+    return this.menusService.update(+menuId, updateMenuDto);
   }
 
   @ApiOperation({ summary: '식당 메뉴 제거' })
+  @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.menusService.remove(+id);
+  @Delete(':menuId')
+  remove(@Param('menuId') menuId: string) {
+    return this.menusService.remove(+menuId);
   }
 }
