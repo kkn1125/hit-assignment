@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Menu } from './entities/menu.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MenusService {
+  constructor(
+    @InjectRepository(Menu)
+    private readonly menuRepository: Repository<Menu>,
+  ) {}
+
   create(createMenuDto: CreateMenuDto) {
-    return 'This action adds a new menu';
+    return this.menuRepository.save(createMenuDto);
   }
 
   findAll() {
-    return `This action returns all menus`;
+    return this.menuRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} menu`;
+    return this.menuRepository.findOneBy({ id });
   }
 
   update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
+    return this.menuRepository.update(id, updateMenuDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} menu`;
+    return this.menuRepository.delete(id);
   }
 }
