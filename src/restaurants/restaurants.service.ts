@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Restaurant } from './entities/restaurant.entity';
 import { Repository } from 'typeorm';
 import { Protocol } from '@util/protocol';
+import { searchPagination } from '@util/utilFunction';
 
 @Injectable()
 export class RestaurantsService {
@@ -19,8 +20,13 @@ export class RestaurantsService {
     return { id: restaurant.id };
   }
 
-  findAll() {
-    return this.restaurantRepository.find();
+  findAll(page: number = 1) {
+    return searchPagination(
+      this.restaurantRepository,
+      '/restaurants',
+      {},
+      page,
+    );
   }
 
   async findOne(id: number) {
