@@ -11,8 +11,8 @@ import { RouterModule } from '@nestjs/core';
   imports: [
     TypeOrmModule.forFeature([Restaurant]),
     RouterModule.register([
-      { path: ':restaurantId', module: MenusModule },
-      { path: ':restaurantId', module: ReservationsModule },
+      { path: 'restaurants/:restaurantId', module: MenusModule },
+      { path: 'restaurants/:restaurantId', module: ReservationsModule },
     ]),
     MenusModule,
     ReservationsModule,
