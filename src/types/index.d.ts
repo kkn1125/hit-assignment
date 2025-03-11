@@ -1,4 +1,5 @@
 import { UserRole } from '@users/enums/UserRole';
+import { ResponseFormat } from '@util/response';
 
 export declare global {
   type UserTokenData = {
@@ -16,4 +17,11 @@ export declare global {
       user: UserTokenData;
     }
   }
+
+  type ResponseProperty = Omit<
+    ResponseFormat,
+    'payload' | 'message' | 'timestamp'
+  > & {
+    message?: string;
+  };
 }
