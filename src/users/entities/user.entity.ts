@@ -1,4 +1,3 @@
-import { Reservation } from '@reservations/entities/reservation.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
 import {
   Column,
@@ -10,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserRole } from '../enums/UserRole';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 
 @Entity()
 export class User {

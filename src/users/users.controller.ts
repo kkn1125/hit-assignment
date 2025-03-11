@@ -17,6 +17,7 @@ import { Request } from 'express';
 import { Roles } from '@auth/guard/roles.decorator';
 import { RoleGuard } from '@auth/guard/role.guard';
 
+@UseGuards(RoleGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -28,7 +29,6 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '로그인 회원 정보 조회' })
-  @UseGuards(RoleGuard)
   @Roles()
   @Get('me')
   getMe(@Req() req: Request) {
@@ -36,7 +36,6 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '회원 정보 수정' })
-  @UseGuards(RoleGuard)
   @Roles()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -44,7 +43,6 @@ export class UsersController {
   }
 
   @ApiOperation({ summary: '회원 탈퇴' })
-  @UseGuards(RoleGuard)
   @Roles()
   @Delete(':id')
   remove(@Param('id') id: string) {
