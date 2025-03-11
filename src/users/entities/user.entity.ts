@@ -10,10 +10,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserRole } from '../enums/UserRole';
+import { UserRole } from '../../util/enums/UserRole';
 
 @Entity()
 export class User {
+  @ApiProperty({ type: Number, example: 1 })
   @PrimaryGeneratedColumn()
   id!: number;
 

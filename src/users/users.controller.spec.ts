@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import dayjs from 'dayjs';
 import { beforeEach, describe, expect, it, vitest } from 'vitest';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserRole } from './enums/UserRole';
+import { UserRole } from '../util/enums/UserRole';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 

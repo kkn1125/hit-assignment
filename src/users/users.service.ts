@@ -3,15 +3,14 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Protocol } from '@util/protocol';
+import { UtilService } from '@util/util.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { UtilService } from '@util/util.service';
-import { Protocol } from '@util/protocol';
 
 @Injectable()
 export class UsersService {
@@ -21,42 +20,45 @@ export class UsersService {
     private readonly utilService: UtilService,
   ) {}
 
-  /* 📄 user domain validate */
-  async isDuplicatedEmail(email: string) {
-    const count = await this.userRepository.countBy({ email });
+  /* user's util */
+  async throwNoExistsUserBy<T extends object>(whereOption: T) {
+    const user = await this.userRepository.findOneBy(whereOption);
+    if (!user) {
+      const errorProtocol = Protocol.NoMatchUser;
+      throw new NotFoundException(errorProtocol);
+    }
+    return user;
+  }
+
+  async isDuplicatedBy<T extends object>(whereOption: T) {
+    const count = await this.userRepository.countBy(whereOption);
     const errorProtocol = Protocol.Conflict;
     if (count > 0) {
       throw new ConflictException(errorProtocol, 'email이 중복됩니다.');
     }
-    return true;
+    return { result: true };
   }
 
-  async isDuplicatedUserId(userId: string) {
-    const count = await this.userRepository.countBy({ userId });
-    const errorProtocol = Protocol.Conflict;
-    if (count > 0) {
-      throw new ConflictException(errorProtocol, 'userId가 중복됩니다.');
-    }
-    return true;
-  }
+  async comparePassword(userId: string, inputPassword: string) {
+    const user = await this.throwNoExistsUserBy({ userId });
+    const message = userId + inputPassword;
+    const hashedPassword = this.utilService.createHashedPassword(message);
 
-  async isDuplicatedPhoneNumber(phone: string) {
-    const count = await this.userRepository.countBy({ phone });
-    const errorProtocol = Protocol.Conflict;
-    if (count > 0) {
-      throw new ConflictException(errorProtocol, 'phoneNumber가 중복됩니다.');
+    if (user.password !== hashedPassword) {
+      const errorProtocol = Protocol.WrongLoginData;
+      throw new BadRequestException(errorProtocol);
     }
-    return true;
+    return user;
   }
-  /* user domain validate 📄 */
+  /* user's util */
 
   async create(createUserDto: CreateUserDto) {
-    await this.isDuplicatedEmail(createUserDto.email);
-    await this.isDuplicatedUserId(createUserDto.userId);
-    await this.isDuplicatedPhoneNumber(createUserDto.phone);
+    await this.isDuplicatedBy({ email: createUserDto.email });
+    await this.isDuplicatedBy({ userId: createUserDto.userId });
+    await this.isDuplicatedBy({ phone: createUserDto.phone });
 
     const hashedPassword = this.utilService.createHashedPassword(
-      createUserDto.email + createUserDto.password,
+      createUserDto.userId + createUserDto.password,
     );
     createUserDto.password = hashedPassword;
     const createdData = await this.userRepository.save(createUserDto);
@@ -78,12 +80,6 @@ export class UsersService {
         role: true,
       },
     });
-    if (!user) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '사용자 정보를 찾을 수 없습니다.',
-      });
-    }
     return user;
   }
 
@@ -99,11 +95,6 @@ export class UsersService {
         role: true,
       },
     });
-    if (!user) {
-      /* 토큰 정보가 조작 또는 잘못 되었기 때문에 400 반환 */
-      const errorProtocol = Protocol.NoMatchTokenUser;
-      throw new BadRequestException(errorProtocol);
-    }
     return user;
   }
 
@@ -118,39 +109,23 @@ export class UsersService {
         role: true,
       },
     });
-    if (!user) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '사용자 정보를 찾을 수 없습니다.',
-      });
-    }
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const userExists = await this.userRepository.countBy({ id });
-    if (userExists === 0) {
-      const errorProtocol = Protocol.NoMatchTokenUser;
-      throw new BadRequestException(errorProtocol);
-    }
     if (updateUserDto.email) {
-      await this.isDuplicatedEmail(updateUserDto.email);
+      await this.isDuplicatedBy({ email: updateUserDto.email });
     }
     if (updateUserDto.userId) {
-      await this.isDuplicatedUserId(updateUserDto.userId);
+      await this.isDuplicatedBy({ userId: updateUserDto.userId });
     }
     if (updateUserDto.phone) {
-      await this.isDuplicatedPhoneNumber(updateUserDto.phone);
+      await this.isDuplicatedBy({ phone: updateUserDto.phone });
     }
     return this.userRepository.update(id, updateUserDto);
   }
 
   async remove(id: number) {
-    const userExists = await this.userRepository.countBy({ id });
-    if (userExists === 0) {
-      const errorProtocol = Protocol.NoMatchTokenUser;
-      throw new BadRequestException(errorProtocol);
-    }
     return this.userRepository.softDelete(id);
   }
 }
