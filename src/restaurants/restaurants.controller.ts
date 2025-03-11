@@ -9,17 +9,19 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam } from '@nestjs/swagger';
-import { UserRole } from '@users/enums/UserRole';
+import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { UserRole } from '@util/enums/UserRole';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 import { RestaurantsService } from './restaurants.service';
+import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
+  @ApiBodyWithModel(CreateRestaurantDto)
   @ApiOperation({ summary: '식당 정보 추가' })
   @Roles([UserRole.Shopkeeper])
   @Post()
@@ -38,6 +40,7 @@ export class RestaurantsController {
     status: 200,
     method: 'GET',
     path: '/restaurants/:restaurantId',
+    modelName: 'FindOneRestaurantResponse',
   })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 상세 조회' })
@@ -46,6 +49,7 @@ export class RestaurantsController {
     return this.restaurantsService.findOne(+restaurantId);
   }
 
+  @ApiBodyWithModel(UpdateRestaurantDto)
   @ApiOperation({ summary: '식당 정보 수정' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @Roles([UserRole.Shopkeeper])
