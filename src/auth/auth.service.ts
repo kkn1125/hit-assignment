@@ -18,29 +18,22 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto, res: Response) {
-    const hashedPassword = this.utilService.createHashedPassword(
+    await this.usersService.throwNoExistsUserBy({ userId: loginDto.userId });
+
+    const user = await this.usersService.comparePassword(
+      loginDto.userId,
       loginDto.password,
     );
-    const user = await this.usersService.findOneByUserId(loginDto.userId);
 
-    if (!user) {
-      const errorProtocol = Protocol.NotFound;
-      throw new NotFoundException(errorProtocol, {
-        cause: '사용자 정보를 찾을 수 없습니다.',
-      });
-    }
-
-    const message = user.email + hashedPassword;
+    const message = loginDto.userId + loginDto.password;
     const isCorrectPassword = this.utilService.compareInputPasswordWith(
       message,
       user.password,
     );
 
     if (!isCorrectPassword) {
-      const errorProtocol = Protocol.BadRequest;
-      throw new BadRequestException(errorProtocol, {
-        cause: '입력 정보를 다시 확인해주세요.',
-      });
+      const errorProtocol = Protocol.WrongLoginData;
+      throw new BadRequestException(errorProtocol);
     }
 
     try {
