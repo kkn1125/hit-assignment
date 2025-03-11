@@ -1,3 +1,4 @@
+import { BearerParserMiddleware } from '@auth/middleware/bearer-parser.middleware';
 import secretConf from '@common/variables/secretConf';
 import swaggerConf from '@common/variables/swaggerConf';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
@@ -12,11 +13,9 @@ import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
 import { LoggerService } from './logger/logger.service';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { ReservationsModule } from './reservations/reservations.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { UsersModule } from './users/users.module';
 import { UtilModule } from './util/util.module';
-import { BearerParserMiddleware } from '@auth/middleware/bearer-parser.middleware';
 
 @Module({
   imports: [
@@ -31,7 +30,6 @@ import { BearerParserMiddleware } from '@auth/middleware/bearer-parser.middlewar
     AuthModule,
     DatabaseModule,
     LoggerModule,
-    ReservationsModule,
     UtilModule,
   ],
   controllers: [AppController],
