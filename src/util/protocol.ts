@@ -24,6 +24,10 @@ export const Protocol = {
     errorCode: 2008,
     message: '잘못된 접근입니다.',
   }, // 401
+  NoMatchTokenUser: {
+    errorCode: 2009,
+    message: '토큰 정보와 일치하는 사용자가 없습니다.',
+  }, // 401
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 
