@@ -11,7 +11,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, OmitType } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -22,18 +22,19 @@ export class AuthController {
 
   @ApiResponseWithModel(
     {
-      accessToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdF91c2VyNDQiLCJlbWFpbCI6IjNkNzNmczNjejNmbDNoei4zY3kzZmwzaHoyM0BleGFtcGxlLmNvbSIsInJvbGUiOjEsImlhdCI6MTc0MTY2MTg0NCwiZXhwIjoxNzQxNjYyMTQ0LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.EXw8OGfjepSiHtWqKWczb7DQyzu8ZwJmZLr4j2a1P0A',
+      LoginResponse: {
+        accessToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdF91c2VyNDQiLCJlbWFpbCI6IjNkNzNmczNjejNmbDNoei4zY3kzZmwzaHoyM0BleGFtcGxlLmNvbSIsInJvbGUiOjEsImlhdCI6MTc0MTY2MTg0NCwiZXhwIjoxNzQxNjYyMTQ0LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.EXw8OGfjepSiHtWqKWczb7DQyzu8ZwJmZLr4j2a1P0A',
+      },
     },
     {
       ok: true,
       status: HttpStatus.CREATED,
       method: 'POST',
       path: '/auth/login',
-      modelName: 'LoginResponse',
     },
   )
-  @ApiBodyWithModel(LoginDto)
+  @ApiBodyWithModel({ LoginDto })
   @ApiOperation({ summary: '로그인' })
   @Post('login')
   login(@Res({ passthrough: true }) res: Response, @Body() loginDto: LoginDto) {
@@ -41,13 +42,12 @@ export class AuthController {
   }
 
   @ApiResponseWithModel(
-    { result: true },
+    { LogoutResponse: { result: true } },
     {
       ok: true,
       status: HttpStatus.CREATED,
       method: 'POST',
       path: '/auth/logout',
-      modelName: 'LogoutResponse',
     },
   )
   @ApiBearerAuth()
@@ -60,15 +60,16 @@ export class AuthController {
 
   @ApiResponseWithModel(
     {
-      accessToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdF91c2VyNDQiLCJlbWFpbCI6IjNkNzNmczNjejNmbDNoei4zY3kzZmwzaHoyM0BleGFtcGxlLmNvbSIsInJvbGUiOjEsImlhdCI6MTc0MTY2MTg0NCwiZXhwIjoxNzQxNjYyMTQ0LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.EXw8OGfjepSiHtWqKWczb7DQyzu8ZwJmZLr4j2a1P0A',
+      RefreshResponse: {
+        accessToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdF91c2VyNDQiLCJlbWFpbCI6IjNkNzNmczNjejNmbDNoei4zY3kzZmwzaHoyM0BleGFtcGxlLmNvbSIsInJvbGUiOjEsImlhdCI6MTc0MTY2MTg0NCwiZXhwIjoxNzQxNjYyMTQ0LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.EXw8OGfjepSiHtWqKWczb7DQyzu8ZwJmZLr4j2a1P0A',
+      },
     },
     {
       ok: true,
       status: HttpStatus.CREATED,
       method: 'POST',
       path: '/auth/login',
-      modelName: 'RefreshResponse',
     },
   )
   @ApiBearerAuth()
