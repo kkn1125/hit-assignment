@@ -1,4 +1,4 @@
-import { UserRole } from '@users/enums/UserRole';
+import { UserRole } from '@util/enums/UserRole';
 import { ResponseFormat } from '@util/response';
 
 export declare global {
@@ -23,5 +23,12 @@ export declare global {
     'payload' | 'message' | 'timestamp'
   > & {
     message?: string;
+  };
+
+  type PaginationType = {
+    page: number;
+    total: number;
+    prev?: number;
+    next?: number;
   };
 }
