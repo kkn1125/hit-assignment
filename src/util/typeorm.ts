@@ -6,8 +6,9 @@ import {
   DB_USER,
   RUN_MODE,
 } from '@common/variables/environment';
-import { Reservation } from '@reservations/entities/reservation.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
+import { Menu } from '@restaurants/menus/entities/menu.entity';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { User } from '@users/entities/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -19,7 +20,7 @@ export const typeormOption: DataSourceOptions = {
   type: 'mysql',
   synchronize: isTest || isDev,
   namingStrategy: new SnakeNamingStrategy(),
-  entities: [User, Restaurant, Reservation],
+  entities: [User, Restaurant, Reservation, Menu],
   username: DB_USER,
   password: DB_PASS,
   host: DB_HOST,
