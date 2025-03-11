@@ -1,9 +1,14 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersService } from '@users/users.service';
+import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
 import { Response } from 'express';
 import { LoginDto } from './dto/login.dto';
-import { Protocol } from '@util/protocol';
 
 @Injectable()
 export class AuthService {
@@ -20,8 +25,26 @@ export class AuthService {
       loginDto.password,
     );
     const user = await this.usersService.findOneByUserId(loginDto.userId);
+
+    if (!user) {
+      const errorProtocol = Protocol.NotFound;
+      throw new NotFoundException(errorProtocol, {
+        cause: '사용자 정보를 찾을 수 없습니다.',
+      });
+    }
+
     const message = user.email + hashedPassword;
-    this.utilService.compareInputPasswordWith(message, user.password);
+    const isCorrectPassword = this.utilService.compareInputPasswordWith(
+      message,
+      user.password,
+    );
+
+    if (!isCorrectPassword) {
+      const errorProtocol = Protocol.BadRequest;
+      throw new BadRequestException(errorProtocol, {
+        cause: '입력 정보를 다시 확인해주세요.',
+      });
+    }
 
     try {
       const { accessToken, refreshToken } = this.utilService.createToken(user);
@@ -32,11 +55,8 @@ export class AuthService {
       });
       return { accessToken };
     } catch (error) {
-      const errorProtocol = Protocol.ServerError;
-      throw new InternalServerErrorException(
-        errorProtocol,
-        '토큰 발급에 문제가 발생했습니다.',
-      );
+      const errorProtocol = Protocol.JwtCreate;
+      throw new BadRequestException(errorProtocol);
     }
   }
 

@@ -14,8 +14,9 @@ export const Protocol = {
   JwtWrongSignature: { errorCode: 2003, message: '잘못된 서명입니다.' }, // 401
   JwtExpired: { errorCode: 2004, message: '토큰이 만료되었습니다.' }, // 401
   JwtMalFormed: { errorCode: 2005, message: '잘못된 토큰 형태입니다.' }, // 401
+  JwtCreate: { errorCode: 2006, message: '토큰 발급에 문제가 발생했습니다.' }, // 400
   JwtServerException: {
-    errorCode: 2006,
+    errorCode: 2007,
     message: '토큰 인증에 문제가 발생했습니다.',
   }, // 401
 } as const;

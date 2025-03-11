@@ -20,23 +20,21 @@ export class RoleGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const user = request.user;
     const roles =
-      this.reflector.get('roles', context.getHandler()) ||
-      this.reflector.get('roles', context.getClass());
+      this.reflector.get<UserRole[]>('roles', context.getHandler()) ||
+      this.reflector.get<UserRole[]>('roles', context.getClass());
 
     if (!user) {
-      const errorProtocol = Protocol.UnAuthorized;
-      throw new UnauthorizedException(errorProtocol, {
-        cause: '인증이 필요합니다.',
-      });
+      const errorProtocol = Protocol.RequiredLogin;
+      throw new UnauthorizedException(errorProtocol);
     }
 
-    if (!roles || roles.length === 0) {
+    if (roles.length === 0) {
       return true;
     }
 
     const isMatchRole = this.matchRoles(roles, user.role);
     if (!isMatchRole) {
-      const errorProtocol = Protocol.UnAuthorized;
+      const errorProtocol = Protocol.NoMatchRoles;
       throw new UnauthorizedException(errorProtocol);
     }
 
