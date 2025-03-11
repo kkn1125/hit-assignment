@@ -46,7 +46,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     await this.isDuplicatedEmail(createUserDto.email);
     await this.isDuplicatedUserId(createUserDto.userId);
-    await this.isDuplicatedPhoneNumber(createUserDto.userId);
+    await this.isDuplicatedPhoneNumber(createUserDto.phone);
 
     const hashedPassword = this.utilService.createHashedPassword(
       createUserDto.email + createUserDto.password,
@@ -114,11 +114,27 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.email) {
+      await this.isDuplicatedEmail(updateUserDto.email);
+    }
+    if (updateUserDto.userId) {
+      await this.isDuplicatedUserId(updateUserDto.userId);
+    }
+    if (updateUserDto.phone) {
+      await this.isDuplicatedPhoneNumber(updateUserDto.phone);
+    }
     return this.userRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    const userExists = await this.userRepository.countBy({ id });
+    if (userExists === 0) {
+      const errorProtocol = Protocol.NotFound;
+      throw new NotFoundException(errorProtocol, {
+        cause: '사용자를 찾지 못했습니다.',
+      });
+    }
     return this.userRepository.softDelete(id);
   }
 }

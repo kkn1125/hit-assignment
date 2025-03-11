@@ -27,25 +27,25 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @ApiOperation({ summary: '로그인 회원 정보 조회' })
   @UseGuards(RoleGuard)
   @Roles()
-  @ApiOperation({ summary: '로그인 회원 정보 조회' })
   @Get('me')
   getMe(@Req() req: Request) {
     return this.usersService.getMe(req.user);
   }
 
-  @ApiOperation({ summary: '회원 단건 조회' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
-  }
-
+  @ApiOperation({ summary: '회원 정보 수정' })
+  @UseGuards(RoleGuard)
+  @Roles()
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @ApiOperation({ summary: '회원 탈퇴' })
+  @UseGuards(RoleGuard)
+  @Roles()
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
