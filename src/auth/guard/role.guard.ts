@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserRole } from '@users/enums/UserRole';
+import { UserRole } from '@util/enums/UserRole';
 import { Protocol } from '@util/protocol';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
@@ -22,6 +22,10 @@ export class RoleGuard implements CanActivate {
     const roles =
       this.reflector.get<UserRole[]>('roles', context.getHandler()) ||
       this.reflector.get<UserRole[]>('roles', context.getClass());
+
+    if (typeof roles === 'undefined') {
+      return true;
+    }
 
     if (!user) {
       const errorProtocol = Protocol.RequiredLogin;
