@@ -2,22 +2,21 @@ import { fakerKO as faker } from '@faker-js/faker';
 import { LoggerService } from '@logger/logger.service';
 import { GlobalExceptionFilter } from '@middleware/global-exception.filter';
 import { ResponseInterceptor } from '@middleware/repsonse.interceptor';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserRole } from '@users/enums/UserRole';
+import { CreateRestaurantDto } from '@restaurants/dto/create-restaurant.dto';
+import { CreateMenuDto } from '@restaurants/menus/dto/create-menu.dto';
+import { CreateUserDto } from '@users/dto/create-user.dto';
+import { UserRole } from '@util/enums/UserRole';
+import { Protocol } from '@util/protocol';
 import request from 'supertest';
 import { App } from 'supertest/types';
-import { DataSource, QueryRunner } from 'typeorm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { AppModule } from './../src/app.module';
-import { CreateUserDto } from '@users/dto/create-user.dto';
-import { Protocol } from '@util/protocol';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
-  let dataSource: DataSource;
-  let queryRunner: QueryRunner;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -31,29 +30,17 @@ describe('AppController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    dataSource = moduleFixture.get<DataSource>(DataSource);
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  // beforeEach(async () => {
-  //   queryRunner = dataSource.createQueryRunner();
-  //   await queryRunner.connect();
-  //   await queryRunner.startTransaction();
-  // });
-
-  // afterEach(async () => {
-  //   await queryRunner.rollbackTransaction();
-  //   await queryRunner.release();
-  // });
-
   it('/version (GET)', async () => {
     // given
     const payload = {
       ok: true,
-      status: 200,
+      status: HttpStatus.OK,
       payload: '0.0.1',
       path: '/version',
       method: 'GET',
@@ -63,11 +50,85 @@ describe('AppController (e2e)', () => {
     const result = await request(app.getHttpServer())
       .get('/version')
       .send()
-      .expect(200);
+      .expect(HttpStatus.OK);
 
     // then
     const { timestamp, ...data } = result.body;
     expect(data).toStrictEqual(payload);
+  });
+
+  it('/restaurants/1/menus (POST)', async () => {
+    // given
+    const shopkeeperData: CreateUserDto = {
+      userId: '블루리본1',
+      email: 'devdot@example.com',
+      phone: '010-8080-1234',
+      username: '유규민',
+      password: 'qweQQ!!1',
+      role: UserRole.Shopkeeper,
+    };
+
+    // when
+    const signupResult = await request(app.getHttpServer())
+      .post('/users')
+      .send(shopkeeperData);
+
+    // then
+    expect(signupResult.status).toStrictEqual(HttpStatus.CREATED);
+
+    // given
+    const loginData = {
+      userId: shopkeeperData.userId,
+      password: shopkeeperData.password,
+    };
+
+    // when
+    const loginResult = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send(loginData);
+
+    // then
+    expect(loginResult.body.status).toStrictEqual(HttpStatus.CREATED);
+
+    // given
+    const accessToken = loginResult.body.payload.accessToken;
+    const restaurantData: CreateRestaurantDto = {
+      userId: 1,
+      category: 'fine dining',
+      name: '류니끄',
+      location: '서울시 강남구 도산대로00길 0-0',
+    };
+
+    // when
+    const createRestaurantResult = await request(app.getHttpServer())
+      .post('/restaurants')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .send(restaurantData);
+
+    // then
+    expect(createRestaurantResult.status).toStrictEqual(HttpStatus.CREATED);
+
+    // given
+    const menusData: CreateMenuDto[] = [
+      {
+        category: 'main',
+        name: 'Lunch 와인 페어링',
+        price: 10_000,
+        description: '홍게살/아스파라거스/레몬, Sauvignon Blanc(소비뇽 블랑)',
+      },
+    ];
+
+    // when
+    const createMuneResult = await request(app.getHttpServer())
+      .post('/restaurants/1/menus')
+      .set('Authorization', 'Bearer ' + accessToken)
+      .send(menusData);
+
+    // then
+    const status = createMuneResult.status;
+    const payload = createMuneResult.body.payload;
+    expect(status).toStrictEqual(HttpStatus.CREATED);
+    expect(payload).toStrictEqual([{ id: 1 }]);
   });
 
   it('회원가입 중복 검증', async () => {
@@ -98,8 +159,10 @@ describe('AppController (e2e)', () => {
       .send(shopkeeperSignupData);
 
     // then
-    expect(customerSignupResult.status).toStrictEqual(201);
-    expect(shopkeeperSignupResult.status).toStrictEqual(409);
+    const customerStatus = customerSignupResult.status;
+    const shopkeeperStatus = shopkeeperSignupResult.status;
+    expect(customerStatus).toStrictEqual(HttpStatus.CREATED);
+    expect(shopkeeperStatus).toStrictEqual(HttpStatus.CONFLICT);
   });
 
   it('회원가입 - 로그인 - 정보 조회', async () => {
@@ -122,7 +185,7 @@ describe('AppController (e2e)', () => {
       .send(signupData);
 
     // then
-    expect(signupResult.status).toStrictEqual(201);
+    expect(signupResult.status).toStrictEqual(HttpStatus.CREATED);
 
     // given
     const loginData = {
@@ -136,8 +199,10 @@ describe('AppController (e2e)', () => {
       .send(loginData);
 
     //then
-    expect(loginResult.body.status).toStrictEqual(201);
-    expect(loginResult.body.payload.accessToken).toBeDefined();
+    const status = loginResult.body.status;
+    const accessToken = loginResult.body.payload.accessToken;
+    expect(status).toStrictEqual(HttpStatus.CREATED);
+    expect(accessToken).toBeDefined();
 
     // given
     // when
@@ -145,7 +210,8 @@ describe('AppController (e2e)', () => {
       .get('/users/me')
       .set('Authorization', 'Bearer ' + loginResult.body.payload.accessToken);
 
-    expect(getMe.body.payload.userId).toStrictEqual(loginData.userId);
+    const userId = getMe.body.payload.userId;
+    expect(userId).toStrictEqual(loginData.userId);
   });
 
   it('토큰 없이 접근 처리', async () => {
@@ -153,12 +219,11 @@ describe('AppController (e2e)', () => {
     // when
     const wrongAccess = await request(app.getHttpServer())
       .get('/users/me')
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
 
     // then
-    expect(wrongAccess.body.message).toStrictEqual(
-      Protocol.RequiredLogin.message,
-    );
+    const message = wrongAccess.body.message;
+    expect(message).toStrictEqual(Protocol.RequiredLogin.message);
   });
 
   it('조작된 토큰 포맷 처리', async () => {
@@ -170,12 +235,11 @@ describe('AppController (e2e)', () => {
     const wrongAccess = await request(app.getHttpServer())
       .get('/users/me')
       .set('Authorization', 'Bearer ' + wrongFormatToken)
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
 
     // then
-    expect(wrongAccess.body.message).toStrictEqual(
-      Protocol.JwtWrongSignature.message,
-    );
+    const message = wrongAccess.body.message;
+    expect(message).toStrictEqual(Protocol.JwtWrongSignature.message);
   });
 
   it('토큰 만료 예외 처리', async () => {
@@ -187,10 +251,11 @@ describe('AppController (e2e)', () => {
     const wrongAccess = await request(app.getHttpServer())
       .get('/users/me')
       .set('Authorization', 'Bearer ' + wrongFormatToken)
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
 
     // then
-    expect(wrongAccess.body.message).toStrictEqual(Protocol.JwtExpired.message);
+    const message = wrongAccess.body.message;
+    expect(message).toStrictEqual(Protocol.JwtExpired.message);
   });
 
   it('조작된 토큰 처리', async () => {
@@ -201,12 +266,11 @@ describe('AppController (e2e)', () => {
     const wrongAccess = await request(app.getHttpServer())
       .get('/users/me')
       .set('Authorization', wrongFormatToken)
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
 
     // then
-    expect(wrongAccess.body.message).toStrictEqual(
-      Protocol.JwtMalFormed.message,
-    );
+    const message = wrongAccess.body.message;
+    expect(message).toStrictEqual(Protocol.JwtMalFormed.message);
   });
 
   it('고객 식당 접근 제어', async () => {
@@ -224,14 +288,15 @@ describe('AppController (e2e)', () => {
     const signup = await request(app.getHttpServer())
       .post('/users')
       .send(userData)
-      .expect(201);
+      .expect(HttpStatus.CREATED);
     const login = await request(app.getHttpServer())
       .post('/auth/login')
       .send(userData)
-      .expect(201);
+      .expect(HttpStatus.CREATED);
 
     // then
     const accessToken = login.body.payload.accessToken;
+    expect(signup.body.status).toStrictEqual(HttpStatus.CREATED);
     expect(accessToken).toBeDefined();
 
     // given
@@ -243,7 +308,7 @@ describe('AppController (e2e)', () => {
       .post(`/restaurants/${restaurantId}/menus`)
       .set('Authorization', 'Bearer ' + accessToken)
       .send(menuData)
-      .expect(401);
+      .expect(HttpStatus.UNAUTHORIZED);
   });
 
   it('식당(점주) 예약 접근 제어', async () => {
@@ -269,12 +334,12 @@ describe('AppController (e2e)', () => {
     await request(app.getHttpServer())
       .post('/users')
       .send(customer)
-      .expect(201);
+      .expect(HttpStatus.CREATED);
 
-    const shopkeeperData = await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/users')
       .send(shopkeeper)
-      .expect(201);
+      .expect(HttpStatus.CREATED);
 
     const login = await request(app.getHttpServer())
       .post('/auth/login')
@@ -282,7 +347,7 @@ describe('AppController (e2e)', () => {
         userId: shopkeeper.userId,
         password: shopkeeper.password,
       })
-      .expect(201);
+      .expect(HttpStatus.CREATED);
 
     // then
     const accessToken = login.body.payload.accessToken;
@@ -290,13 +355,16 @@ describe('AppController (e2e)', () => {
 
     // given
     const restaurantId = 1;
-    const menuData = {};
+    const menuData = {}; // emptyBody
 
     // when
-    await request(app.getHttpServer())
+    const accessDeniedResult = await request(app.getHttpServer())
       .post(`/restaurants/${restaurantId}/menus`)
       .set('Authorization', 'Bearer ' + accessToken)
       .send(menuData)
-      .expect(401);
+      .expect(HttpStatus.BAD_REQUEST);
+
+    const message = accessDeniedResult.body.message;
+    expect(message).toStrictEqual(Protocol.NoMatchOwnRestaurant.message);
   });
 });
