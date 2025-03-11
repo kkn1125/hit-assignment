@@ -1,3 +1,4 @@
+/* 오류 발생 내용을 응답 (보안 위해 최소한의 내용만 전달) */
 export const Protocol = {
   /* common error */
   BadRequest: { errorCode: 1000, message: '잘못된 요청입니다.' }, // 400
@@ -18,6 +19,10 @@ export const Protocol = {
   JwtServerException: {
     errorCode: 2007,
     message: '토큰 인증에 문제가 발생했습니다.',
+  }, // 401
+  NoRefreshCookie: {
+    errorCode: 2008,
+    message: '잘못된 접근입니다.',
   }, // 401
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
