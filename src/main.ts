@@ -1,18 +1,17 @@
+import { RoleGuard } from '@auth/guard/role.guard';
 import { CommonService } from '@common/common.service';
+import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import { CommonOption } from '@common/variables/commonConf';
 import { SwaggerOption } from '@common/variables/swaggerConf';
 import { LoggerService } from '@logger/logger.service';
+import { GlobalExceptionFilter } from '@middleware/global-exception.filter';
 import { ResponseInterceptor } from '@middleware/repsonse.interceptor';
-import { RoleGuard } from '@auth/guard/role.guard';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import { GlobalExceptionFilter } from '@middleware/global-exception.filter';
-import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
-import { Restaurant } from '@restaurants/entities/restaurant.entity';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -46,11 +45,11 @@ async function bootstrap() {
 
   const documentFactory = () =>
     SwaggerModule.createDocument(app, config, {
-      extraModels: [Restaurant, ApiResponseWithModel],
+      extraModels: [ApiResponseWithModel],
     });
   SwaggerModule.setup('docs', app, documentFactory, {
     swaggerOptions: {
-      docExpansion: 'none',
+      // docExpansion: 'none',
     },
   });
 
