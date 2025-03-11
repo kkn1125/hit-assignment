@@ -24,10 +24,28 @@ export const Protocol = {
     errorCode: 2008,
     message: '잘못된 접근입니다.',
   }, // 401
-  NoMatchTokenUser: {
+  NoMatchUser: {
     errorCode: 2009,
-    message: '토큰 정보와 일치하는 사용자가 없습니다.',
-  }, // 401
+    message: '사용자 정보를 찾지 못했습니다.',
+  }, // 404
+  WrongLoginData: {
+    errorCode: 2010,
+    message: '입력 정보를 다시 확인해주세요.',
+  }, // 400
+
+  /* guard, controller */
+  ArgsRequired: {
+    errorCode: 3000,
+    message: '데이터를 확인해주세요.',
+  }, // 400
+  WrongParamType: {
+    errorCode: 3001,
+    message: '파라미터를 확인해주세요.',
+  }, // 400
+  NoMatchOwnRestaurant: {
+    errorCode: 3002,
+    message: '해당 식당의 점주만 이용 가능합니다.',
+  }, // 400
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 
