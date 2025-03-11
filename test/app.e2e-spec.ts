@@ -12,6 +12,7 @@ import { DataSource, QueryRunner } from 'typeorm';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { AppModule } from './../src/app.module';
 import { CreateUserDto } from '@users/dto/create-user.dto';
+import { Protocol } from '@util/protocol';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
@@ -69,6 +70,38 @@ describe('AppController (e2e)', () => {
     expect(data).toStrictEqual(payload);
   });
 
+  it('회원가입 중복 검증', async () => {
+    // given
+    const customerSignupData = {
+      userId: 'totoro1',
+      password: 'qweQQ!!1',
+      email: 'totoro1@example.com',
+      username: '토토로',
+      role: UserRole.Customer,
+      phone: '010-2345-4567',
+    };
+    const shopkeeperSignupData = {
+      userId: 'totoro2',
+      password: 'qweQQ!!1',
+      email: 'totoro2@example.com',
+      username: '토토로',
+      role: UserRole.Customer,
+      phone: '010-2345-4567',
+    };
+
+    // when
+    const customerSignupResult = await request(app.getHttpServer())
+      .post('/users')
+      .send(customerSignupData);
+    const shopkeeperSignupResult = await request(app.getHttpServer())
+      .post('/users')
+      .send(shopkeeperSignupData);
+
+    // then
+    expect(customerSignupResult.status).toStrictEqual(201);
+    expect(shopkeeperSignupResult.status).toStrictEqual(409);
+  });
+
   it('회원가입 - 로그인 - 정보 조회', async () => {
     // given
     const signupData = {
@@ -123,7 +156,9 @@ describe('AppController (e2e)', () => {
       .expect(401);
 
     // then
-    expect(wrongAccess.body.detail).toStrictEqual('인증이 필요합니다.');
+    expect(wrongAccess.body.message).toStrictEqual(
+      Protocol.RequiredLogin.message,
+    );
   });
 
   it('조작된 토큰 포맷 처리', async () => {
@@ -138,7 +173,9 @@ describe('AppController (e2e)', () => {
       .expect(401);
 
     // then
-    expect(wrongAccess.body.detail).toStrictEqual('잘못된 서명입니다.');
+    expect(wrongAccess.body.message).toStrictEqual(
+      Protocol.JwtWrongSignature.message,
+    );
   });
 
   it('토큰 만료 예외 처리', async () => {
@@ -153,7 +190,7 @@ describe('AppController (e2e)', () => {
       .expect(401);
 
     // then
-    expect(wrongAccess.body.detail).toStrictEqual('토큰이 만료되었습니다.');
+    expect(wrongAccess.body.message).toStrictEqual(Protocol.JwtExpired.message);
   });
 
   it('조작된 토큰 처리', async () => {
@@ -167,7 +204,9 @@ describe('AppController (e2e)', () => {
       .expect(401);
 
     // then
-    expect(wrongAccess.body.detail).toStrictEqual('잘못된 토큰 형태입니다.');
+    expect(wrongAccess.body.message).toStrictEqual(
+      Protocol.JwtMalFormed.message,
+    );
   });
 
   it('고객 식당 접근 제어', async () => {
@@ -177,7 +216,7 @@ describe('AppController (e2e)', () => {
       email: 'test1@example.com',
       username: '김이박',
       password: 'qweQQ!!1',
-      role: 1,
+      role: UserRole.Customer,
       phone: '010-1234-5678',
     };
 
@@ -200,7 +239,61 @@ describe('AppController (e2e)', () => {
     const menuData = {};
 
     // when
-    const createMenu = await request(app.getHttpServer())
+    await request(app.getHttpServer())
+      .post(`/restaurants/${restaurantId}/menus`)
+      .set('Authorization', 'Bearer ' + accessToken)
+      .send(menuData)
+      .expect(401);
+  });
+
+  it('식당(점주) 예약 접근 제어', async () => {
+    // given
+    const customer: CreateUserDto = {
+      userId: '푸파1',
+      email: 'foodfigter1@example.com',
+      username: '김유민',
+      password: 'qweQQ!!1',
+      role: UserRole.Customer,
+      phone: '010-3210-6541',
+    };
+    const shopkeeper: CreateUserDto = {
+      userId: '분위기는미슐랭',
+      email: 'blueribbon1@example.com',
+      username: '조홍섭',
+      password: 'qweQQ!!1',
+      role: UserRole.Shopkeeper,
+      phone: '010-9876-1234',
+    };
+
+    // when
+    await request(app.getHttpServer())
+      .post('/users')
+      .send(customer)
+      .expect(201);
+
+    const shopkeeperData = await request(app.getHttpServer())
+      .post('/users')
+      .send(shopkeeper)
+      .expect(201);
+
+    const login = await request(app.getHttpServer())
+      .post('/auth/login')
+      .send({
+        userId: shopkeeper.userId,
+        password: shopkeeper.password,
+      })
+      .expect(201);
+
+    // then
+    const accessToken = login.body.payload.accessToken;
+    expect(accessToken).toBeDefined();
+
+    // given
+    const restaurantId = 1;
+    const menuData = {};
+
+    // when
+    await request(app.getHttpServer())
       .post(`/restaurants/${restaurantId}/menus`)
       .set('Authorization', 'Bearer ' + accessToken)
       .send(menuData)
