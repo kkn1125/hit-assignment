@@ -11,6 +11,8 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from '@middleware/global-exception.filter';
+import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
+import { Restaurant } from '@restaurants/entities/restaurant.entity';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -38,13 +40,13 @@ async function bootstrap() {
     .setTitle('HIT 식당 시스템')
     .setDescription('HIT 식당 API 문서')
     .setVersion('1.0')
-    .addCookieAuth('token', { name: 'token', type: 'apiKey' })
+    .addBearerAuth()
     .addServer(swaggerOption.serverUrl)
     .build();
 
   const documentFactory = () =>
     SwaggerModule.createDocument(app, config, {
-      extraModels: [],
+      extraModels: [Restaurant, ApiResponseWithModel],
     });
   SwaggerModule.setup('docs', app, documentFactory, {
     swaggerOptions: {
