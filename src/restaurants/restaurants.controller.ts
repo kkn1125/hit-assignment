@@ -1,22 +1,21 @@
+import { Roles } from '@auth/guard/roles.decorator';
+import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { RestaurantsService } from './restaurants.service';
+import { ApiOperation, ApiParam } from '@nestjs/swagger';
+import { UserRole } from '@users/enums/UserRole';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { RoleGuard } from '@auth/guard/role.guard';
-import { Roles } from '@auth/guard/roles.decorator';
-import { UserRole } from '@users/enums/UserRole';
-import { ApiOperation } from '@nestjs/swagger';
+import { Restaurant } from './entities/restaurant.entity';
+import { RestaurantsService } from './restaurants.service';
 
-@UseGuards(RoleGuard)
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
@@ -34,26 +33,35 @@ export class RestaurantsController {
     return this.restaurantsService.findAll();
   }
 
+  @ApiResponseWithModel(Restaurant, {
+    ok: true,
+    status: 200,
+    method: 'GET',
+    path: '/restaurants/:restaurantId',
+  })
+  @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 상세 조회' })
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.restaurantsService.findOne(+id);
+  @Get(':restaurantId')
+  findOne(@Param('restaurantId') restaurantId: string) {
+    return this.restaurantsService.findOne(+restaurantId);
   }
 
   @ApiOperation({ summary: '식당 정보 수정' })
+  @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @Roles([UserRole.Shopkeeper])
-  @Patch(':id')
+  @Patch(':restaurantId')
   update(
-    @Param('id') id: string,
+    @Param('restaurantId') restaurantId: string,
     @Body() updateRestaurantDto: UpdateRestaurantDto,
   ) {
-    return this.restaurantsService.update(+id, updateRestaurantDto);
+    return this.restaurantsService.update(+restaurantId, updateRestaurantDto);
   }
 
   @ApiOperation({ summary: '식당 삭제' })
+  @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @Roles([UserRole.Shopkeeper])
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.restaurantsService.remove(+id);
+  @Delete(':restaurantId')
+  remove(@Param('restaurantId') restaurantId: string) {
+    return this.restaurantsService.remove(+restaurantId);
   }
 }
