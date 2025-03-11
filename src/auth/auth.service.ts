@@ -1,20 +1,17 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from '@users/users.service';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-  refreshToken(user: UserTokenData, res: Response<any, Record<string, any>>) {
-    throw new Error('Method not implemented.');
-  }
   constructor(
     private readonly usersService: UsersService,
     private readonly utilService: UtilService,
@@ -62,5 +59,25 @@ export class AuthService {
 
   logout(res: Response) {
     res.clearCookie('refresh');
+  }
+
+  async refreshToken(req: Request, res: Response) {
+    if (!req.cookies.refresh) {
+      const errorProtocol = Protocol.NoRefreshCookie;
+      throw new UnauthorizedException(errorProtocol);
+    }
+    const user = req.user;
+    const foundUser = await this.usersService.findOne(user.id);
+    if (!foundUser) {
+      const errorProtocol = Protocol.NotFound;
+      throw new NotFoundException(errorProtocol);
+    }
+    const { accessToken, refreshToken } = this.utilService.createToken(user);
+    res.cookie('refresh', refreshToken, {
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+    });
+    return { accessToken };
   }
 }
