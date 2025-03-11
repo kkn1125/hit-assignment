@@ -38,6 +38,7 @@ export class UtilService {
       this.secretConfig.accessToken,
       {
         issuer: 'HitRestaurant',
+        algorithm: 'HS256',
         expiresIn: '5m',
       },
     );
@@ -46,7 +47,9 @@ export class UtilService {
       this.secretConfig.refreshToken,
       {
         issuer: 'HitRestaurant',
+        algorithm: 'HS256',
         expiresIn: '1d',
+        subject: 'refresh',
       },
     );
     return { accessToken, refreshToken };
