@@ -26,6 +26,7 @@ export class UsersService {
     const errorProtocol = Protocol.Conflict;
     if (count > 0)
       throw new ConflictException(errorProtocol, 'email이 중복됩니다.');
+    return true;
   }
 
   async isDuplicatedUserId(userId: string) {
@@ -33,6 +34,7 @@ export class UsersService {
     const errorProtocol = Protocol.Conflict;
     if (count > 0)
       throw new ConflictException(errorProtocol, 'userId가 중복됩니다.');
+    return true;
   }
 
   async isDuplicatedPhoneNumber(phone: string) {
@@ -40,6 +42,7 @@ export class UsersService {
     const errorProtocol = Protocol.Conflict;
     if (count > 0)
       throw new ConflictException(errorProtocol, 'phoneNumber가 중복됩니다.');
+    return true;
   }
   /* user domain validate 📄 */
 
@@ -74,15 +77,15 @@ export class UsersService {
     if (!user) {
       const errorProtocol = Protocol.NotFound;
       throw new NotFoundException(errorProtocol, {
-        cause: '사용자를 찾지 못했습니다.',
+        cause: '사용자 정보를 찾을 수 없습니다.',
       });
     }
     return user;
   }
 
-  getMe(user: UserTokenData) {
-    const id = user.id;
-    return this.userRepository.findOne({
+  async getMe(userTokenData: UserTokenData) {
+    const id = userTokenData.id;
+    const user = await this.userRepository.findOne({
       where: { id },
       select: {
         id: true,
@@ -92,6 +95,13 @@ export class UsersService {
         role: true,
       },
     });
+    if (!user) {
+      const errorProtocol = Protocol.NotFound;
+      throw new NotFoundException(errorProtocol, {
+        cause: '토큰 정보와 일치하는 사용자가 없습니다.',
+      });
+    }
+    return user;
   }
 
   async findOne(id: number) {
@@ -108,13 +118,20 @@ export class UsersService {
     if (!user) {
       const errorProtocol = Protocol.NotFound;
       throw new NotFoundException(errorProtocol, {
-        cause: '사용자를 찾지 못했습니다.',
+        cause: '사용자 정보를 찾을 수 없습니다.',
       });
     }
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
+    const userExists = await this.userRepository.countBy({ id });
+    if (userExists === 0) {
+      const errorProtocol = Protocol.NotFound;
+      throw new NotFoundException(errorProtocol, {
+        cause: '사용자 정보를 찾을 수 없습니다.',
+      });
+    }
     if (updateUserDto.email) {
       await this.isDuplicatedEmail(updateUserDto.email);
     }
@@ -132,7 +149,7 @@ export class UsersService {
     if (userExists === 0) {
       const errorProtocol = Protocol.NotFound;
       throw new NotFoundException(errorProtocol, {
-        cause: '사용자를 찾지 못했습니다.',
+        cause: '사용자 정보를 찾을 수 없습니다.',
       });
     }
     return this.userRepository.softDelete(id);
