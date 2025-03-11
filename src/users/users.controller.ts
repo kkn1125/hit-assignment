@@ -1,8 +1,5 @@
 import { Roles } from '@auth/guard/roles.decorator';
-import {
-  ApiBodyWithModel,
-  ApiBodyWithObject,
-} from '@common/decorators/api.body.with.model';
+import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import {
   Body,
@@ -14,12 +11,7 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  PickType,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, PickType } from '@nestjs/swagger';
 import { Request } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -30,13 +22,15 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiResponseWithModel(PickType(User, ['id']), {
-    ok: true,
-    status: HttpStatus.CREATED,
-    method: 'POST',
-    path: '/users',
-    modelName: 'SignupResponse',
-  })
+  @ApiResponseWithModel(
+    { SignupResponse: PickType(User, ['id']) },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: 'POST',
+      path: '/users',
+    },
+  )
   @ApiOperation({ summary: '회원가입' })
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -44,54 +38,50 @@ export class UsersController {
   }
 
   @ApiResponseWithModel(
-    { result: true },
+    { ValidateEmailResponse: { result: true } },
     {
       ok: true,
       status: HttpStatus.OK,
       method: 'POST',
       path: '/users/validate/email',
-      modelName: 'ValidateEmailResponse',
     },
   )
   @ApiOperation({ summary: '이메일 중복 검증' })
-  @ApiBodyWithObject('EmailValidateDto', PickType(CreateUserDto, ['email']))
+  @ApiBodyWithModel({ EmailValidateDto: PickType(CreateUserDto, ['email']) })
   @Post('validate/email')
   checkDuplicatedEmail(@Body() emailDto: Pick<CreateUserDto, 'email'>) {
     return this.usersService.isDuplicatedBy({ email: emailDto?.email });
   }
 
   @ApiResponseWithModel(
-    { result: true },
+    { ValidatePhoneResponse: { result: true } },
     {
       ok: true,
       status: HttpStatus.OK,
       method: 'POST',
       path: '/users/validate/phone',
-      modelName: 'ValidatePhoneResponse',
     },
   )
   @ApiOperation({ summary: '전화번호 중복 검증' })
-  @ApiBodyWithObject(
-    'PhoneNumberValidateDto',
-    PickType(CreateUserDto, ['phone']),
-  )
+  @ApiBodyWithModel({
+    PhoneNumberValidateDto: PickType(CreateUserDto, ['phone']),
+  })
   @Post('validate/phone')
   checkDuplicatedPhoneNumber(@Body() phoneDto: Pick<CreateUserDto, 'phone'>) {
     return this.usersService.isDuplicatedBy({ phone: phoneDto?.phone });
   }
 
   @ApiResponseWithModel(
-    { result: true },
+    { ValidateUserIdResponse: { result: true } },
     {
       ok: true,
       status: HttpStatus.OK,
       method: 'POST',
       path: '/users/validate/userId',
-      modelName: 'ValidateUserIdResponse',
     },
   )
   @ApiOperation({ summary: '사용자 아이디 중복 검증' })
-  @ApiBodyWithObject('UserIdValidateDto', PickType(CreateUserDto, ['userId']))
+  @ApiBodyWithModel({ UserIdValidateDto: PickType(CreateUserDto, ['userId']) })
   @Post('validate/user-id')
   checkDuplicatedUserId(@Body() userIdDto: Pick<CreateUserDto, 'userId'>) {
     return this.usersService.isDuplicatedBy({ userId: userIdDto?.userId });
