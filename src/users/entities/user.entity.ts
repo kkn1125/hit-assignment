@@ -16,10 +16,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', unique: true, length: 20 })
   userId!: string;
 
-  @Column({ type: 'varchar', length: 100 })
+  @Column({ type: 'varchar', unique: true, length: 100 })
   email!: string;
 
   @Column({ type: 'varchar', length: 20 })
@@ -28,10 +28,10 @@ export class User {
   @Column({ type: 'varchar', length: 50 })
   password!: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', unsigned: true })
   role!: UserRole;
 
-  @Column({ type: 'varchar', length: 13 })
+  @Column({ type: 'varchar', unique: true, length: 13 })
   phone!: string;
 
   @CreateDateColumn()

@@ -15,10 +15,10 @@ export class Reservation {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int', unique: true })
+  @Column({ type: 'int' })
   userId!: number;
 
-  @Column({ type: 'int', unique: true })
+  @Column({ type: 'int' })
   restaurantId!: number;
 
   @Column({ type: 'datetime' })
@@ -30,7 +30,7 @@ export class Reservation {
   @Column({ type: 'varchar', length: 13 })
   phone!: string;
 
-  @Column({ type: 'int', unique: true })
+  @Column({ type: 'int', unsigned: true })
   amount!: number;
 
   @CreateDateColumn()
@@ -42,9 +42,11 @@ export class Reservation {
   @DeleteDateColumn()
   deletedAt?: Date;
 
-  @ManyToOne(() => User, (user) => user.reservations)
+  @ManyToOne(() => User, (user) => user.reservations, { cascade: true })
   user!: User;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.reservations)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.reservations, {
+    cascade: true,
+  })
   restaurant!: Restaurant;
 }

@@ -17,7 +17,7 @@ export class Restaurant {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int', unique: true })
+  @Column({ type: 'int' })
   userId!: number;
 
   @Column({ type: 'varchar', length: 50 })

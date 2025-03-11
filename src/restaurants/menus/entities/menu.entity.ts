@@ -14,7 +14,7 @@ export class Menu {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int', unsigned: true })
+  @Column({ type: 'int' })
   restaurantId!: number;
 
   @Column({ type: 'varchar', length: 50 })
@@ -38,6 +38,8 @@ export class Menu {
   @DeleteDateColumn()
   deletedAt?: Date;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus)
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus, {
+    cascade: true,
+  })
   restaurant!: Restaurant;
 }
