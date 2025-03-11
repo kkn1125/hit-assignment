@@ -17,7 +17,6 @@ export class BearerParserMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const authorization = req.headers?.authorization; // 헤더에서 `Bearer token` 정보 가져오기
     const secretOption = this.commonService.getConfig<SecretOption>('secret');
-
     if (authorization) {
       const accessToken = authorization.replace(/^bearer\s/i, '');
       try {
@@ -29,28 +28,20 @@ export class BearerParserMiddleware implements NestMiddleware {
       } catch (error: any) {
         switch (error.message) {
           case 'invalid signature': {
-            const errorProtocol = Protocol.UnAuthorized;
-            throw new UnauthorizedException(errorProtocol, {
-              cause: '잘못된 서명입니다.',
-            });
+            const errorProtocol = Protocol.JwtWrongSignature;
+            throw new UnauthorizedException(errorProtocol);
           }
           case 'jwt expired': {
-            const errorProtocol = Protocol.UnAuthorized;
-            throw new UnauthorizedException(errorProtocol, {
-              cause: '토큰이 만료되었습니다.',
-            });
+            const errorProtocol = Protocol.JwtExpired;
+            throw new UnauthorizedException(errorProtocol);
           }
           case 'jwt malformed': {
-            const errorProtocol = Protocol.UnAuthorized;
-            throw new UnauthorizedException(errorProtocol, {
-              cause: '잘못된 토큰 형태입니다.',
-            });
+            const errorProtocol = Protocol.JwtMalFormed;
+            throw new UnauthorizedException(errorProtocol);
           }
           default: {
-            const errorProtocol = Protocol.BadRequest;
-            throw new BadRequestException(errorProtocol, {
-              cause: '토큰 인증에 문제가 발생했습니다.',
-            });
+            const errorProtocol = Protocol.JwtServerException;
+            throw new BadRequestException(errorProtocol);
           }
         }
       }
