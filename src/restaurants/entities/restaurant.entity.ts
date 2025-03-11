@@ -1,4 +1,5 @@
-import { Reservation } from '@reservations/entities/reservation.entity';
+import { Menu } from '@restaurants/menus/entities/menu.entity';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { User } from '@users/entities/user.entity';
 import {
   Column,
@@ -16,13 +17,16 @@ export class Restaurant {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'int', unique: true })
   userId!: number;
 
-  @Column()
-  storeName!: string;
+  @Column({ type: 'varchar', length: 50 })
+  category!: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
+  name!: string;
+
+  @Column({ type: 'varchar', length: 200 })
   location!: string;
 
   @CreateDateColumn()
@@ -39,4 +43,7 @@ export class Restaurant {
 
   @OneToMany(() => Reservation, (reservation) => reservation.restaurant)
   reservations!: Reservation[];
+
+  @OneToMany(() => Menu, (menu) => menu.restaurant)
+  menus!: Menu[];
 }
