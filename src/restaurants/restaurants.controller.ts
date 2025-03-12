@@ -29,22 +29,10 @@ export class RestaurantsController {
 
   @ApiResponseWithCaseModel(
     {
-      CreateRestaurantResponse: [
-        {
-          id: 1,
-        },
-        [
-          {
-            id: 1,
-          },
-          {
-            id: 2,
-          },
-          {
-            id: 3,
-          },
-        ],
-      ],
+      CreateRestaurantResponse: {
+        '개별 추가': { id: 1 },
+        '다중 추가': [{ id: 1 }],
+      },
     },
     HttpStatus.CREATED,
     '/restaurants',
@@ -88,7 +76,7 @@ export class RestaurantsController {
     return this.restaurantsService.findOne(+restaurantId);
   }
 
-  @ApiBodyWithModel({ UpdateRestaurantDto })
+  @ApiBodyWithModel({ UpdateRestaurantDto: CreateRestaurantDto })
   @ApiOperation({ summary: '식당 정보 수정' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @UseGuards(CheckOwnerGuard)
