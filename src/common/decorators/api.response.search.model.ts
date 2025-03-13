@@ -45,19 +45,23 @@ export const ApiResponseSearchModel = <Model extends Type<any>>(
                         type: 'number',
                         example: pagination.page,
                       },
+                      count: {
+                        type: 'number',
+                        example: pagination.count,
+                      },
                       total: {
                         type: 'number',
                         example: pagination.total,
                       },
                       prev: {
                         type: 'string',
-                        example: `${path}?page=${pagination.prev}`,
+                        example: `${path}?page=${pagination.page - 1}`,
                         description:
                           '이전 페이지가 없을 시 prev는 응답에 포함되지 않습니다.',
                       },
                       next: {
                         type: 'string',
-                        example: `${path}?page=${pagination.next}`,
+                        example: `${path}?page=${pagination.page + 1}`,
                         description:
                           '다음 페이지가 없을 시 next는 응답에 포함되지 않습니다.',
                       },
@@ -96,6 +100,10 @@ export const ApiResponseSearchModel = <Model extends Type<any>>(
                       page: {
                         type: 'number',
                         example: pagination.page,
+                      },
+                      count: {
+                        type: 'number',
+                        example: pagination.count,
                       },
                       total: {
                         type: 'number',
