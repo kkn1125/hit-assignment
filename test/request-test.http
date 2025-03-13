@@ -47,13 +47,25 @@ Content-Type: application/json
 
 ###
 
+# @name refresh
+POST {{hostname}}/auth/refresh HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+###
+
+@authToken = Bearer {{refresh.response.body.payload.accessToken}}
+
+###
+
+# getMe
 GET {{hostname}}/users/me HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
 
-
 ###
 
+# reservation(Customer)
 POST {{hostname}}/restaurants/1/reservations HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
@@ -75,3 +87,44 @@ Authorization: {{authToken}}
   "name": "류니끄",
   "location": "서울 00구 00로00길 00 0층"
 }
+
+###
+
+# 단일 추가
+POST {{hostname}}/restaurants/1/menus HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+{
+  "category": "main",
+  "name": "랍스터",
+  "description": "랍스터",
+  "price": 50000
+}
+
+###
+
+# bulk 추가
+POST {{hostname}}/restaurants/1/menus HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+[{
+  "category": "side",
+  "name": "리코타 치츠 샐러드",
+  "description": "샐러드",
+  "price": 15000
+},{
+  "category": "main",
+  "name": "마르게리타 피자",
+  "description": "피자",
+  "price": 20000
+}]
+
+###
+
+# 예약 조회
+GET {{hostname}}/users/me/reservations HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
