@@ -1,49 +1,40 @@
 import { Roles } from '@auth/guard/roles.decorator';
+import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
+import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiParam } from '@nestjs/swagger';
+import { CheckOwnerGuard } from '@restaurants/guard/check-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenusService } from './menus.service';
 import { ParseArrayOrOnePipe } from './pipe/parse-array-or-one.pipe';
-import { CheckOwnerGuard } from '@restaurants/guard/check-owner.guard';
-import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 
 @Controller('menus')
 export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
-  @ApiResponse({
-    examples: {
-      one: {
-        summary: '개별추가',
-        value: {
-          id: 1,
-        },
-      },
-      bulk: {
-        summary: '다중추가',
-        value: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }],
+  @ApiResponseWithCaseModel(
+    {
+      CreateMenuDto: {
+        '개별 추가': { id: 1 },
+        '다중 추가': [{ id: 1 }],
       },
     },
-    schema: {
-      oneOf: [{ $ref: 'getSchemaPath()' }],
-    },
-  })
+    HttpStatus.CREATED,
+    '/restaurants/:restaurantId/menus',
+    'POS',
+  )
   @ApiBodyWithModel({ CreateMenuDto })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 메뉴 추가' })
