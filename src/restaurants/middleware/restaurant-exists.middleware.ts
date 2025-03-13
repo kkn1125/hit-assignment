@@ -13,7 +13,6 @@ export class RestaurantExistsMiddleware implements NestMiddleware {
   ) {}
 
   async use(req: Request, _res, next: () => void) {
-    console.log('🛠️🛠️🛠️✨✨✨here??');
     const restaurantId = req.params.restaurantId;
 
     await throwNoExistsEntityWithSelectBy(this.repository, {
