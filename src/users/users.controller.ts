@@ -9,6 +9,7 @@ import {
   HttpStatus,
   Patch,
   Post,
+  Query,
   Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, PickType } from '@nestjs/swagger';
@@ -17,6 +18,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { UserRole } from '@util/enums/UserRole';
+import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 
 @Controller('users')
 export class UsersController {
@@ -85,6 +88,18 @@ export class UsersController {
   @Post('validate/user-id')
   checkDuplicatedUserId(@Body() userIdDto: Pick<CreateUserDto, 'userId'>) {
     return this.usersService.isDuplicatedBy({ userId: userIdDto?.userId });
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '회원 예약 목록 조회' })
+  @Roles([UserRole.Customer])
+  @Get('me/reservations')
+  async getMeResrvations(
+    @Req() req: Request,
+    @Query('page') page: number = DEFAULT_PAGE,
+    @Query('perPage') perPage: number = PER_PAGE,
+  ) {
+    return this.usersService.getMeResrvations(req.user, page, perPage);
   }
 
   @ApiBearerAuth()

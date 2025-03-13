@@ -11,7 +11,11 @@ import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { throwNoExistsEntityWithSelectBy } from '@util/utilFunction';
+import {
+  searchPagination,
+  throwNoExistsEntityWithSelectBy,
+} from '@util/utilFunction';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 
 @Injectable()
 export class UsersService {
@@ -24,28 +28,12 @@ export class UsersService {
   };
 
   constructor(
+    @InjectRepository(Reservation)
+    private readonly reservationRepository: Repository<Reservation>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly utilService: UtilService,
   ) {}
-
-  /* user's util */
-  // async throwNoExistsUserWithSelectBy(
-  //   whereOption: FindOptionsWhere<User>,
-  //   selectOption?: FindOptionsSelect<User>,
-  // ) {
-  //   const user = await this.userRepository.findOne({
-  //     where: whereOption,
-  //     select: selectOption,
-  //   });
-
-  //   if (!user) {
-  //     const errorProtocol = Protocol.NoMatchUser;
-  //     throw new NotFoundException(errorProtocol);
-  //   }
-
-  //   return user;
-  // }
 
   async isDuplicatedBy<T extends object>(whereOption: T) {
     const count = await this.userRepository.countBy(whereOption);
@@ -61,12 +49,16 @@ export class UsersService {
       userId,
     });
     const message = userId + inputPassword;
-    const hashedPassword = this.utilService.createHashedPassword(message);
+    const isSamePassword = this.utilService.compareInputPasswordWith(
+      message,
+      user.password,
+    );
 
-    if (user.password !== hashedPassword) {
+    if (!isSamePassword) {
       const errorProtocol = Protocol.WrongLoginData;
       throw new BadRequestException(errorProtocol);
     }
+
     return user;
   }
   /* user's util */
@@ -108,6 +100,32 @@ export class UsersService {
     );
 
     return user;
+  }
+
+  async getMeResrvations(
+    userTokenData: UserTokenData,
+    page: number,
+    perPage: number,
+  ) {
+    const userId = userTokenData.id;
+    const reservations = await searchPagination(
+      this.reservationRepository,
+      '/users/me/reservations',
+      {
+        where: {
+          userId,
+        },
+        relations: {
+          restaurant: true,
+          reservationMenus: true,
+        },
+        take: perPage,
+        skip: (page - 1) * perPage,
+      },
+      page,
+      perPage,
+    );
+    return reservations;
   }
 
   async findOne(id: number) {
