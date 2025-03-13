@@ -6,6 +6,7 @@ import {
   DB_USER,
   RUN_MODE,
 } from '@common/variables/environment';
+import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
@@ -20,7 +21,7 @@ export const typeormOption: DataSourceOptions = {
   type: 'mysql',
   synchronize: isTest || isDev,
   namingStrategy: new SnakeNamingStrategy(),
-  entities: [User, Restaurant, Reservation, Menu],
+  entities: [User, Restaurant, Reservation, Menu, ReservationMenu],
   username: DB_USER,
   password: DB_PASS,
   host: DB_HOST,

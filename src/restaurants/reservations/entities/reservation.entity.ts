@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
 import { User } from '@users/entities/user.entity';
 import {
@@ -7,6 +8,7 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -57,4 +59,10 @@ export class Reservation {
     cascade: true,
   })
   restaurant!: Restaurant;
+
+  @OneToMany(
+    () => ReservationMenu,
+    (reservationMenu) => reservationMenu.reservation,
+  )
+  reservationMenus!: ReservationMenu[];
 }
