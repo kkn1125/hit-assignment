@@ -1,0 +1,1281 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>HIT Restaurant API Server Docs</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">HIT Restaurant API Server Docs</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="검색어 입력"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">기타</li>
+  <li class="breadcrumb-item">변수</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">색인</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#ApiBodyWithModel" title="src/common/decorators/api.body.with.model.ts" ><b>ApiBodyWithModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.body.with.model.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ApiResponseSearchModel" title="src/common/decorators/api.response.search.model.ts" ><b>ApiResponseSearchModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.response.search.model.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ApiResponseWithCaseModel" title="src/common/decorators/api.response.with.case.model.ts" ><b>ApiResponseWithCaseModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.response.with.case.model.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ApiResponseWithModel" title="src/common/decorators/api.response.with.model.ts" ><b>ApiResponseWithModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.response.with.model.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#commonOption" title="src/util/common.ts" ><b>commonOption</b>&nbsp;&nbsp;&nbsp;(src/.../common.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DB_HOST" title="src/common/variables/environment.ts" ><b>DB_HOST</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DB_NAME" title="src/common/variables/environment.ts" ><b>DB_NAME</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DB_PASS" title="src/common/variables/environment.ts" ><b>DB_PASS</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DB_PORT" title="src/common/variables/environment.ts" ><b>DB_PORT</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DB_USER" title="src/common/variables/environment.ts" ><b>DB_USER</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#isDev" title="src/util/typeorm.ts" ><b>isDev</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#isTest" title="src/util/typeorm.ts" ><b>isTest</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PORT" title="src/common/variables/environment.ts" ><b>PORT</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Protocol" title="src/util/protocol.ts" ><b>Protocol</b>&nbsp;&nbsp;&nbsp;(src/.../protocol.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Roles" title="src/auth/guard/roles.decorator.ts" ><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RUN_MODE" title="src/common/variables/environment.ts" ><b>RUN_MODE</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SECRET_ACCESS_TOKEN" title="src/common/variables/environment.ts" ><b>SECRET_ACCESS_TOKEN</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SECRET_HASH_PASSWORD" title="src/common/variables/environment.ts" ><b>SECRET_HASH_PASSWORD</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SECRET_REFRESH_TOKEN" title="src/common/variables/environment.ts" ><b>SECRET_REFRESH_TOKEN</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#secretOption" title="src/util/secret.ts" ><b>secretOption</b>&nbsp;&nbsp;&nbsp;(src/.../secret.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SWAGGER_URL" title="src/common/variables/environment.ts" ><b>SWAGGER_URL</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#swaggerOption" title="src/util/swagger.ts" ><b>swaggerOption</b>&nbsp;&nbsp;&nbsp;(src/.../swagger.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#typeormOption" title="src/util/typeorm.ts" ><b>typeormOption</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#typeormSource" title="src/util/typeorm.ts" ><b>typeormSource</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UserRole" title="src/util/enums/UserRole.ts" ><b>UserRole</b>&nbsp;&nbsp;&nbsp;(src/.../UserRole.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#VERSION" title="src/common/variables/environment.ts" ><b>VERSION</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/common/decorators/api.body.with.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiBodyWithModel"></a>
+                    <span class="name">
+                        <span ><b>ApiBodyWithModel</b></span>
+                        <a href="#ApiBodyWithModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(modelProps: {
+  [k: string]: Model;
+}) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+  const isClass &#x3D;
+    model.constructor.toString().startsWith(&#x27;class&#x27;) ||
+    model.constructor.toString().match(/function (Function)/);
+
+  if (isClass) {
+    const extendsModel &#x3D; model as Type&lt;any&gt;;
+    const createClass &#x3D; {
+      [modelName]: class extends extendsModel {},
+    }[modelName];
+    return applyDecorators(
+      ApiBody({
+        schema: { $ref: getSchemaPath(createClass) },
+      }),
+      ApiExtraModels(createClass),
+    );
+  }
+
+  return applyDecorators(
+    ApiBody({
+      schema: {
+        title: modelName,
+        properties: Object.fromEntries(
+          Object.entries(model).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        ),
+      },
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.search.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseSearchModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseSearchModel</b></span>
+                        <a href="#ApiResponseSearchModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt;&gt;(
+  modelProps: {
+    [k: string]: Model;
+  },
+  path: string,
+  pagination: PaginationType,
+) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+
+  return applyDecorators(
+    ApiResponse({
+      status: HttpStatus.OK,
+      schema: {
+        anyOf: [
+          {
+            title: modelName,
+            properties: {
+              ok: {
+                type: &#x27;boolean&#x27;,
+                example: true,
+              },
+              status: {
+                type: &#x27;number&#x27;,
+                example: HttpStatus.OK,
+              },
+              path: {
+                type: &#x27;string&#x27;,
+                example: path,
+              },
+              payload: {
+                properties: {
+                  data: {
+                    type: &#x27;array&#x27;,
+                    items: {
+                      $ref: getSchemaPath(model),
+                    },
+                  },
+                  pagination: {
+                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
+                    properties: {
+                      page: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.page,
+                      },
+                      total: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.total,
+                      },
+                      prev: {
+                        type: &#x27;string&#x27;,
+                        example: &#x60;${path}?page&#x3D;${pagination.prev}&#x60;,
+                        description:
+                          &#x27;이전 페이지가 없을 시 prev는 응답에 포함되지 않습니다.&#x27;,
+                      },
+                      next: {
+                        type: &#x27;string&#x27;,
+                        example: &#x60;${path}?page&#x3D;${pagination.next}&#x60;,
+                        description:
+                          &#x27;다음 페이지가 없을 시 next는 응답에 포함되지 않습니다.&#x27;,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          {
+            title: modelName,
+            properties: {
+              ok: {
+                type: &#x27;boolean&#x27;,
+                example: true,
+              },
+              status: {
+                type: &#x27;number&#x27;,
+                example: HttpStatus.OK,
+              },
+              path: {
+                type: &#x27;string&#x27;,
+                example: path,
+              },
+              payload: {
+                properties: {
+                  data: {
+                    type: &#x27;array&#x27;,
+                    items: {
+                      $ref: getSchemaPath(model),
+                    },
+                  },
+                  pagination: {
+                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
+                    properties: {
+                      page: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.page,
+                      },
+                      total: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.total,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        ],
+      },
+    }),
+    ApiExtraModels(model),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.with.case.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseWithCaseModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseWithCaseModel</b></span>
+                        <a href="#ApiResponseWithCaseModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
+  modelProps: {
+    [k: string]: {
+      [summary: string]: Model | Model[];
+    };
+  },
+  status: HttpStatus,
+  path: string,
+  method: string,
+) &#x3D;&gt; {
+  const [modelName, models] &#x3D; Object.entries(modelProps)[0];
+  const extraModels: Type&lt;any&gt;[] &#x3D; [];
+  const schema: SchemaObject &#x3D; {
+    title: modelName,
+    oneOf: Object.entries(models).map(([summary, model]) &#x3D;&gt; {
+      const isArray &#x3D; Array.isArray(model);
+      const useModel &#x3D; isArray ? model[0] : model;
+      const isClass &#x3D; typeof useModel &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
+
+      if (isClass) {
+        extraModels.push(useModel);
+        return {
+          title: summary,
+          type: &#x27;object&#x27;,
+          properties: {
+            ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
+            status: { type: &#x27;number&#x27;, example: status },
+            method: { type: &#x27;string&#x27;, example: method },
+            path: { type: &#x27;string&#x27;, example: path },
+            payload: isArray
+              ? {
+                  type: &#x27;array&#x27;,
+                  items: {
+                    $ref: getSchemaPath(useModel),
+                  },
+                }
+              : {
+                  type: &#x27;object&#x27;,
+                  $ref: getSchemaPath(useModel),
+                },
+            timestamp: { type: &#x27;number&#x27;, example: 1741672686205 },
+          },
+        };
+      }
+      return {
+        title: summary,
+        type: &#x27;object&#x27;,
+        properties: {
+          ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
+          status: { type: &#x27;number&#x27;, example: status },
+          method: { type: &#x27;string&#x27;, example: method },
+          path: { type: &#x27;string&#x27;, example: path },
+          payload: isArray
+            ? {
+                type: &#x27;array&#x27;,
+                items: {
+                  properties: Object.fromEntries(
+                    Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                      k,
+                      {
+                        type: typeof v,
+                        value: v,
+                      },
+                    ]),
+                  ),
+                },
+              }
+            : {
+                type: &#x27;object&#x27;,
+                properties: Object.fromEntries(
+                  Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                    k,
+                    {
+                      type: typeof v,
+                      value: v,
+                    },
+                  ]),
+                ),
+              },
+          timestamp: { type: &#x27;number&#x27;, example: 1741672686205 },
+        },
+      };
+    }),
+  };
+
+  const examples &#x3D; Object.fromEntries(
+    Object.entries(models).map(([summary, model]) &#x3D;&gt; [
+      summary,
+      {
+        summary,
+        value: {
+          ok: true,
+          status,
+          method,
+          path,
+          payload: model,
+          timestamp: 1741672686205,
+        },
+      },
+    ]),
+  );
+
+  if (extraModels.length &gt; 0) {
+    return applyDecorators(
+      ApiResponse({ schema, examples }),
+      ApiExtraModels(...extraModels),
+    );
+  }
+  return applyDecorators(ApiResponse({ schema, examples }));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.with.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseWithModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseWithModel</b></span>
+                        <a href="#ApiResponseWithModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
+  modelProps: { [k: string]: Model },
+  { ok, status, method, path, message }: ResponseProperty,
+  options?: Omit&lt;ApiResponseOptions, &#x27;schema&#x27;&gt;,
+) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+  const isArray &#x3D; Array.isArray(model);
+  const properties: Record&lt;string, any&gt; &#x3D; {};
+  properties.ok &#x3D; { type: &#x27;boolean&#x27;, example: ok };
+  properties.status &#x3D; { type: &#x27;number&#x27;, example: status };
+  properties.method &#x3D; { type: &#x27;string&#x27;, example: method };
+  properties.path &#x3D; { type: &#x27;string&#x27;, example: path };
+  properties.payload &#x3D; {};
+  if (message) {
+    properties.message &#x3D; { type: &#x27;string&#x27;, example: message };
+  }
+  properties.timestamp &#x3D; { type: &#x27;number&#x27;, example: 1741672686205 };
+
+  const pickModel &#x3D; isArray ? model[0] : model;
+  const isClass &#x3D;
+    pickModel.constructor.toString().startsWith(&#x27;class&#x27;) ||
+    pickModel.constructor.toString().match(/function (Function)/);
+
+  if (isClass) {
+    properties.payload &#x3D; isArray
+      ? { type: &#x27;array&#x27;, items: { $ref: getSchemaPath(pickModel) } }
+      : {
+          $ref: getSchemaPath(pickModel),
+        };
+
+    return applyDecorators(
+      ApiResponse({
+        ...options,
+        status,
+        schema: { properties },
+      }),
+      ApiExtraModels(pickModel),
+    );
+  }
+
+  properties.payload &#x3D; {
+    properties: isArray
+      ? Object.fromEntries(
+          Object.entries(model[0]).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        )
+      : Object.fromEntries(
+          Object.entries(model).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        ),
+  };
+
+  return applyDecorators(
+    ApiResponse({
+      ...options,
+      status,
+      schema: {
+        title: modelName,
+        properties,
+      },
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/common.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonOption"></a>
+                    <span class="name">
+                        <span ><b>commonOption</b></span>
+                        <a href="#commonOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  version: VERSION,
+  port: PORT,
+  allowOrigins:
+    RUN_MODE &#x3D;&#x3D;&#x3D; &#x27;development&#x27;
+      ? [&#x27;localhost:8080&#x27;]
+      : [
+          /* production host */
+        ],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/variables/environment.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DB_HOST"></a>
+                    <span class="name">
+                        <span ><b>DB_HOST</b></span>
+                        <a href="#DB_HOST"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.DB_HOST as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DB_NAME"></a>
+                    <span class="name">
+                        <span ><b>DB_NAME</b></span>
+                        <a href="#DB_NAME"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.DB_NAME as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DB_PASS"></a>
+                    <span class="name">
+                        <span ><b>DB_PASS</b></span>
+                        <a href="#DB_PASS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.DB_PASS as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DB_PORT"></a>
+                    <span class="name">
+                        <span ><b>DB_PORT</b></span>
+                        <a href="#DB_PORT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>+(process.env.DB_PORT ?? 3306)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DB_USER"></a>
+                    <span class="name">
+                        <span ><b>DB_USER</b></span>
+                        <a href="#DB_USER"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.DB_USER as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PORT"></a>
+                    <span class="name">
+                        <span ><b>PORT</b></span>
+                        <a href="#PORT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>+(process.env.PORT ?? 8080)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="RUN_MODE"></a>
+                    <span class="name">
+                        <span ><b>RUN_MODE</b></span>
+                        <a href="#RUN_MODE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.NODE_ENV ?? &#x27;production&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SECRET_ACCESS_TOKEN"></a>
+                    <span class="name">
+                        <span ><b>SECRET_ACCESS_TOKEN</b></span>
+                        <a href="#SECRET_ACCESS_TOKEN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.SECRET_ACCESS_TOKEN as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SECRET_HASH_PASSWORD"></a>
+                    <span class="name">
+                        <span ><b>SECRET_HASH_PASSWORD</b></span>
+                        <a href="#SECRET_HASH_PASSWORD"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.SECRET_HASH_PASSWORD as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SECRET_REFRESH_TOKEN"></a>
+                    <span class="name">
+                        <span ><b>SECRET_REFRESH_TOKEN</b></span>
+                        <a href="#SECRET_REFRESH_TOKEN"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>process.env.SECRET_REFRESH_TOKEN as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SWAGGER_URL"></a>
+                    <span class="name">
+                        <span ><b>SWAGGER_URL</b></span>
+                        <a href="#SWAGGER_URL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&#x27;http://localhost:8080&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="VERSION"></a>
+                    <span class="name">
+                        <span ><b>VERSION</b></span>
+                        <a href="#VERSION"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>pkg.version ?? &#x27;0.0.1&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/typeorm.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDev"></a>
+                    <span class="name">
+                        <span ><b>isDev</b></span>
+                        <a href="#isDev"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>RUN_MODE &#x3D;&#x3D;&#x3D; &#x27;development&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isTest"></a>
+                    <span class="name">
+                        <span ><b>isTest</b></span>
+                        <a href="#isTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>RUN_MODE &#x3D;&#x3D;&#x3D; &#x27;test&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="typeormOption"></a>
+                    <span class="name">
+                        <span ><b>typeormOption</b></span>
+                        <a href="#typeormOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>    <code>DataSourceOptions</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  type: &#x27;mysql&#x27;,
+  synchronize: isTest || isDev,
+  namingStrategy: new SnakeNamingStrategy(),
+  entities: [User, Restaurant, Reservation, Menu, ReservationMenu],
+  username: DB_USER,
+  password: DB_PASS,
+  host: DB_HOST,
+  port: DB_PORT,
+  database: DB_NAME,
+  logging: isTest || isDev ? [&#x27;query&#x27;, &#x27;error&#x27;] : [&#x27;error&#x27;],
+  timezone: &#x27;+09:00&#x27;,
+  dropSchema: isTest,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="typeormSource"></a>
+                    <span class="name">
+                        <span ><b>typeormSource</b></span>
+                        <a href="#typeormSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>new DataSource(typeormOption)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/protocol.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Protocol"></a>
+                    <span class="name">
+                        <span ><b>Protocol</b></span>
+                        <a href="#Protocol"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  /* common error */
+  BadRequest: { errorCode: 1000, message: &#x27;잘못된 요청입니다.&#x27; }, // 400
+  UnAuthorized: { errorCode: 1001, message: &#x27;인증이 필요합니다.&#x27; }, // 401
+  Forbidden: { errorCode: 1002, message: &#x27;접근 권한이 없습니다.&#x27; }, // 403
+  NotFound: { errorCode: 1003, message: &#x27;리소스를 찾을 수 없습니다.&#x27; }, // 404
+  Conflict: { errorCode: 1004, message: &#x27;리소스가 중복됩니다.&#x27; }, // 409
+  ServerError: { errorCode: 1005, message: &#x27;서버에 문제가 발생했습니다.&#x27; }, // 500
+
+  /* auth error */
+  RequiredLogin: { errorCode: 2000, message: &#x27;로그인이 필요합니다.&#x27; }, // 401
+  NoMatchRoles: { errorCode: 2001, message: &#x27;사용자 권한이 없습니다.&#x27; }, // 401
+  CookieWrongType: { errorCode: 2002, message: &#x27;잘못된 쿠키 정보입니다.&#x27; }, // 400
+  JwtWrongSignature: { errorCode: 2003, message: &#x27;잘못된 서명입니다.&#x27; }, // 401
+  JwtExpired: { errorCode: 2004, message: &#x27;토큰이 만료되었습니다.&#x27; }, // 401
+  JwtMalFormed: { errorCode: 2005, message: &#x27;잘못된 토큰 형태입니다.&#x27; }, // 401
+  JwtCreate: { errorCode: 2006, message: &#x27;토큰 발급에 문제가 발생했습니다.&#x27; }, // 400
+  JwtServerException: {
+    errorCode: 2007,
+    message: &#x27;토큰 인증에 문제가 발생했습니다.&#x27;,
+  }, // 401
+  NoRefreshCookie: {
+    errorCode: 2008,
+    message: &#x27;잘못된 접근입니다.&#x27;,
+  }, // 401
+  NoMatchUser: {
+    errorCode: 2009,
+    message: &#x27;사용자 정보를 찾지 못했습니다.&#x27;,
+  }, // 404
+  WrongLoginData: {
+    errorCode: 2010,
+    message: &#x27;입력 정보를 다시 확인해주세요.&#x27;,
+  }, // 400
+
+  /* guard, controller */
+  ArgsRequired: {
+    errorCode: 3000,
+    message: &#x27;데이터를 확인해주세요.&#x27;,
+  }, // 400
+  WrongParamType: {
+    errorCode: 3001,
+    message: &#x27;파라미터를 확인해주세요.&#x27;,
+  }, // 400
+  NoMatchOwnRestaurant: {
+    errorCode: 3002,
+    message: &#x27;해당 식당의 점주만 이용 가능합니다.&#x27;,
+  }, // 400
+
+  /* type check */
+  MustPositive: {
+    errorCode: 4000,
+    message: &#x27;음수 값은 허용되지 않습니다.&#x27;,
+  },
+  NotAllowedPastTime: {
+    errorCode: 4001,
+    message: &#x27;현재 시간보다 과거 시간을 설정 할 수 없습니다.&#x27;,
+  },
+  InvalidTimeRange: {
+    errorCode: 4002,
+    message: &#x27;종료시간이 시작 시간보다 과거일 수 없습니다.&#x27;,
+  },
+} as const</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/auth/guard/roles.decorator.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Roles"></a>
+                    <span class="name">
+                        <span ><b>Roles</b></span>
+                        <a href="#Roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>(args: UserRole[] &#x3D; []) &#x3D;&gt; {
+  return applyDecorators(SetMetadata(&#x27;roles&#x27;, args), UseGuards(RoleGuard));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/secret.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="secretOption"></a>
+                    <span class="name">
+                        <span ><b>secretOption</b></span>
+                        <a href="#secretOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  password: SECRET_HASH_PASSWORD,
+  accessToken: SECRET_ACCESS_TOKEN,
+  refreshToken: SECRET_REFRESH_TOKEN,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/swagger.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="swaggerOption"></a>
+                    <span class="name">
+                        <span ><b>swaggerOption</b></span>
+                        <a href="#swaggerOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  serverUrl: SWAGGER_URL,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/enums/UserRole.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UserRole"></a>
+                    <span class="name">
+                        <span ><b>UserRole</b></span>
+                        <a href="#UserRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  Customer: 1, // 고객
+  Shopkeeper: 2, // 식당 주인
+} as const</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> 개의 결과가 일치했습니다 "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">검색 결과가 없습니다 "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

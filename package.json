@@ -5,6 +5,7 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "main": "src/main.ts",
   "scripts": {
     "build": "nest build",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/util/typeorm.ts",
@@ -27,8 +28,8 @@
     "vitest:ui:e2e": "vitest --ui -c ./test/vitest.config.mjs",
     "docs:svg": "depcruise src -x node_modules --output-type dot | dot -T svg > ./docs/dependency-graph.svg",
     "docs:png": "depcruise src -x node_modules --output-type dot | dot -T png > ./docs/dependency-graph.png",
-    "docs:compodoc": "compodoc -d docs -p tsconfig.json",
-    "compodoc": "compodoc -d docs -p tsconfig.json -s",
+    "docs:compodoc": "npx @compodoc/compodoc -p ./tsconfig.json --language ko-KR -d docs -n \"HIT Restaurant API Server Docs\"",
+    "compodoc": "npx @compodoc/compodoc -p ./tsconfig.json --language ko-KR -d docs -n \"HIT Restaurant API Server Docs\" -s",
     "predocs": "rm -rf docs && mkdir docs",
     "docs": "concurrently \"npm run docs:svg\" \"npm run docs:png\" \"npm run docs:compodoc\""
   },
