@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Restaurant } from './entities/restaurant.entity';
-import { Repository } from 'typeorm';
 import { Protocol } from '@util/protocol';
 import { searchPagination } from '@util/utilFunction';
+import { Repository } from 'typeorm';
+import { CreateRestaurantDto } from './dto/create-restaurant.dto';
+import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { Restaurant } from './entities/restaurant.entity';
 
 @Injectable()
 export class RestaurantsService {
@@ -20,11 +20,14 @@ export class RestaurantsService {
     return { id: restaurant.id };
   }
 
-  findAll(page: number = 1) {
+  findAll(page: number = 1, perPage: number = 10) {
     return searchPagination(
       this.restaurantRepository,
       '/restaurants',
-      {},
+      {
+        take: perPage,
+        skip: (page - 1) * perPage,
+      },
       page,
     );
   }
