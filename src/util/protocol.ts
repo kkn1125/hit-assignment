@@ -46,6 +46,20 @@ export const Protocol = {
     errorCode: 3002,
     message: '해당 식당의 점주만 이용 가능합니다.',
   }, // 400
+
+  /* type check */
+  MustPositive: {
+    errorCode: 4000,
+    message: '음수 값은 허용되지 않습니다.',
+  },
+  NotAllowedPastTime: {
+    errorCode: 4001,
+    message: '현재 시간보다 과거 시간을 설정 할 수 없습니다.',
+  },
+  InvalidTimeRange: {
+    errorCode: 4002,
+    message: '종료시간이 시작 시간보다 과거일 수 없습니다.',
+  },
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 

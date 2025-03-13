@@ -1,7 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UsersService } from '@users/users.service';
-import { searchPagination } from '@util/utilFunction';
+import { User } from '@users/entities/user.entity';
+import { Protocol } from '@util/protocol';
+import {
+  searchPagination,
+  throwNoExistsEntityWithSelectBy,
+} from '@util/utilFunction';
+import dayjs from 'dayjs';
 import { Repository } from 'typeorm';
 import {
   CreateReservationDto,
@@ -15,23 +20,55 @@ export class ReservationsService {
   constructor(
     @InjectRepository(Reservation)
     private readonly reservationRepository: Repository<Reservation>,
-    private readonly usersService: UsersService,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
+  /* 
+  1. 예약자 존재 여부를 검증한다.
+  2. 예약자 전화번호 입력 없을 시 예약자 정보의 전화번호를 적용한다.
+  3. 예약 인원 음수 입력을 방지한다.
+  4. 예약 일자 과거 입력을 방지한다.
+  5. 예약 종료일자는 시작일자보다 과거일 수 없다.
+  */
+  // TODO: 메뉴(배열) 추가 로직
   async create(
     userId: number,
     restaurantId: number,
     createReservationDto: CreateReservationDto | CreateReservationWithPhoneDto,
   ) {
-    const user = await this.usersService.findOne(userId);
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      id: userId,
+    });
+
     if (!('phone' in createReservationDto)) {
       Object.assign(createReservationDto, { phone: user.phone });
+    }
+
+    if (createReservationDto.amount <= 0) {
+      const errorProtocol = Protocol.MustPositive;
+      throw new BadRequestException(errorProtocol);
+    }
+
+    if (dayjs(createReservationDto.reserveStartAt).isBefore(dayjs())) {
+      const errorProtocol = Protocol.NotAllowedPastTime;
+      throw new BadRequestException(errorProtocol);
+    }
+
+    if (
+      dayjs(createReservationDto.reserveEndAt).isBefore(
+        createReservationDto.reserveStartAt,
+      )
+    ) {
+      const errorProtocol = Protocol.InvalidTimeRange;
+      throw new BadRequestException(errorProtocol);
     }
     const reservation = await this.reservationRepository.save({
       userId,
       restaurantId,
       ...createReservationDto,
     });
+
     return { id: reservation.id };
   }
 
