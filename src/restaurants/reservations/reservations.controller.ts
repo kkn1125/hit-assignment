@@ -12,13 +12,13 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { UserRole } from '@util/enums/UserRole';
+import { Request } from 'express';
 import {
   CreateReservationDto,
   CreateReservationWithPhoneDto,
 } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsService } from './reservations.service';
-import { Request } from 'express';
 
 @Controller('reservations')
 export class ReservationsController {
