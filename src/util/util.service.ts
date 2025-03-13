@@ -32,9 +32,10 @@ export class UtilService {
     userId,
     email,
     role,
+    phone,
   }: Omit<UserTokenData, 'iss' | 'iat' | 'exp'>) {
     const accessToken = jwt.sign(
-      { id, userId, email, role },
+      { id, userId, email, role, phone },
       this.secretConfig.accessToken,
       {
         issuer: 'HitRestaurant',
@@ -43,7 +44,7 @@ export class UtilService {
       },
     );
     const refreshToken = jwt.sign(
-      { id, userId, email, role },
+      { id, userId, email, role, phone },
       this.secretConfig.refreshToken,
       {
         issuer: 'HitRestaurant',

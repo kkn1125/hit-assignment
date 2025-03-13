@@ -7,6 +7,7 @@ export declare global {
     userId: string;
     email: string;
     role: UserRole;
+    phone: string;
     iss: string;
     iat: number;
     exp: number;
