@@ -93,7 +93,6 @@ describe('AppController (e2e)', () => {
     // given
     const accessToken = loginResult.body.payload.accessToken;
     const restaurantData: CreateRestaurantDto = {
-      userId: 1,
       category: 'fine dining',
       name: '류니끄',
       location: '서울시 강남구 도산대로00길 0-0',
