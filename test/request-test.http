@@ -1,0 +1,77 @@
+@hostname = http://localhost:8080/api
+
+###
+
+POST {{hostname}}/users
+Content-Type: application/json
+
+{
+  "userId": "testuser1",
+  "phone": "010-2134-1534",
+  "email": "testuser1@example.com",
+  "username": "김윤성",
+  "password": "qweQQ!!1",
+  "role": 1
+}
+
+###
+
+POST {{hostname}}/users
+Content-Type: application/json
+
+{
+  "userId": "류니끄",
+  "phone": "010-7894-5612",
+  "email": "michelin@example.com",
+  "username": "최태성",
+  "password": "qweQQ!!1",
+  "role": 2
+}
+
+###
+
+# @name login
+POST {{hostname}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+# "userId": "testuser1",
+# "userId": "류니끄",
+{
+  "userId": "testuser1",
+  "password": "qweQQ!!1"
+}
+
+###
+
+@authToken = Bearer {{login.response.body.payload.accessToken}}
+
+###
+
+GET {{hostname}}/users/me HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+
+###
+
+POST {{hostname}}/restaurants/1/reservations HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+{
+  "reserveStartAt": "2025-03-13 18:00",
+  "reserveEndAt": "2025-03-13 18:30",
+  "amount": 5
+}
+
+###
+
+POST {{hostname}}/restaurants HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+{
+  "category": "fine dining",
+  "name": "류니끄",
+  "location": "서울 00구 00로00길 00 0층"
+}
