@@ -4,8 +4,9 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
-import { ErrorType } from '@util/protocol';
+import { ErrorType, Protocol } from '@util/protocol';
 import { ExceptionResponseFormat } from '@util/response';
 import { Request, Response } from 'express';
 
@@ -19,24 +20,38 @@ export class GlobalExceptionFilter<T extends HttpException>
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-    const status = exception.getStatus();
-
-    const { errorCode, message } = exception.getResponse() as ErrorType;
     const method = request.method;
     const path = request.originalUrl;
-    const detail = exception.cause;
 
-    this.logger.debug('exception:', exception);
+    /* HttpException 지정 프로토콜 처리 */
+    if (exception instanceof HttpException) {
+      const status = exception.getStatus();
 
+      const { errorCode, message } = exception.getResponse() as ErrorType;
+      const detail = exception.cause;
+
+      const exceptionFormat = new ExceptionResponseFormat(
+        status,
+        errorCode,
+        method,
+        message,
+        path,
+        detail,
+      );
+
+      response.status(status).json(exceptionFormat);
+      return;
+    }
+
+    /* 그 외 예상치 못한 예외 일괄 Bad Request(400) 처리 */
+    const errorProtocol = Protocol.BadRequest;
     const exceptionFormat = new ExceptionResponseFormat(
-      status,
-      errorCode,
+      HttpStatus.BAD_REQUEST,
+      errorProtocol.errorCode,
       method,
-      message,
+      errorProtocol.message,
       path,
-      detail,
     );
-
-    response.status(status).json(exceptionFormat);
+    response.status(HttpStatus.BAD_REQUEST).json(exceptionFormat);
   }
 }
