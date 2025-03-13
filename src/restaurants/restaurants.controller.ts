@@ -1,7 +1,6 @@
 import { Roles } from '@auth/guard/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
-import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import {
   Body,
@@ -23,32 +22,31 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { UserRole } from '@util/enums/UserRole';
+import { Request } from 'express';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 import { CheckOwnerGuard } from './guard/check-owner.guard';
 import { RestaurantsService } from './restaurants.service';
-import { Request } from 'express';
 
 @Controller('restaurants')
 export class RestaurantsController {
   constructor(private readonly restaurantsService: RestaurantsService) {}
 
-  @ApiResponseWithCaseModel(
+  @ApiResponseWithModel(
     {
-      CreateRestaurantResponse: {
-        '개별 추가': { id: 1 },
-        '다중 추가': [{ id: 1 }],
-      },
+      CreateRestaurantResponse: { id: 1 },
     },
-    HttpStatus.CREATED,
-    '/restaurants',
-    'POST',
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: 'POST',
+      path: '/restaurants',
+    },
   )
   @ApiBodyWithModel({ CreateRestaurantDto })
   @ApiBearerAuth()
   @ApiOperation({ summary: '식당 정보 추가' })
-  @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Post()
   create(
