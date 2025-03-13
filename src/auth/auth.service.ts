@@ -4,21 +4,27 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '@users/entities/user.entity';
 import { UsersService } from '@users/users.service';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
+import { throwNoExistsEntityWithSelectBy } from '@util/utilFunction';
 import { Request, Response } from 'express';
+import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly usersService: UsersService,
     private readonly utilService: UtilService,
   ) {}
 
   async login(loginDto: LoginDto, res: Response) {
-    await this.usersService.throwNoExistsUserWithSelectBy({
+    await throwNoExistsEntityWithSelectBy(this.userRepository, {
       userId: loginDto.userId,
     });
 

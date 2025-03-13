@@ -11,6 +11,7 @@ import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { throwNoExistsEntityWithSelectBy } from '@util/utilFunction';
 
 @Injectable()
 export class UsersService {
@@ -29,22 +30,22 @@ export class UsersService {
   ) {}
 
   /* user's util */
-  async throwNoExistsUserWithSelectBy(
-    whereOption: FindOptionsWhere<User>,
-    selectOption?: FindOptionsSelect<User>,
-  ) {
-    const user = await this.userRepository.findOne({
-      where: whereOption,
-      select: selectOption,
-    });
+  // async throwNoExistsUserWithSelectBy(
+  //   whereOption: FindOptionsWhere<User>,
+  //   selectOption?: FindOptionsSelect<User>,
+  // ) {
+  //   const user = await this.userRepository.findOne({
+  //     where: whereOption,
+  //     select: selectOption,
+  //   });
 
-    if (!user) {
-      const errorProtocol = Protocol.NoMatchUser;
-      throw new NotFoundException(errorProtocol);
-    }
+  //   if (!user) {
+  //     const errorProtocol = Protocol.NoMatchUser;
+  //     throw new NotFoundException(errorProtocol);
+  //   }
 
-    return user;
-  }
+  //   return user;
+  // }
 
   async isDuplicatedBy<T extends object>(whereOption: T) {
     const count = await this.userRepository.countBy(whereOption);
@@ -56,7 +57,9 @@ export class UsersService {
   }
 
   async comparePassword(userId: string, inputPassword: string) {
-    const user = await this.throwNoExistsUserWithSelectBy({ userId });
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      userId,
+    });
     const message = userId + inputPassword;
     const hashedPassword = this.utilService.createHashedPassword(message);
 
@@ -86,7 +89,8 @@ export class UsersService {
   }
 
   async findOneByUserId(userId: string) {
-    const user = await this.throwNoExistsUserWithSelectBy(
+    const user = await throwNoExistsEntityWithSelectBy(
+      this.userRepository,
       { userId },
       this.userSelectOption,
     );
@@ -97,7 +101,8 @@ export class UsersService {
   async getMe(userTokenData: UserTokenData) {
     const id = userTokenData.id;
 
-    const user = await this.throwNoExistsUserWithSelectBy(
+    const user = await throwNoExistsEntityWithSelectBy(
+      this.userRepository,
       { id },
       this.userSelectOption,
     );
@@ -106,7 +111,8 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.throwNoExistsUserWithSelectBy(
+    const user = await throwNoExistsEntityWithSelectBy(
+      this.userRepository,
       { id },
       this.userSelectOption,
     );
@@ -115,7 +121,7 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    await this.throwNoExistsUserWithSelectBy({ id });
+    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
 
     if (updateUserDto.email) {
       await this.isDuplicatedBy({ email: updateUserDto.email });
@@ -130,7 +136,7 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    await this.throwNoExistsUserWithSelectBy({ id });
+    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
 
     return this.userRepository.softDelete(id);
   }
