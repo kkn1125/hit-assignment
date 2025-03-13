@@ -7,14 +7,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Protocol } from '@util/protocol';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class BearerParserMiddleware implements NestMiddleware {
   constructor(private readonly commonService: CommonService) {}
 
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: Request, _res, next: NextFunction) {
     const authorization = req.headers?.authorization; // 헤더에서 `Bearer token` 정보 가져오기
     const secretOption = this.commonService.getConfig<SecretOption>('secret');
     if (authorization) {
