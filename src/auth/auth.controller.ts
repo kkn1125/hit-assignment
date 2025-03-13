@@ -1,16 +1,7 @@
-import { RoleGuard } from '@auth/guard/role.guard';
 import { Roles } from '@auth/guard/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
-import {
-  Body,
-  Controller,
-  HttpStatus,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
@@ -74,7 +65,6 @@ export class AuthController {
   )
   @ApiBearerAuth()
   @ApiOperation({ summary: '토큰 리프레시' })
-  @UseGuards(RoleGuard)
   @Roles()
   @Post('refresh')
   refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {

@@ -4,11 +4,17 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
 import { Protocol } from './protocol';
+import { CookieOptions } from 'express';
 
 /* 순환참조 우회를 위해 전역 모듈로 유틸 주입 활용 */
 @Injectable()
 export class UtilService {
   secretConfig: ReturnType<SecretOption>;
+  cookieOptions: CookieOptions = {
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 1 * 24 * 60 * 60 * 1000,
+  };
 
   constructor(private readonly commonService: CommonService) {
     this.secretConfig = this.commonService.getConfig<SecretOption>('secret');

@@ -1,3 +1,5 @@
+// TODO: 리팩터링 필요
+
 import {
   BadRequestException,
   Injectable,
@@ -24,33 +26,20 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto, res: Response) {
+    /* 유저 조회 후 없으면 throw */
     await throwNoExistsEntityWithSelectBy(this.userRepository, {
       userId: loginDto.userId,
     });
 
+    /* 비밀번호 검증, 틀리면 throw */
     const user = await this.usersService.comparePassword(
       loginDto.userId,
       loginDto.password,
     );
 
-    const message = loginDto.userId + loginDto.password;
-    const isCorrectPassword = this.utilService.compareInputPasswordWith(
-      message,
-      user.password,
-    );
-
-    if (!isCorrectPassword) {
-      const errorProtocol = Protocol.WrongLoginData;
-      throw new BadRequestException(errorProtocol);
-    }
-
     try {
       const { accessToken, refreshToken } = this.utilService.createToken(user);
-      res.cookie('refresh', refreshToken, {
-        httpOnly: true,
-        sameSite: 'strict',
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-      });
+      res.cookie('refresh', refreshToken, this.utilService.cookieOptions);
       return { accessToken };
     } catch (error) {
       const errorProtocol = Protocol.JwtCreate;
@@ -74,11 +63,7 @@ export class AuthService {
       throw new NotFoundException(errorProtocol);
     }
     const { accessToken, refreshToken } = this.utilService.createToken(user);
-    res.cookie('refresh', refreshToken, {
-      httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 1 * 24 * 60 * 60 * 1000,
-    });
+    res.cookie('refresh', refreshToken, this.utilService.cookieOptions);
     return { accessToken };
   }
 }
