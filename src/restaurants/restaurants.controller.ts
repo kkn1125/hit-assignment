@@ -1,6 +1,7 @@
 import { Roles } from '@auth/guard/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
+import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import {
   Body,
@@ -14,14 +15,18 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { UserRole } from '@util/enums/UserRole';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
-import { RestaurantsService } from './restaurants.service';
-import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
 import { CheckOwnerGuard } from './guard/check-owner.guard';
+import { RestaurantsService } from './restaurants.service';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -39,6 +44,7 @@ export class RestaurantsController {
     'POST',
   )
   @ApiBodyWithModel({ CreateRestaurantDto })
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 정보 추가' })
   @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
@@ -56,8 +62,11 @@ export class RestaurantsController {
   @ApiQuery({ name: 'page', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 전체 조회' })
   @Get()
-  findAll(@Query('page') page: number) {
-    return this.restaurantsService.findAll(+page);
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('perPage') perPage: number = 10,
+  ) {
+    return this.restaurantsService.findAll(+page, +perPage);
   }
 
   @ApiResponseWithModel(
@@ -77,6 +86,7 @@ export class RestaurantsController {
   }
 
   @ApiBodyWithModel({ UpdateRestaurantDto: CreateRestaurantDto })
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 정보 수정' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @UseGuards(CheckOwnerGuard)
@@ -89,6 +99,7 @@ export class RestaurantsController {
     return this.restaurantsService.update(+restaurantId, updateRestaurantDto);
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 삭제' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @UseGuards(CheckOwnerGuard)
