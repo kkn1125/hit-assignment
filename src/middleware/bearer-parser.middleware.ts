@@ -15,14 +15,23 @@ export class BearerParserMiddleware implements NestMiddleware {
   constructor(private readonly commonService: CommonService) {}
 
   use(req: Request, _res, next: NextFunction) {
-    const authorization = req.headers?.authorization; // 헤더에서 `Bearer token` 정보 가져오기
+    // 헤더에서 `Bearer token` 정보 가져오기
+    let authorization = req.headers?.authorization;
+    let isRefresh = false;
+
+    if (req.originalUrl.endsWith('/auth/refresh')) {
+      // 쿠키에서 `Bearer token` 정보 가져오기
+      authorization = req.cookies.refresh;
+      isRefresh = true;
+    }
+
     const secretOption = this.commonService.getConfig<SecretOption>('secret');
     if (authorization) {
       const accessToken = authorization.replace(/^bearer\s/i, '');
       try {
         const userData = jwt.verify(
           accessToken,
-          secretOption.accessToken,
+          isRefresh ? secretOption.refreshToken : secretOption.accessToken,
         ) as UserTokenData;
         req.user = userData;
       } catch (error: any) {
