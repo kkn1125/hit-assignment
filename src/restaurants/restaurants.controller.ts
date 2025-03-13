@@ -2,6 +2,7 @@ import { Roles } from '@auth/guard/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
+import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import {
   Body,
   Controller,
@@ -58,16 +59,16 @@ export class RestaurantsController {
 
   @ApiResponseSearchModel({ FindAllResponse: Restaurant }, '/restaurants', {
     page: 2,
+    count: 10,
     total: 3,
-    prev: 1,
-    next: 3,
   })
-  @ApiQuery({ name: 'page', type: Number, example: 1 })
+  @ApiQuery({ name: 'page', type: Number, example: DEFAULT_PAGE })
+  @ApiQuery({ name: 'perPage', type: Number, example: PER_PAGE })
   @ApiOperation({ summary: '식당 전체 조회' })
   @Get()
   findAll(
-    @Query('page') page: number = 1,
-    @Query('perPage') perPage: number = 10,
+    @Query('page') page: number = DEFAULT_PAGE,
+    @Query('perPage') perPage: number = PER_PAGE,
   ) {
     return this.restaurantsService.findAll(+page, +perPage);
   }
@@ -76,7 +77,7 @@ export class RestaurantsController {
     { Restaurant },
     {
       ok: true,
-      status: 200,
+      status: HttpStatus.OK,
       method: 'GET',
       path: '/restaurants/:restaurantId',
     },
@@ -88,6 +89,19 @@ export class RestaurantsController {
     return this.restaurantsService.findOne(+restaurantId);
   }
 
+  @ApiResponseWithModel(
+    {
+      UpdateRestaurantResponse: {
+        id: 1,
+      },
+    },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: 'PATCH',
+      path: '/restaurants/:restaurantId',
+    },
+  )
   @ApiBodyWithModel({ UpdateRestaurantDto: CreateRestaurantDto })
   @ApiBearerAuth()
   @ApiOperation({ summary: '식당 정보 수정' })

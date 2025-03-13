@@ -1,4 +1,5 @@
 import { Roles } from '@auth/guard/roles.decorator';
+import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import {
   Body,
   Controller,
@@ -48,10 +49,10 @@ export class ReservationsController {
   @Get()
   findAll(
     @Param('restaurantId') restaurantId: number,
-    @Query('page') page: number = 1,
-    @Query('perPage') perPage: number = 1,
+    @Query('page') page: number = DEFAULT_PAGE,
+    @Query('perPage') perPage: number = PER_PAGE,
   ) {
-    return this.reservationsService.findAll(restaurantId, +page, +perPage);
+    return this.reservationsService.findAll(restaurantId, page, perPage);
   }
 
   @ApiBearerAuth()

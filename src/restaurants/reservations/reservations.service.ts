@@ -78,6 +78,7 @@ export class ReservationsService {
       `/restaurants/${restaurantId}/reservations`,
       { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
       page,
+      perPage,
     );
   }
 

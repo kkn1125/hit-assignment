@@ -1,6 +1,8 @@
 import { Roles } from '@auth/guard/roles.decorator';
+import { ApiBodyWithCaseModel } from '@common/decorators/api.body.with.case.model';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
+import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import {
   Body,
   Controller,
@@ -10,6 +12,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam } from '@nestjs/swagger';
@@ -35,7 +38,12 @@ export class MenusController {
     '/restaurants/:restaurantId/menus',
     'POS',
   )
-  @ApiBodyWithModel({ CreateMenuDto })
+  @ApiBodyWithCaseModel({
+    CreateMenuDto: {
+      '개별 추가': CreateMenuDto,
+      '다중 추가': [CreateMenuDto],
+    },
+  })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 메뉴 추가' })
   @UseGuards(CheckOwnerGuard)
@@ -54,8 +62,12 @@ export class MenusController {
   @ApiOperation({ summary: '식당 메뉴 전체 조회' })
   @Roles()
   @Get()
-  findAll(@Param('restaurantId') restaurantId: number) {
-    return this.menusService.findAll(+restaurantId);
+  findAll(
+    @Param('restaurantId') restaurantId: number,
+    @Query('page') page: number = DEFAULT_PAGE,
+    @Query('perPage') perPage: number = PER_PAGE,
+  ) {
+    return this.menusService.findAll(+restaurantId, page, perPage);
   }
 
   @ApiOperation({ summary: '식당 메뉴 상세 조회' })

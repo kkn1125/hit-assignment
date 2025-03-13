@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { searchPagination } from '@util/utilFunction';
+import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from './entities/menu.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class MenusService {
@@ -29,12 +30,14 @@ export class MenusService {
     return { id: menu.id };
   }
 
-  findAll(restaurantId: number) {
-    return this.menuRepository.find({
-      where: {
-        restaurantId,
-      },
-    });
+  findAll(restaurantId: number, page: number, perPage: number) {
+    return searchPagination(
+      this.menuRepository,
+      `/restaurants/${restaurantId}/reservations`,
+      { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
+      page,
+      perPage,
+    );
   }
 
   findOne(menuId: number) {

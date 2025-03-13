@@ -22,7 +22,7 @@ export class RestaurantsService {
     return { id: restaurant.id };
   }
 
-  findAll(page: number = 1, perPage: number = 10) {
+  findAll(page: number, perPage: number) {
     return searchPagination(
       this.restaurantRepository,
       '/restaurants',
@@ -31,6 +31,7 @@ export class RestaurantsService {
         skip: (page - 1) * perPage,
       },
       page,
+      perPage,
     );
   }
 
