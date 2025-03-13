@@ -18,7 +18,9 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto, res: Response) {
-    await this.usersService.throwNoExistsUserBy({ userId: loginDto.userId });
+    await this.usersService.throwNoExistsUserWithSelectBy({
+      userId: loginDto.userId,
+    });
 
     const user = await this.usersService.comparePassword(
       loginDto.userId,

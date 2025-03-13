@@ -7,13 +7,21 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import { Repository } from 'typeorm';
+import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  userSelectOption = {
+    id: true,
+    userId: true,
+    email: true,
+    phone: true,
+    role: true,
+  };
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -21,12 +29,20 @@ export class UsersService {
   ) {}
 
   /* user's util */
-  async throwNoExistsUserBy<T extends object>(whereOption: T) {
-    const user = await this.userRepository.findOneBy(whereOption);
+  async throwNoExistsUserWithSelectBy(
+    whereOption: FindOptionsWhere<User>,
+    selectOption?: FindOptionsSelect<User>,
+  ) {
+    const user = await this.userRepository.findOne({
+      where: whereOption,
+      select: selectOption,
+    });
+
     if (!user) {
       const errorProtocol = Protocol.NoMatchUser;
       throw new NotFoundException(errorProtocol);
     }
+
     return user;
   }
 
@@ -40,7 +56,7 @@ export class UsersService {
   }
 
   async comparePassword(userId: string, inputPassword: string) {
-    const user = await this.throwNoExistsUserBy({ userId });
+    const user = await this.throwNoExistsUserWithSelectBy({ userId });
     const message = userId + inputPassword;
     const hashedPassword = this.utilService.createHashedPassword(message);
 
@@ -70,49 +86,37 @@ export class UsersService {
   }
 
   async findOneByUserId(userId: string) {
-    const user = await this.userRepository.findOne({
-      where: { userId },
-      select: {
-        id: true,
-        userId: true,
-        email: true,
-        phone: true,
-        role: true,
-      },
-    });
+    const user = await this.throwNoExistsUserWithSelectBy(
+      { userId },
+      this.userSelectOption,
+    );
+
     return user;
   }
 
   async getMe(userTokenData: UserTokenData) {
     const id = userTokenData.id;
-    const user = await this.userRepository.findOne({
-      where: { id },
-      select: {
-        id: true,
-        userId: true,
-        email: true,
-        phone: true,
-        role: true,
-      },
-    });
+
+    const user = await this.throwNoExistsUserWithSelectBy(
+      { id },
+      this.userSelectOption,
+    );
+
     return user;
   }
 
   async findOne(id: number) {
-    const user = await this.userRepository.findOne({
-      where: { id },
-      select: {
-        id: true,
-        userId: true,
-        email: true,
-        phone: true,
-        role: true,
-      },
-    });
+    const user = await this.throwNoExistsUserWithSelectBy(
+      { id },
+      this.userSelectOption,
+    );
+
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
+    await this.throwNoExistsUserWithSelectBy({ id });
+
     if (updateUserDto.email) {
       await this.isDuplicatedBy({ email: updateUserDto.email });
     }
@@ -126,6 +130,8 @@ export class UsersService {
   }
 
   async remove(id: number) {
+    await this.throwNoExistsUserWithSelectBy({ id });
+
     return this.userRepository.softDelete(id);
   }
 }

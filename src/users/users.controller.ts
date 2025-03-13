@@ -92,7 +92,6 @@ export class UsersController {
   @Roles()
   @Get('me')
   async getMe(@Req() req: Request) {
-    await this.usersService.throwNoExistsUserBy({ id: req.user.id });
     return this.usersService.getMe(req.user);
   }
 
@@ -101,7 +100,6 @@ export class UsersController {
   @Roles()
   @Patch('me')
   async update(@Req() req: Request, @Body() updateUserDto: UpdateUserDto) {
-    await this.usersService.throwNoExistsUserBy({ id: req.user.id });
     return this.usersService.update(req.user.id, updateUserDto);
   }
 
@@ -110,7 +108,6 @@ export class UsersController {
   @Roles()
   @Delete('me')
   async remove(@Req() req: Request) {
-    await this.usersService.throwNoExistsUserBy({ id: req.user.id });
     return this.usersService.remove(req.user.id);
   }
 }
