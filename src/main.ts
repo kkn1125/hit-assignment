@@ -48,6 +48,7 @@ async function bootstrap() {
       extraModels: [ApiResponseWithModel],
     });
   SwaggerModule.setup('docs', app, documentFactory, {
+    jsonDocumentUrl: 'docs/json',
     swaggerOptions: {
       // docExpansion: 'none',
     },
