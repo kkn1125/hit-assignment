@@ -26,10 +26,13 @@ export declare global {
     message?: string;
   };
 
-  type PaginationType = {
+  type Pagination = {
     page: number;
+    count: number;
     total: number;
-    prev?: number;
-    next?: number;
+    prev?: string;
+    next?: string;
   };
+
+  type PaginationType = Pick<Pagination, 'page' | 'count' | 'total'>;
 }
