@@ -1,4 +1,4 @@
-import { BearerParserMiddleware } from '@auth/middleware/bearer-parser.middleware';
+import { BearerParserMiddleware } from '@middleware/bearer-parser.middleware';
 import secretConf from '@common/variables/secretConf';
 import swaggerConf from '@common/variables/swaggerConf';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
