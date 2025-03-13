@@ -7,38 +7,58 @@ import {
   Param,
   Patch,
   Post,
+  Query,
+  Req,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { UserRole } from '@util/enums/UserRole';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsService } from './reservations.service';
+import { Request } from 'express';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 예약 추가' })
   @Roles([UserRole.Customer])
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
-    return this.reservationsService.create(createReservationDto);
+  create(
+    @Req() req: Request,
+    @Param('restaurantId') restaurantId: number,
+    @Body() createReservationDto: CreateReservationDto,
+  ) {
+    const user = req.user;
+    return this.reservationsService.create(
+      +user.id,
+      +restaurantId,
+      createReservationDto,
+    );
   }
 
-  @ApiOperation({ summary: '식당 예약 조회' })
-  @Roles()
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '식당 전체 예약 조회' })
+  @Roles([UserRole.Shopkeeper])
   @Get()
-  findAll() {
-    return this.reservationsService.findAll();
+  findAll(
+    @Param('restaurantId') restaurantId: number,
+    @Query('page') page: number = 1,
+    @Query('perPage') perPage: number = 1,
+  ) {
+    return this.reservationsService.findAll(restaurantId, +page, +perPage);
   }
 
-  @ApiOperation({ summary: '식당 예약 상세 조회' })
-  @Roles()
+  @ApiBearerAuth()
+  @ApiOperation({ summary: '식당 단건 예약 상세 조회' })
+  @Roles([UserRole.Shopkeeper])
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.reservationsService.findOne(+id);
   }
 
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 예약 수정' })
   @Roles([UserRole.Customer])
   @Patch(':id')
@@ -49,7 +69,7 @@ export class ReservationsController {
     return this.reservationsService.update(+id, updateReservationDto);
   }
 
-  @ApiBearerAuth('authorization')
+  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 예약 취소' })
   @Roles()
   @Delete(':id')
