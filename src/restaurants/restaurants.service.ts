@@ -14,9 +14,11 @@ export class RestaurantsService {
     private readonly restaurantRepository: Repository<Restaurant>,
   ) {}
 
-  async create(createRestaurantDto: CreateRestaurantDto) {
-    const restaurant =
-      await this.restaurantRepository.save(createRestaurantDto);
+  async create(userId: number, createRestaurantDto: CreateRestaurantDto) {
+    const restaurant = await this.restaurantRepository.save({
+      userId,
+      ...createRestaurantDto,
+    });
     return { id: restaurant.id };
   }
 

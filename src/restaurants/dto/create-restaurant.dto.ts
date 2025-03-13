@@ -1,12 +1,8 @@
-import { OmitType } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
 
-export class CreateRestaurantDto extends OmitType(Restaurant, [
-  'id',
-  'createdAt',
-  'updatedAt',
-  'deletedAt',
-  'user',
-  'reservations',
-  'menus',
+export class CreateRestaurantDto extends PickType(Restaurant, [
+  'category',
+  'name',
+  'location',
 ]) {}

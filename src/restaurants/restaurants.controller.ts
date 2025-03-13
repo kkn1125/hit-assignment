@@ -13,6 +13,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -27,6 +28,7 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
 import { CheckOwnerGuard } from './guard/check-owner.guard';
 import { RestaurantsService } from './restaurants.service';
+import { Request } from 'express';
 
 @Controller('restaurants')
 export class RestaurantsController {
@@ -49,8 +51,11 @@ export class RestaurantsController {
   @UseGuards(CheckOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Post()
-  create(@Body() createRestaurantDto: CreateRestaurantDto) {
-    return this.restaurantsService.create(createRestaurantDto);
+  create(
+    @Req() req: Request,
+    @Body() createRestaurantDto: CreateRestaurantDto,
+  ) {
+    return this.restaurantsService.create(req.user.id, createRestaurantDto);
   }
 
   @ApiResponseSearchModel({ FindAllResponse: Restaurant }, '/restaurants', {
