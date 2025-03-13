@@ -27,3 +27,4 @@ export const DB_NAME = process.env.DB_NAME as string;
 
 export const PER_PAGE = 10;
 export const DEFAULT_PAGE = 1;
+export const LOG_LEVEL = +(process.env.LOG_LEVEL ?? 5);
