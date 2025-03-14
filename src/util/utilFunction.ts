@@ -51,7 +51,7 @@ export async function throwNoExistsEntityWithSelectBy<
   if (!entity) {
     const errorProtocol = Protocol.NotFound;
     throw new NotFoundException(errorProtocol, {
-      cause: [domainName],
+      cause: [domainName, whereOption],
     });
   }
 
