@@ -21,7 +21,7 @@ import { UserRole } from '@util/enums/UserRole';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenusService } from './menus.service';
-import { MenuDataParsePipe } from './pipe/menu-data-parse.pipe';
+import { MenuDataParsePipe } from './menu-data-parse.pipe';
 
 @Controller('menus')
 export class MenusController {

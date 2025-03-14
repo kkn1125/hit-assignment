@@ -113,9 +113,13 @@ export class UsersService {
         where: {
           userId,
         },
+        select: {
+          user: this.userSelectOption,
+        },
         relations: {
           restaurant: true,
           reservationMenus: true,
+          user: true,
         },
         take: perPage,
         skip: (page - 1) * perPage,

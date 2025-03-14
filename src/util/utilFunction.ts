@@ -1,14 +1,12 @@
+import { NotFoundException } from '@nestjs/common';
+import { ValidationError } from 'class-validator';
 import {
   FindManyOptions,
   FindOneOptions,
-  FindOptionsRelations,
-  FindOptionsSelect,
-  FindOptionsWhere,
   ObjectLiteral,
   Repository,
 } from 'typeorm';
 import { Protocol } from './protocol';
-import { NotFoundException } from '@nestjs/common';
 
 export async function searchPagination<Domain extends ObjectLiteral>(
   orm: Repository<Domain>,
@@ -57,4 +55,8 @@ export async function throwNoExistsEntityWithSelectBy<
 
 export function isEmptyObject<Obj extends object>(obj: Obj) {
   return Object.keys(obj).length === 0;
+}
+
+export function getFlatErrorConstraints(errors: ValidationError[]) {
+  return errors.map((err) => Object.values(err.constraints || {})).flat();
 }

@@ -8,6 +8,7 @@ import { Protocol } from '@util/protocol';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { CreateMenuDto } from './dto/create-menu.dto';
+import { getFlatErrorConstraints } from '@util/utilFunction';
 
 @Injectable()
 export class MenuDataParsePipe implements PipeTransform {
@@ -20,9 +21,7 @@ export class MenuDataParsePipe implements PipeTransform {
       const object = plainToInstance(CreateMenuDto, menu);
       const errors = await validate(object, { stopAtFirstError: true });
       if (errors.length > 0) {
-        const messages = errors
-          .map((err) => Object.values(err.constraints || {}))
-          .flat();
+        const messages = getFlatErrorConstraints(errors);
         const errorProtocol = Protocol.ArgsRequired;
         throw new BadRequestException(errorProtocol, { cause: messages });
       }

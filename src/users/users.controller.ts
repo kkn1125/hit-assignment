@@ -2,11 +2,13 @@ import { Roles } from '@middleware/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -20,6 +22,8 @@ import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UserRole } from '@util/enums/UserRole';
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
+import { getFlatErrorConstraints } from '@util/utilFunction';
+import { Protocol } from '@util/protocol';
 
 @Controller('users')
 export class UsersController {
@@ -96,8 +100,28 @@ export class UsersController {
   @Get('me/reservations')
   async getMeResrvations(
     @Req() req: Request,
-    @Query('page') page: number = DEFAULT_PAGE,
-    @Query('perPage') perPage: number = PER_PAGE,
+    @Query(
+      'page',
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol = Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    page: number = DEFAULT_PAGE,
+    @Query(
+      'perPage',
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol = Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    perPage: number = PER_PAGE,
   ) {
     return this.usersService.getMeResrvations(req.user, page, perPage);
   }

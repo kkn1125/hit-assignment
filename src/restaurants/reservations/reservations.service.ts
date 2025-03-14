@@ -70,7 +70,24 @@ export class ReservationsService {
     return searchPagination(
       this.reservationRepository,
       `/restaurants/${restaurantId}/reservations`,
-      { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
+      {
+        where: { restaurantId },
+        take: perPage,
+        skip: (page - 1) * perPage,
+        select: {
+          user: {
+            id: true,
+            userId: true,
+            username: true,
+            phone: true,
+          },
+        },
+        relations: {
+          user: true,
+          restaurant: true,
+          reservationMenus: true,
+        },
+      },
       page,
       perPage,
     );

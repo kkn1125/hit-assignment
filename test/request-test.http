@@ -47,7 +47,7 @@ Content-Type: application/json
 # "userId": "testuser1",
 # "userId": "류니끄",
 {
-  "userId": "testuser1",
+  "userId": "류니끄",
   "password": "qweQQ!!1"
 }
 
@@ -135,8 +135,15 @@ Authorization: {{authToken}}
 
 ###
 
-# 예약 조회
+# 고객용 예약 조회
 GET {{hostname}}/users/me/reservations?page=2 HTTP/1.1
+Content-Type: application/json
+Authorization: {{authToken}}
+
+###
+
+# 점주용 예약 조회
+GET {{hostname}}/restaurants/1/reservations?page=1 HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
 
