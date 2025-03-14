@@ -57,3 +57,7 @@ export async function throwNoExistsEntityWithSelectBy<
 
   return entity;
 }
+
+export function isEmptyObject<Obj extends object>(obj: Obj) {
+  return Object.keys(obj).length === 0;
+}
