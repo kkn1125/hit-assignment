@@ -14,7 +14,6 @@ import { Request } from 'express';
 @Injectable()
 export class RoleGuard implements CanActivate {
   constructor(
-    @Inject(UsersService)
     private readonly usersService: UsersService,
     private readonly reflector: Reflector,
   ) {}

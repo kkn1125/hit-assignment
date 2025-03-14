@@ -1,4 +1,4 @@
-import { RoleGuard } from '@auth/guard/role.guard';
+import { RoleGuard } from '@middleware/role.guard';
 import { CommonService } from '@common/common.service';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import { CommonOption } from '@common/variables/commonConf';
@@ -9,6 +9,7 @@ import { ResponseInterceptor } from '@middleware/repsonse.interceptor';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { UsersService } from '@users/users.service';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
@@ -24,6 +25,7 @@ async function bootstrap() {
   const swaggerOption = commonService.getConfig<SwaggerOption>('swagger');
 
   const reflector = app.get(Reflector);
+  const usersService = app.get(UsersService);
   app.use(cookieParser());
   app.use(compression());
   app.setGlobalPrefix('api');
@@ -31,7 +33,7 @@ async function bootstrap() {
     origin: commonOption.allowOrigins,
     credentials: true,
   });
-  app.useGlobalGuards(new RoleGuard(reflector));
+  app.useGlobalGuards(new RoleGuard(usersService, reflector));
   app.useGlobalInterceptors(new ResponseInterceptor(logger));
   app.useGlobalFilters(new GlobalExceptionFilter(logger));
 
