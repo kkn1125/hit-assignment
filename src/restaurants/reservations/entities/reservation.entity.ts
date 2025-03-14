@@ -1,15 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
+import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
 import { User } from '@users/entities/user.entity';
-import {
-  IsDate,
-  IsInt,
-  IsOptional,
-  IsPhoneNumber,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsDate, IsInt, IsOptional, IsString, Min } from 'class-validator';
 import {
   Column,
   CreateDateColumn,

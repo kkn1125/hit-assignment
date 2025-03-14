@@ -1,10 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class ReservationMenu {
+export class ReservationMenu extends BaseEntity {
   @ApiProperty({ type: Number, example: 1 })
   @PrimaryGeneratedColumn()
   id!: number;

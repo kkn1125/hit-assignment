@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
+import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
 import { IsInt, IsNotEmpty, IsString, Min, MinLength } from 'class-validator';
 import {
   Column,
