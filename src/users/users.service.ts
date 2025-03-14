@@ -46,7 +46,7 @@ export class UsersService {
 
   async comparePassword(userId: string, inputPassword: string) {
     const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      userId,
+      where: { userId },
     });
     const message = userId + inputPassword;
     const isSamePassword = this.utilService.compareInputPasswordWith(
@@ -81,11 +81,10 @@ export class UsersService {
   }
 
   async findOneByUserId(userId: string) {
-    const user = await throwNoExistsEntityWithSelectBy(
-      this.userRepository,
-      { userId },
-      this.userSelectOption,
-    );
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      where: { userId },
+      select: this.userSelectOption,
+    });
 
     return user;
   }
@@ -93,11 +92,10 @@ export class UsersService {
   async getMe(userTokenData: UserTokenData) {
     const id = userTokenData.id;
 
-    const user = await throwNoExistsEntityWithSelectBy(
-      this.userRepository,
-      { id },
-      this.userSelectOption,
-    );
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      where: { id },
+      select: this.userSelectOption,
+    });
 
     return user;
   }
@@ -129,18 +127,17 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await throwNoExistsEntityWithSelectBy(
-      this.userRepository,
-      { id },
-      this.userSelectOption,
-    );
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      where: { id },
+      select: this.userSelectOption,
+    });
 
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      id,
+      where: { id },
     });
 
     if (updateUserDto.email) {
@@ -167,7 +164,9 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
+    await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      where: { id },
+    });
 
     return this.userRepository.softDelete(id);
   }

@@ -1,5 +1,6 @@
 import {
   FindManyOptions,
+  FindOneOptions,
   FindOptionsRelations,
   FindOptionsSelect,
   FindOptionsWhere,
@@ -35,23 +36,19 @@ export async function searchPagination<Domain extends ObjectLiteral>(
 
 export async function throwNoExistsEntityWithSelectBy<
   Domain extends ObjectLiteral,
->(
-  orm: Repository<Domain>,
-  whereOption: FindOptionsWhere<Domain>,
-  selectOption?: FindOptionsSelect<Domain>,
-  relations?: FindOptionsRelations<Domain>,
-) {
+>(orm: Repository<Domain>, findOption: FindOneOptions<Domain>) {
   const domainName = orm.create().constructor.name;
   const entity = await orm.findOne({
-    where: whereOption,
-    select: selectOption,
-    relations,
+    where: findOption.where,
+    select: findOption.select,
+    order: findOption.order,
+    relations: findOption.relations,
   });
 
   if (!entity) {
     const errorProtocol = Protocol.NotFound;
     throw new NotFoundException(errorProtocol, {
-      cause: [domainName, whereOption],
+      cause: [domainName, findOption.where],
     });
   }
 

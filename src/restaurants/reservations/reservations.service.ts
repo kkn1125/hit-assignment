@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
+import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -33,22 +34,36 @@ export class ReservationsService {
     createReservationDto: CreateReservationDto,
   ) {
     const { phone } = createReservationDto;
+    const reservationMenus: ReservationMenu[] = [];
 
     /* 입력 전화번호 없을 시 사용자 전화번호가 기본값 */
     if (!phone) {
       Object.assign(createReservationDto, { phone: user.phone });
     }
 
-    /* 메뉴 데이터베이스 존재 검증 */
-    for (const id of createReservationDto.menu) {
-      await throwNoExistsEntityWithSelectBy(this.menuRepository, { id });
-    }
+    const { menu, ...dtoData } = createReservationDto;
 
-    const reservation = await this.reservationRepository.save({
+    /* 예약 객체 미리 생성 */
+    const reservation = this.reservationRepository.create({
       userId: user.id,
       restaurantId,
-      ...createReservationDto,
+      ...dtoData,
     });
+
+    await this.reservationRepository.save(reservation);
+
+    console.log('check reservation:', reservation);
+
+    /* 메뉴 데이터베이스 존재 검증 */
+    for (const id of menu) {
+      const menu = await throwNoExistsEntityWithSelectBy(this.menuRepository, {
+        where: { id },
+      });
+      const reservationMenu = new ReservationMenu();
+      reservationMenu.menuId = menu.id;
+      reservationMenu.reservationId = reservation.id;
+      await this.reservationRepository.manager.save(reservationMenu);
+    }
 
     return { id: reservation.id };
   }

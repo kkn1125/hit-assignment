@@ -16,7 +16,7 @@ export class RestaurantExistsMiddleware implements NestMiddleware {
     const restaurantId = req.params.restaurantId;
 
     await throwNoExistsEntityWithSelectBy(this.repository, {
-      id: +restaurantId,
+      where: { id: +restaurantId },
     });
 
     next();

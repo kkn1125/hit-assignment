@@ -28,7 +28,7 @@ export class AuthService {
   async login(loginDto: LoginDto, res: Response) {
     /* 유저 조회 후 없으면 throw */
     await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      userId: loginDto.userId,
+      where: { userId: loginDto.userId },
     });
 
     /* 비밀번호 검증, 틀리면 throw */
