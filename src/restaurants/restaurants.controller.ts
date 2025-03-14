@@ -70,6 +70,24 @@ export class RestaurantsController {
     },
   )
   @ApiQuery({
+    name: 'category',
+    type: String,
+    example: 'fine%20dining',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'name',
+    type: String,
+    example: '류니',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'location',
+    type: String,
+    example: '서울',
+    required: false,
+  })
+  @ApiQuery({
     name: 'page',
     type: Number,
     example: DEFAULT_PAGE,
@@ -84,6 +102,10 @@ export class RestaurantsController {
   @ApiOperation({ summary: '식당 전체 조회' })
   @Get()
   findAll(
+    @Req() req: Request,
+    @Query('category') category: string,
+    @Query('name') name: string,
+    @Query('location') location: string,
     @Query(
       'page',
       new ParseIntPipe({
@@ -107,7 +129,13 @@ export class RestaurantsController {
     )
     perPage: number = PER_PAGE,
   ) {
-    return this.restaurantsService.findAll(+page, +perPage);
+    const searchOption = { category, name, location };
+    return this.restaurantsService.findAll(
+      req.originalUrl,
+      +page,
+      +perPage,
+      searchOption,
+    );
   }
 
   @ApiResponseWithModel(

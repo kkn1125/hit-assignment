@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Protocol } from '@util/protocol';
 import { searchPagination } from '@util/utilFunction';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
@@ -22,16 +22,33 @@ export class RestaurantsService {
     return { id: restaurant.id };
   }
 
-  findAll(page: number, perPage: number) {
+  findAll(
+    path: string,
+    page: number,
+    perPage: number,
+    searchOption: SearchOption,
+  ) {
     return searchPagination(
       this.restaurantRepository,
-      '/restaurants',
+      path,
       {
         take: perPage,
         skip: (page - 1) * perPage,
+        where: {
+          category: searchOption.category
+            ? Like('%' + searchOption.category + '%')
+            : undefined,
+          name: searchOption.name
+            ? Like('%' + searchOption.name + '%')
+            : undefined,
+          location: searchOption.location
+            ? Like('%' + searchOption.location + '%')
+            : undefined,
+        },
       },
       page,
       perPage,
+      searchOption,
     );
   }
 
