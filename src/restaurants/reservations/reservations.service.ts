@@ -1,27 +1,22 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@users/entities/user.entity';
-import { Protocol } from '@util/protocol';
+import { Menu } from '@restaurants/menus/entities/menu.entity';
 import {
   searchPagination,
   throwNoExistsEntityWithSelectBy,
 } from '@util/utilFunction';
-import dayjs from 'dayjs';
 import { Repository } from 'typeorm';
-import {
-  CreateReservationDto,
-  CreateReservationWithPhoneDto,
-} from './dto/create-reservation.dto';
+import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
 
 @Injectable()
 export class ReservationsService {
   constructor(
+    @InjectRepository(Menu)
+    private readonly menuRepository: Repository<Menu>,
     @InjectRepository(Reservation)
     private readonly reservationRepository: Repository<Reservation>,
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
   ) {}
 
   /* 
@@ -33,38 +28,24 @@ export class ReservationsService {
   */
   // TODO: 메뉴(배열) 추가 로직
   async create(
-    userId: number,
+    user: UserTokenData,
     restaurantId: number,
-    createReservationDto: CreateReservationDto | CreateReservationWithPhoneDto,
+    createReservationDto: CreateReservationDto,
   ) {
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      id: userId,
-    });
+    const { phone } = createReservationDto;
 
-    if (!('phone' in createReservationDto)) {
+    /* 입력 전화번호 없을 시 사용자 전화번호가 기본값 */
+    if (!phone) {
       Object.assign(createReservationDto, { phone: user.phone });
     }
 
-    if (createReservationDto.amount <= 0) {
-      const errorProtocol = Protocol.MustPositive;
-      throw new BadRequestException(errorProtocol);
+    /* 메뉴 데이터베이스 존재 검증 */
+    for (const id of createReservationDto.menu) {
+      await throwNoExistsEntityWithSelectBy(this.menuRepository, { id });
     }
 
-    if (dayjs(createReservationDto.reserveStartAt).isBefore(dayjs())) {
-      const errorProtocol = Protocol.NotAllowedPastTime;
-      throw new BadRequestException(errorProtocol);
-    }
-
-    if (
-      dayjs(createReservationDto.reserveEndAt).isBefore(
-        createReservationDto.reserveStartAt,
-      )
-    ) {
-      const errorProtocol = Protocol.InvalidTimeRange;
-      throw new BadRequestException(errorProtocol);
-    }
     const reservation = await this.reservationRepository.save({
-      userId,
+      userId: user.id,
       restaurantId,
       ...createReservationDto,
     });
