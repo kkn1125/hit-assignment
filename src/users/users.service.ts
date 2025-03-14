@@ -139,7 +139,9 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
+    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
+      id,
+    });
 
     if (updateUserDto.email) {
       await this.isDuplicatedBy({ email: updateUserDto.email });
@@ -150,7 +152,18 @@ export class UsersService {
     if (updateUserDto.phone) {
       await this.isDuplicatedBy({ phone: updateUserDto.phone });
     }
-    return this.userRepository.update(id, updateUserDto);
+
+    if (updateUserDto.password) {
+      const hashedPassword = this.utilService.createHashedPassword(
+        user.userId + updateUserDto.password,
+      );
+      updateUserDto.password = hashedPassword;
+    }
+
+    await this.userRepository.update(id, updateUserDto);
+
+    const updatedUser = await this.findOne(id);
+    return updatedUser;
   }
 
   async remove(id: number) {
