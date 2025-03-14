@@ -7,7 +7,7 @@ import {
 import { Protocol } from '@util/protocol';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { CreateMenuDto } from '../dto/create-menu.dto';
+import { CreateMenuDto } from './dto/create-menu.dto';
 
 @Injectable()
 export class MenuDataParsePipe implements PipeTransform {
