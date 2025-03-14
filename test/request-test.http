@@ -85,7 +85,7 @@ Authorization: {{authToken}}
   "reserveEndAt": "2025-03-13 18:30",
   "phone": "101-2234-5678",
   "amount": 5,
-  "menu": [3]
+  "menu": [2, 3]
 }
 
 ###
@@ -136,7 +136,7 @@ Authorization: {{authToken}}
 ###
 
 # 예약 조회
-GET {{hostname}}/users/me/reservations HTTP/1.1
+GET {{hostname}}/users/me/reservations?page=2 HTTP/1.1
 Content-Type: application/json
 Authorization: {{authToken}}
 

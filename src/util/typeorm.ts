@@ -6,9 +6,9 @@ import {
   DB_USER,
   RUN_MODE,
 } from '@common/variables/environment';
-import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 import { Restaurant } from '@restaurants/entities/restaurant.entity';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
+import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { User } from '@users/entities/user.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';

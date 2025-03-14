@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
+import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
 import {
   searchPagination,
   throwNoExistsEntityWithSelectBy,
@@ -9,7 +10,6 @@ import { Repository } from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
-import { ReservationMenu } from '@restaurants/entities/reservation-menu.entity';
 
 @Injectable()
 export class ReservationsService {
@@ -51,8 +51,6 @@ export class ReservationsService {
     });
 
     await this.reservationRepository.save(reservation);
-
-    console.log('check reservation:', reservation);
 
     /* 메뉴 데이터베이스 존재 검증 */
     for (const id of menu) {
