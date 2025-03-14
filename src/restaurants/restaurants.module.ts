@@ -1,12 +1,13 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from '@users/users.module';
 import { Restaurant } from './entities/restaurant.entity';
 import { MenusModule } from './menus/menus.module';
+import { RestaurantExistsMiddleware } from './middleware/restaurant-exists.middleware';
 import { ReservationsModule } from './reservations/reservations.module';
 import { RestaurantsController } from './restaurants.controller';
 import { RestaurantsService } from './restaurants.service';
-import { RestaurantExistsMiddleware } from './middleware/restaurant-exists.middleware';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { RestaurantExistsMiddleware } from './middleware/restaurant-exists.middl
     ]),
     MenusModule,
     ReservationsModule,
+    UsersModule,
   ],
   controllers: [RestaurantsController],
   providers: [RestaurantsService],
