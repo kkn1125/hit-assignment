@@ -28,3 +28,5 @@ export const DB_NAME = process.env.DB_NAME as string;
 export const PER_PAGE = 10;
 export const DEFAULT_PAGE = 1;
 export const LOG_LEVEL = +(process.env.LOG_LEVEL ?? 5);
+export const EXAMPLE_JWT =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdHVzZXIxIiwiZW1haWwiOiJ0ZXN0dXNlcjFAZXhhbXBsZS5jb20iLCJyb2xlIjoxLCJwaG9uZSI6IjAxMC0yMTM0LTE1MzQiLCJpYXQiOjE3NDE5MjAzNjQsImV4cCI6MTc0MTkyMDY2NCwiaXNzIjoiSGl0UmVzdGF1cmFudCJ9.scLKEQA5nszs3faE69WWIcMoE0v96fg2GZRougoY6AI';

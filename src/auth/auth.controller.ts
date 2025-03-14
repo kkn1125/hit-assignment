@@ -6,6 +6,7 @@ import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { EXAMPLE_JWT } from '@common/variables/environment';
 
 @Controller('auth')
 export class AuthController {
@@ -14,8 +15,7 @@ export class AuthController {
   @ApiResponseWithModel(
     {
       LoginResponse: {
-        accessToken:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdHVzZXIxIiwiZW1haWwiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsInJvbGUiOjEsInBob25lIjoiMDEwLTEyMzQtNTY3OCIsImlhdCI6MTc0MTg0NTI2OSwiZXhwIjoxNzQxODQ1NTY5LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.XEkAAPJvzufiwCdU5-_oXbfyIHmSm7saF7zkVm3FNSI',
+        accessToken: EXAMPLE_JWT,
       },
     },
     {
@@ -52,8 +52,7 @@ export class AuthController {
   @ApiResponseWithModel(
     {
       RefreshResponse: {
-        accessToken:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdHVzZXIxIiwiZW1haWwiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsInJvbGUiOjEsInBob25lIjoiMDEwLTEyMzQtNTY3OCIsImlhdCI6MTc0MTg0NTI2OSwiZXhwIjoxNzQxODQ1NTY5LCJpc3MiOiJIaXRSZXN0YXVyYW50In0.XEkAAPJvzufiwCdU5-_oXbfyIHmSm7saF7zkVm3FNSI',
+        accessToken: EXAMPLE_JWT,
       },
     },
     {
