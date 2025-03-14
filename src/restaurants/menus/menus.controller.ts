@@ -1,19 +1,23 @@
-import { Roles } from '@middleware/roles.decorator';
 import { ApiBodyWithCaseModel } from '@common/decorators/api.body.with.case.model';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
+import { Roles } from '@middleware/roles.decorator';
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
   Param,
+  ParseArrayPipe,
   Patch,
   Post,
   Query,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam } from '@nestjs/swagger';
 import { CheckOwnerGuard } from '@restaurants/guard/check-owner.guard';
@@ -21,7 +25,9 @@ import { UserRole } from '@util/enums/UserRole';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenusService } from './menus.service';
-import { ParseArrayOrOnePipe } from './pipe/parse-array-or-one.pipe';
+import { MenuDataParsePipe } from './pipe/menu-data-parse.pipe';
+import { Protocol } from '@util/protocol';
+import { ValidationError } from 'class-validator';
 
 @Controller('menus')
 export class MenusController {
@@ -51,7 +57,8 @@ export class MenusController {
   @Post()
   create(
     @Param('restaurantId') restaurantId: number,
-    @Body(ParseArrayOrOnePipe) createMenuDto: CreateMenuDto | CreateMenuDto[],
+    @Body(MenuDataParsePipe)
+    createMenuDto: CreateMenuDto | CreateMenuDto[],
   ) {
     if (Array.isArray(createMenuDto)) {
       return this.menusService.createBulk(+restaurantId, createMenuDto);
@@ -84,7 +91,7 @@ export class MenusController {
   @Patch(':menuId')
   update(
     @Param('menuId') menuId: string,
-    @Body() updateMenuDto: UpdateMenuDto,
+    @Body(MenuDataParsePipe) updateMenuDto: UpdateMenuDto,
   ) {
     return this.menusService.update(+menuId, updateMenuDto);
   }
