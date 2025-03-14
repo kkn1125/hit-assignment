@@ -1,3 +1,4 @@
+import { API_PATH } from '@common/variables/environment';
 import { applyDecorators, HttpStatus, Type } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 
@@ -28,7 +29,7 @@ export const ApiResponseSearchModel = <Model extends Type<any>>(
               },
               path: {
                 type: 'string',
-                example: path,
+                example: API_PATH + path,
               },
               payload: {
                 properties: {
@@ -55,13 +56,13 @@ export const ApiResponseSearchModel = <Model extends Type<any>>(
                       },
                       prev: {
                         type: 'string',
-                        example: `${path}?page=${pagination.page - 1}`,
+                        example: `${API_PATH + path}?page=${pagination.page - 1}`,
                         description:
                           '이전 페이지가 없을 시 prev는 응답에 포함되지 않습니다.',
                       },
                       next: {
                         type: 'string',
-                        example: `${path}?page=${pagination.page + 1}`,
+                        example: `${API_PATH + path}?page=${pagination.page + 1}`,
                         description:
                           '다음 페이지가 없을 시 next는 응답에 포함되지 않습니다.',
                       },
@@ -84,7 +85,7 @@ export const ApiResponseSearchModel = <Model extends Type<any>>(
               },
               path: {
                 type: 'string',
-                example: path,
+                example: API_PATH + path,
               },
               payload: {
                 properties: {

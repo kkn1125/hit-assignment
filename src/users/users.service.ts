@@ -2,20 +2,19 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import {
   searchPagination,
   throwNoExistsEntityWithSelectBy,
 } from '@util/utilFunction';
-import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -168,10 +167,7 @@ export class UsersService {
   }
 
   async remove(id: number) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { id },
-    });
-
-    return this.userRepository.softDelete(id);
+    await this.userRepository.softDelete(id);
+    return { id };
   }
 }

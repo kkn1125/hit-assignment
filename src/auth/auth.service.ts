@@ -1,5 +1,3 @@
-// TODO: 리팩터링 필요
-
 import {
   BadRequestException,
   Injectable,
@@ -39,7 +37,9 @@ export class AuthService {
 
     try {
       const { accessToken, refreshToken } = this.utilService.createToken(user);
+
       res.cookie('refresh', refreshToken, this.utilService.cookieOptions);
+
       return { accessToken };
     } catch (error) {
       const errorProtocol = Protocol.JwtCreate;
@@ -56,14 +56,19 @@ export class AuthService {
       const errorProtocol = Protocol.NoRefreshCookie;
       throw new UnauthorizedException(errorProtocol);
     }
+
     const user = req.user;
     const foundUser = await this.usersService.findOne(user.id);
+
     if (!foundUser) {
       const errorProtocol = Protocol.NotFound;
       throw new NotFoundException(errorProtocol);
     }
+
     const { accessToken, refreshToken } = this.utilService.createToken(user);
+
     res.cookie('refresh', refreshToken, this.utilService.cookieOptions);
+
     return { accessToken };
   }
 }

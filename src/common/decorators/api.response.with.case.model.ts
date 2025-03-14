@@ -1,3 +1,4 @@
+import { API_PATH } from '@common/variables/environment';
 import { applyDecorators, HttpStatus, Type } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
@@ -30,7 +31,7 @@ export const ApiResponseWithCaseModel = <Model extends Type<any> | object>(
             ok: { type: 'boolean', example: [200, 201].includes(status) },
             status: { type: 'number', example: status },
             method: { type: 'string', example: method },
-            path: { type: 'string', example: path },
+            path: { type: 'string', example: API_PATH + path },
             payload: isArray
               ? {
                   type: 'array',
@@ -42,7 +43,7 @@ export const ApiResponseWithCaseModel = <Model extends Type<any> | object>(
                   type: 'object',
                   $ref: getSchemaPath(useModel),
                 },
-            timestamp: { type: 'number', example: 1741672686205 },
+            timestamp: { type: 'string', example: '2025-03-14 21:28:30.718' },
           },
         };
       }
@@ -53,7 +54,7 @@ export const ApiResponseWithCaseModel = <Model extends Type<any> | object>(
           ok: { type: 'boolean', example: [200, 201].includes(status) },
           status: { type: 'number', example: status },
           method: { type: 'string', example: method },
-          path: { type: 'string', example: path },
+          path: { type: 'string', example: API_PATH + path },
           payload: isArray
             ? {
                 type: 'array',
@@ -81,7 +82,7 @@ export const ApiResponseWithCaseModel = <Model extends Type<any> | object>(
                   ]),
                 ),
               },
-          timestamp: { type: 'number', example: 1741672686205 },
+          timestamp: { type: 'string', example: '2025-03-14 21:28:30.718' },
         },
       };
     }),
@@ -96,9 +97,9 @@ export const ApiResponseWithCaseModel = <Model extends Type<any> | object>(
           ok: true,
           status,
           method,
-          path,
+          path: API_PATH + path,
           payload: model,
-          timestamp: 1741672686205,
+          timestamp: '2025-03-14 21:28:30.718',
         },
       },
     ]),

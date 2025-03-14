@@ -6,8 +6,8 @@ import { CommonOption } from './common/variables/commonConf';
 export class AppService {
   constructor(private readonly commonService: CommonService) {}
 
-  getServerVersion(): string {
+  getServerVersion() {
     const commonConfig = this.commonService.getConfig<CommonOption>('common');
-    return commonConfig.version;
+    return { version: commonConfig.version };
   }
 }

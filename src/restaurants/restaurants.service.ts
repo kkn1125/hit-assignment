@@ -50,7 +50,8 @@ export class RestaurantsService {
     return this.restaurantRepository.update(id, updateRestaurantDto);
   }
 
-  remove(id: number) {
-    return this.restaurantRepository.softDelete(id);
+  async remove(id: number) {
+    await this.restaurantRepository.softDelete(id);
+    return { id };
   }
 }

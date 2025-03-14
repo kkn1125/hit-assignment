@@ -1,6 +1,8 @@
-import { Roles } from '@middleware/roles.decorator';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
+import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
+import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
+import { Roles } from '@middleware/roles.decorator';
 import {
   BadRequestException,
   Body,
@@ -14,16 +16,21 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, PickType } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  PickType,
+} from '@nestjs/swagger';
+import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
+import { UserRole } from '@util/enums/UserRole';
+import { Protocol } from '@util/protocol';
 import { Request } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
-import { UserRole } from '@util/enums/UserRole';
-import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
-import { getFlatErrorConstraints } from '@util/utilFunction';
-import { Protocol } from '@util/protocol';
 
 @Controller('users')
 export class UsersController {
@@ -38,6 +45,9 @@ export class UsersController {
       path: '/users',
     },
   )
+  @ApiBodyWithModel({
+    CreateUserDto,
+  })
   @ApiOperation({ summary: '회원가입' })
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -53,8 +63,8 @@ export class UsersController {
       path: '/users/validate/email',
     },
   )
-  @ApiOperation({ summary: '이메일 중복 검증' })
   @ApiBodyWithModel({ EmailValidateDto: PickType(CreateUserDto, ['email']) })
+  @ApiOperation({ summary: '이메일 중복 검증' })
   @Post('validate/email')
   checkDuplicatedEmail(@Body() emailDto: Pick<CreateUserDto, 'email'>) {
     return this.usersService.isDuplicatedBy({ email: emailDto?.email });
@@ -69,10 +79,10 @@ export class UsersController {
       path: '/users/validate/phone',
     },
   )
-  @ApiOperation({ summary: '전화번호 중복 검증' })
   @ApiBodyWithModel({
     PhoneNumberValidateDto: PickType(CreateUserDto, ['phone']),
   })
+  @ApiOperation({ summary: '전화번호 중복 검증' })
   @Post('validate/phone')
   checkDuplicatedPhoneNumber(@Body() phoneDto: Pick<CreateUserDto, 'phone'>) {
     return this.usersService.isDuplicatedBy({ phone: phoneDto?.phone });
@@ -84,16 +94,37 @@ export class UsersController {
       ok: true,
       status: HttpStatus.OK,
       method: 'POST',
-      path: '/users/validate/userId',
+      path: '/users/validate/user-id',
     },
   )
-  @ApiOperation({ summary: '사용자 아이디 중복 검증' })
   @ApiBodyWithModel({ UserIdValidateDto: PickType(CreateUserDto, ['userId']) })
+  @ApiOperation({ summary: '사용자 아이디 중복 검증' })
   @Post('validate/user-id')
   checkDuplicatedUserId(@Body() userIdDto: Pick<CreateUserDto, 'userId'>) {
     return this.usersService.isDuplicatedBy({ userId: userIdDto?.userId });
   }
 
+  @ApiResponseSearchModel(
+    { SearchUserReservationResponse: Reservation },
+    '/users/me/reservations',
+    {
+      page: 2,
+      count: 10,
+      total: 3,
+    },
+  )
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    example: DEFAULT_PAGE,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'perPage',
+    type: Number,
+    example: PER_PAGE,
+    required: false,
+  })
   @ApiBearerAuth()
   @ApiOperation({ summary: '회원 예약 목록 조회' })
   @Roles([UserRole.Customer])
@@ -126,6 +157,15 @@ export class UsersController {
     return this.usersService.getMeResrvations(req.user, page, perPage);
   }
 
+  @ApiResponseWithModel(
+    { GetMeResponse: User },
+    {
+      ok: true,
+      status: HttpStatus.OK,
+      method: 'GET',
+      path: '/users/me',
+    },
+  )
   @ApiBearerAuth()
   @ApiOperation({ summary: '로그인 회원 정보 조회' })
   @Roles()
@@ -134,7 +174,19 @@ export class UsersController {
     return this.usersService.getMe(req.user);
   }
 
+  @ApiResponseWithModel(
+    { PatchUserResponse: { id: 1 } },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: 'PATCH',
+      path: '/users/:userId',
+    },
+  )
   @ApiBearerAuth()
+  @ApiBodyWithModel({
+    UpdateUserDto,
+  })
   @ApiOperation({ summary: '회원 정보 수정' })
   @Roles()
   @Patch('me')
@@ -142,6 +194,15 @@ export class UsersController {
     return this.usersService.update(req.user.id, updateUserDto);
   }
 
+  @ApiResponseWithModel(
+    { DeleteUserResponse: { id: 1 } },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: 'DELETE',
+      path: '/users/:userId',
+    },
+  )
   @ApiBearerAuth()
   @ApiOperation({ summary: '회원 탈퇴' })
   @Roles()

@@ -12,7 +12,6 @@ export class IsPhoneNumberFormatConstraint
 {
   validate(phone: any, args: ValidationArguments) {
     if (!phone) return false; // 값이 없으면 검증 실패
-    console.log(phone);
     const phoneNumberFormat =
       /\b(\d{3}-\d{4}-\d{4}|\d{2}-\d{4}-\d{4}|\d{2}-\d{3,4}-\d{4})/;
     if (!phone.match(phoneNumberFormat)) {

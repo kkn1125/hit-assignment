@@ -18,7 +18,7 @@ export const SECRET_HASH_PASSWORD = process.env.SECRET_HASH_PASSWORD as string;
 export const SECRET_ACCESS_TOKEN = process.env.SECRET_ACCESS_TOKEN as string;
 export const SECRET_REFRESH_TOKEN = process.env.SECRET_REFRESH_TOKEN as string;
 export const SWAGGER_URL = 'http://localhost:8080';
-
+export const API_PATH = '/api';
 export const DB_USER = process.env.DB_USER as string;
 export const DB_PASS = process.env.DB_PASS as string;
 export const DB_HOST = process.env.DB_HOST as string;

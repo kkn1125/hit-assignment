@@ -27,14 +27,12 @@ export class ReservationsService {
   4. 예약 일자 과거 입력을 방지한다.
   5. 예약 종료일자는 시작일자보다 과거일 수 없다.
   */
-  // TODO: 메뉴(배열) 추가 로직
   async create(
     user: UserTokenData,
     restaurantId: number,
     createReservationDto: CreateReservationDto,
   ) {
     const { phone } = createReservationDto;
-    const reservationMenus: ReservationMenu[] = [];
 
     /* 입력 전화번호 없을 시 사용자 전화번호가 기본값 */
     if (!phone) {
@@ -57,9 +55,11 @@ export class ReservationsService {
       const menu = await throwNoExistsEntityWithSelectBy(this.menuRepository, {
         where: { id },
       });
+
       const reservationMenu = new ReservationMenu();
       reservationMenu.menuId = menu.id;
       reservationMenu.reservationId = reservation.id;
+
       await this.reservationRepository.manager.save(reservationMenu);
     }
 
@@ -101,7 +101,8 @@ export class ReservationsService {
     return this.reservationRepository.update(id, updateReservationDto);
   }
 
-  remove(id: number) {
-    return this.reservationRepository.softDelete(id);
+  async remove(id: number) {
+    await this.reservationRepository.softDelete(id);
+    return { id };
   }
 }

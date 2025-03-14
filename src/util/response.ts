@@ -27,9 +27,9 @@ export class ResponseFormat implements CommonResponseFormat {
   ) {
     this.ok = [200, 201].includes(status);
     this.status = status;
-    this.payload = payload;
     this.method = method;
     this.path = path;
+    this.payload = payload;
     this.timestamp = dayjs().format('YYYY-MM-DD HH:mm:ss.SSS');
 
     if (message) {

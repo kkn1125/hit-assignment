@@ -1,3 +1,4 @@
+import { API_PATH } from '@common/variables/environment';
 import { applyDecorators, Type } from '@nestjs/common';
 import {
   ApiExtraModels,
@@ -17,12 +18,12 @@ export const ApiResponseWithModel = <Model extends Type<any> | object>(
   properties.ok = { type: 'boolean', example: ok };
   properties.status = { type: 'number', example: status };
   properties.method = { type: 'string', example: method };
-  properties.path = { type: 'string', example: path };
+  properties.path = { type: 'string', example: API_PATH + path };
   properties.payload = {};
   if (message) {
     properties.message = { type: 'string', example: message };
   }
-  properties.timestamp = { type: 'number', example: 1741672686205 };
+  properties.timestamp = { type: 'string', example: '2025-03-14 21:28:30.718' };
 
   const pickModel = isArray ? model[0] : model;
   const isClass =

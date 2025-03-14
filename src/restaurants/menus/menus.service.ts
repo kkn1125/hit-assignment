@@ -48,7 +48,8 @@ export class MenusService {
     return this.menuRepository.update(menuId, updateMenuDto);
   }
 
-  remove(menuId: number) {
-    return this.menuRepository.delete(menuId);
+  async remove(menuId: number) {
+    await this.menuRepository.delete(menuId);
+    return { id: menuId };
   }
 }
