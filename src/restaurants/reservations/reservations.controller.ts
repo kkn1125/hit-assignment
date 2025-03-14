@@ -1,4 +1,4 @@
-import { Roles } from '@auth/guard/roles.decorator';
+import { Roles } from '@middleware/roles.decorator';
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import {
   Body,

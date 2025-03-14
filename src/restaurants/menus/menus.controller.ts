@@ -1,4 +1,4 @@
-import { Roles } from '@auth/guard/roles.decorator';
+import { Roles } from '@middleware/roles.decorator';
 import { ApiBodyWithCaseModel } from '@common/decorators/api.body.with.case.model';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.case.model';
