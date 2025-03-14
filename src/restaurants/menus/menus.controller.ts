@@ -4,30 +4,24 @@ import { ApiResponseWithCaseModel } from '@common/decorators/api.response.with.c
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import { Roles } from '@middleware/roles.decorator';
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
   Param,
-  ParseArrayPipe,
   Patch,
   Post,
   Query,
   UseGuards,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiParam } from '@nestjs/swagger';
-import { CheckOwnerGuard } from '@restaurants/guard/check-owner.guard';
+import { RestaurantOwnerGuard } from '@restaurants/restaurant-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenusService } from './menus.service';
 import { MenuDataParsePipe } from './pipe/menu-data-parse.pipe';
-import { Protocol } from '@util/protocol';
-import { ValidationError } from 'class-validator';
 
 @Controller('menus')
 export class MenusController {
@@ -52,7 +46,7 @@ export class MenusController {
   })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiOperation({ summary: '식당 메뉴 추가' })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Post()
   create(
@@ -86,7 +80,7 @@ export class MenusController {
 
   @ApiBodyWithModel({ UpdateMenuDto })
   @ApiOperation({ summary: '식당 메뉴 수정' })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Patch(':menuId')
   update(
@@ -97,7 +91,7 @@ export class MenusController {
   }
 
   @ApiOperation({ summary: '식당 메뉴 제거' })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Delete(':menuId')
   remove(@Param('menuId') menuId: string) {

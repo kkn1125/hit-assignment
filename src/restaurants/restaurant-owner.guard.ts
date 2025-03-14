@@ -12,7 +12,7 @@ import { Request } from 'express';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class CheckOwnerGuard implements CanActivate {
+export class RestaurantOwnerGuard implements CanActivate {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,

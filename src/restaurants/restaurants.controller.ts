@@ -27,7 +27,7 @@ import { Request } from 'express';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { Restaurant } from './entities/restaurant.entity';
-import { CheckOwnerGuard } from './guard/check-owner.guard';
+import { RestaurantOwnerGuard } from './restaurant-owner.guard';
 import { RestaurantsService } from './restaurants.service';
 
 @Controller('restaurants')
@@ -106,7 +106,7 @@ export class RestaurantsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: '식당 정보 수정' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Patch(':restaurantId')
   update(
@@ -119,7 +119,7 @@ export class RestaurantsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: '식당 삭제' })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Delete(':restaurantId')
   remove(@Param('restaurantId') restaurantId: string) {
