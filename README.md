@@ -141,6 +141,8 @@ npm run start:prod
 
 ## API 진입점
 
+> 아래 호스팅 API의 경우 cloudtype 특성상 새벽에 서버 다운이 됩니다. 주기적으로 다시 실행 중이며, 접근이 안될 시 연락바랍니다.
+
 - 호스팅 API: https:port-0-hit-assignment-m8ai2uwf803314cf.sel4.cloudtype.app
 - API: http://<host>:<port>/api
 - 인가: 헤더 Authorization: Bearer <token> 사용
