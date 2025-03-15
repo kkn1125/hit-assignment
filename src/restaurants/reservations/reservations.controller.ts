@@ -212,7 +212,10 @@ export class ReservationsController {
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiParam({ name: 'reservationId', type: Number, example: 1 })
   @ApiBearerAuth()
-  @ApiOperation({ summary: '식당 예약 수정' })
+  @ApiOperation({
+    summary: '식당 예약 수정',
+    description: '메뉴 수정 시 예약했던 메뉴가 모두 초기화 됩니다.',
+  })
   @Roles([UserRole.Customer])
   @Patch(':reservationId')
   update(

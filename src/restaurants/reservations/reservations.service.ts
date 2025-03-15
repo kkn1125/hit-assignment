@@ -21,6 +21,8 @@ export class ReservationsService {
     private readonly menuRepository: Repository<Menu>,
     @InjectRepository(Reservation)
     private readonly reservationRepository: Repository<Reservation>,
+    @InjectRepository(ReservationMenu)
+    private readonly reservationMenuRepository: Repository<ReservationMenu>,
     private readonly utilService: UtilService,
   ) {}
 
@@ -133,8 +135,22 @@ export class ReservationsService {
     return this.reservationRepository.findOneBy({ id });
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return this.reservationRepository.update(id, updateReservationDto);
+  async update(id: number, updateReservationDto: UpdateReservationDto) {
+    const { menu, ...updateDto } = updateReservationDto;
+    if (menu) {
+      await this.reservationMenuRepository.delete({ reservationId: id });
+
+      for (const menuId of menu) {
+        const reservationMenu = new ReservationMenu();
+        reservationMenu.menuId = menuId;
+        reservationMenu.reservationId = id;
+
+        await this.reservationRepository.manager.save(reservationMenu);
+      }
+    }
+
+    await this.reservationRepository.update(id, updateDto);
+    return { id };
   }
 
   async remove(id: number) {
