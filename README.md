@@ -158,7 +158,9 @@ npm run start:prod
 - cookie를 이용한 refresh token 발급
 - refresh 요청을 통한 로그인 연장 (access token 재발급)
 
-## 더미 데이터
+## SQL 데이터
+
+SQL 파일은 root/sql 디렉토리에 있습니다.
 
 더미 데이터는 고객 계정 3개, 점주 계정 2개이며, 식당 정보는 두 가지입니다. 각 식당에 등록된 메뉴는 10가지 내외입니다.
 
