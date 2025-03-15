@@ -6,7 +6,14 @@ import {
   searchPagination,
   throwNoExistsEntityWithSelectBy,
 } from '@util/utilFunction';
-import { Repository } from 'typeorm';
+import {
+  Between,
+  LessThanOrEqual,
+  Like,
+  MoreThan,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
@@ -66,12 +73,31 @@ export class ReservationsService {
     return { id: reservation.id };
   }
 
-  findAll(restaurantId: number, page: number, perPage: number) {
+  findAll(
+    restaurantId: number,
+    page: number,
+    perPage: number,
+    searchOption: SearchOption,
+  ) {
     return searchPagination(
       this.reservationRepository,
       `/restaurants/${restaurantId}/reservations`,
       {
-        where: { restaurantId },
+        where: {
+          restaurantId,
+          phone: searchOption.phone
+            ? Like('%' + searchOption.phone + '%')
+            : undefined,
+          reserveStartAt: searchOption.reserveStartAt
+            ? MoreThanOrEqual(searchOption.reserveStartAt)
+            : undefined,
+          reserveEndAt: searchOption.reserveEndAt
+            ? LessThanOrEqual(searchOption.reserveEndAt)
+            : undefined,
+          amount: searchOption.amount
+            ? Between(+searchOption.amount[0], +searchOption.amount[1])
+            : undefined,
+        },
         take: perPage,
         skip: (page - 1) * perPage,
         select: {
@@ -87,9 +113,13 @@ export class ReservationsService {
           restaurant: true,
           reservationMenus: true,
         },
+        order: {
+          createdAt: 'DESC',
+        },
       },
       page,
       perPage,
+      searchOption,
     );
   }
 

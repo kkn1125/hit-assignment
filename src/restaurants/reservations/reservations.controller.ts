@@ -10,6 +10,7 @@ import {
   Get,
   HttpStatus,
   Param,
+  ParseArrayPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -33,6 +34,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
 import { ReservationsService } from './reservations.service';
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
+import { ReservationAmountParsePipe } from './reservation-amount-parse.pipe';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -86,6 +88,30 @@ export class ReservationsController {
     },
   )
   @ApiQuery({
+    name: 'reserveStartAt',
+    type: Date,
+    example: '2025-03-16T16:00',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'reserveEndAt',
+    type: Date,
+    example: '2025-03-15T17:30',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'phone',
+    type: String,
+    example: '010-1234',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'amount',
+    type: [Number],
+    example: [1, 3],
+    required: false,
+  })
+  @ApiQuery({
     name: 'page',
     type: Number,
     example: DEFAULT_PAGE,
@@ -105,6 +131,10 @@ export class ReservationsController {
   @Get()
   findAll(
     @Param('restaurantId') restaurantId: number,
+    @Query('reserveStartAt') reserveStartAt: Date,
+    @Query('reserveEndAt') reserveEndAt: Date,
+    @Query('phone') phone: string,
+    @Query('amount', ReservationAmountParsePipe) amount: number[],
     @Query(
       'page',
       new ParseIntPipe({
@@ -128,7 +158,13 @@ export class ReservationsController {
     )
     perPage: number = PER_PAGE,
   ) {
-    return this.reservationsService.findAll(restaurantId, page, perPage);
+    const searchOption = { reserveStartAt, reserveEndAt, phone, amount };
+    return this.reservationsService.findAll(
+      restaurantId,
+      page,
+      perPage,
+      searchOption,
+    );
   }
 
   @ApiResponseWithModel(

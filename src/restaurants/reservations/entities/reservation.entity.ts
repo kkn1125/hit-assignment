@@ -13,7 +13,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsPhoneNumberFormat } from '../reservation-phone.validate';
+import { IsPhoneNumberFormat } from '../../../common/phone.validate';
+import { IsAfterStartTime } from '../reservation-date.validate';
+import { IsDateTimeAfterNow } from '@common/datetime.validate';
 
 @Entity()
 export class Reservation {
@@ -31,13 +33,16 @@ export class Reservation {
   @Column({ type: 'int' })
   restaurantId!: number;
 
-  @ApiProperty({ type: Date, example: '2025-03-13 13:00' })
+  @ApiProperty({ type: Date, example: '2025-03-13T13:00' })
   @IsDate({ message: '시간 형식만 가능합니다.' })
+  @IsDateTimeAfterNow()
   @Column({ type: 'datetime' })
   reserveStartAt!: Date;
 
-  @ApiProperty({ type: Date, example: '2025-03-13 15:00' })
+  @ApiProperty({ type: Date, example: '2025-03-13T15:00' })
   @IsDate({ message: '시간 형식만 가능합니다.' })
+  @IsAfterStartTime()
+  @IsDateTimeAfterNow()
   @Column({ type: 'datetime' })
   reserveEndAt!: Date;
 
