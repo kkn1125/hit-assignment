@@ -30,10 +30,10 @@ export class MenusService {
     return { id: menu.id };
   }
 
-  findAll(restaurantId: number, page: number, perPage: number) {
+  findAll(path: string, restaurantId: number, page: number, perPage: number) {
     return searchPagination(
       this.menuRepository,
-      `/restaurants/${restaurantId}/reservations`,
+      path,
       { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
       page,
       perPage,

@@ -17,6 +17,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -33,6 +34,7 @@ import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
 import { MenuDataParsePipe } from './menu-data-parse.pipe';
 import { MenusService } from './menus.service';
+import { Request } from 'express';
 
 @Controller('menus')
 export class MenusController {
@@ -99,6 +101,7 @@ export class MenusController {
   @Roles()
   @Get()
   findAll(
+    @Req() req: Request,
     @Param('restaurantId') restaurantId: number,
     @Query(
       'page',
@@ -123,7 +126,12 @@ export class MenusController {
     )
     perPage: number = PER_PAGE,
   ) {
-    return this.menusService.findAll(+restaurantId, page, perPage);
+    return this.menusService.findAll(
+      req.originalUrl,
+      +restaurantId,
+      page,
+      perPage,
+    );
   }
 
   @ApiResponseWithModel(

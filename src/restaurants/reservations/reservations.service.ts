@@ -74,6 +74,7 @@ export class ReservationsService {
   }
 
   findAll(
+    path: string,
     restaurantId: number,
     page: number,
     perPage: number,
@@ -81,7 +82,7 @@ export class ReservationsService {
   ) {
     return searchPagination(
       this.reservationRepository,
-      `/restaurants/${restaurantId}/reservations`,
+      path,
       {
         where: {
           restaurantId,

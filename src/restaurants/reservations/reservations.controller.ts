@@ -130,6 +130,7 @@ export class ReservationsController {
   @Roles([UserRole.Shopkeeper])
   @Get()
   findAll(
+    @Req() req: Request,
     @Param('restaurantId') restaurantId: number,
     @Query('reserveStartAt') reserveStartAt: Date,
     @Query('reserveEndAt') reserveEndAt: Date,
@@ -160,6 +161,7 @@ export class ReservationsController {
   ) {
     const searchOption = { reserveStartAt, reserveEndAt, phone, amount };
     return this.reservationsService.findAll(
+      req.originalUrl,
       restaurantId,
       page,
       perPage,
