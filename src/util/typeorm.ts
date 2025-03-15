@@ -19,7 +19,7 @@ const isTest = RUN_MODE === 'test';
 
 export const typeormOption: DataSourceOptions = {
   type: 'mysql',
-  synchronize: isTest || isDev,
+  synchronize: isTest,
   namingStrategy: new SnakeNamingStrategy(),
   entities: [User, Restaurant, Reservation, Menu, ReservationMenu],
   username: DB_USER,
