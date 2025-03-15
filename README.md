@@ -144,7 +144,8 @@ npm run start:prod
 
 ## Swagger 문서
 
-- Swagger Docs: http://<host>:<port>/docs
+- Swagger Docs (Local): http://<host>:<port>/docs (로컬 실행 시)
+- Swagger Docs (GitHub Page): https://kkn1125.github.io/hit-assignment
 
 ## 로그인 방식
 
