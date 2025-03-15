@@ -35,4 +35,6 @@ export declare global {
   };
 
   type PaginationType = Pick<Pagination, 'page' | 'count' | 'total'>;
+
+  type SearchOption = Record<string, any>;
 }
