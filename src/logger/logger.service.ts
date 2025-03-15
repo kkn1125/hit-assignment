@@ -1,4 +1,4 @@
-import { LOG_LEVEL, RUN_MODE } from '@common/variables/environment';
+import { LOG_LEVEL } from '@common/variables/environment';
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 

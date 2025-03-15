@@ -67,8 +67,8 @@ root/
 # .env 파일
 
 # 데이터베이스 옵션
-DB_USER = root
-DB_PASS = 1234
+DB_USER = <username>
+DB_PASS = <password>
 DB_HOST = 127.0.0.1
 DB_PORT = 3306
 DB_NAME = hit_restaurant
@@ -141,6 +141,7 @@ npm run start:prod
 
 ## API 진입점
 
+- 호스팅 API: https:port-0-hit-assignment-m8ai2uwf803314cf.sel4.cloudtype.app
 - API: http://<host>:<port>/api
 - 인가: 헤더 Authorization: Bearer <token> 사용
 

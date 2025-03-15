@@ -28,7 +28,7 @@ export const typeormOption: DataSourceOptions = {
   host: DB_HOST,
   port: DB_PORT,
   database: DB_NAME,
-  logging: isTest || isDev ? ['query', 'error'] : ['error'],
+  logging: isTest || isDev ? ['query', 'error'] : ['query', 'error'],
   migrations: [Migration1741439368275],
   dropSchema: isTest,
 };
