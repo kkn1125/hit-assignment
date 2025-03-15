@@ -46,6 +46,17 @@ export class RestaurantsService {
             ? Like('%' + searchOption.location + '%')
             : undefined,
         },
+        relations: {
+          menus: true,
+          user: true,
+        },
+        select: {
+          user: {
+            id: true,
+            userId: true,
+            username: true,
+          },
+        },
       },
       page,
       perPage,
@@ -54,7 +65,20 @@ export class RestaurantsService {
   }
 
   async findOne(id: number) {
-    const restaurant = await this.restaurantRepository.findOneBy({ id });
+    const restaurant = await this.restaurantRepository.findOne({
+      where: { id },
+      relations: {
+        menus: true,
+        user: true,
+      },
+      select: {
+        user: {
+          id: true,
+          userId: true,
+          username: true,
+        },
+      },
+    });
     if (!restaurant) {
       const errorProtocol = Protocol.NotFound;
       throw new NotFoundException(errorProtocol, {
