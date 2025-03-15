@@ -11,6 +11,7 @@ import { Menu } from '@restaurants/menus/entities/menu.entity';
 import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { User } from '@users/entities/user.entity';
+import { Migration1741439368275 } from 'lib/1741439368275-migration';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
@@ -18,7 +19,7 @@ const isDev = RUN_MODE === 'development';
 const isTest = RUN_MODE === 'test';
 
 export const typeormOption: DataSourceOptions = {
-  type: 'mysql',
+  type: 'mariadb',
   synchronize: isTest,
   namingStrategy: new SnakeNamingStrategy(),
   entities: [User, Restaurant, Reservation, Menu, ReservationMenu],
@@ -28,6 +29,7 @@ export const typeormOption: DataSourceOptions = {
   port: DB_PORT,
   database: DB_NAME,
   logging: isTest || isDev ? ['query', 'error'] : ['error'],
+  migrations: [Migration1741439368275],
   dropSchema: isTest,
 };
 export const typeormSource = new DataSource(typeormOption);
