@@ -30,6 +30,7 @@ export const typeormOption: DataSourceOptions = {
   database: DB_NAME,
   logging: isTest || isDev ? ['query', 'error'] : ['query', 'error'],
   migrations: [Migration1741439368275],
+  timezone: '+00:00',
   dropSchema: isTest,
 };
 export const typeormSource = new DataSource(typeormOption);

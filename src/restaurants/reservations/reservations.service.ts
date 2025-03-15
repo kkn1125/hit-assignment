@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
 import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
@@ -13,6 +13,7 @@ import {
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
+import { Protocol } from '@util/protocol';
 
 @Injectable()
 export class ReservationsService {
@@ -46,6 +47,24 @@ export class ReservationsService {
     }
 
     const { menu, ...dtoData } = createReservationDto;
+
+    const isOverlabTime = await this.reservationRepository.count({
+      where: {
+        reserveStartAt: Between(
+          createReservationDto.reserveStartAt,
+          createReservationDto.reserveEndAt,
+        ),
+        reserveEndAt: Between(
+          createReservationDto.reserveStartAt,
+          createReservationDto.reserveEndAt,
+        ),
+      },
+    });
+
+    if (isOverlabTime > 0) {
+      const errorProtocol = Protocol.OverlabReserveTime;
+      throw new BadRequestException(errorProtocol);
+    }
 
     /* 예약 객체 미리 생성 */
     const reservation = this.reservationRepository.create({
@@ -137,6 +156,34 @@ export class ReservationsService {
 
   async update(id: number, updateReservationDto: UpdateReservationDto) {
     const { menu, ...updateDto } = updateReservationDto;
+
+    const reservation = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.reservationRepository,
+      { where: { id } },
+    );
+
+    /* 예약 겹침 검증 */
+    const startAt =
+      updateReservationDto.reserveStartAt ?? reservation.reserveStartAt;
+    const endAt = updateReservationDto.reserveEndAt ?? reservation.reserveEndAt;
+    const isNoUpdateTime =
+      !updateReservationDto.reserveStartAt &&
+      !updateReservationDto.reserveEndAt;
+
+    if (!isNoUpdateTime) {
+      const isOverlabTime = await this.reservationRepository.count({
+        where: {
+          reserveStartAt: Between(startAt, endAt),
+          reserveEndAt: Between(startAt, endAt),
+        },
+      });
+
+      if (isOverlabTime > 0) {
+        const errorProtocol = Protocol.OverlabReserveTime;
+        throw new BadRequestException(errorProtocol);
+      }
+    }
+
     if (menu) {
       await this.reservationMenuRepository.delete({ reservationId: id });
 

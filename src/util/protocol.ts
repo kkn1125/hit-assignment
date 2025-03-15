@@ -68,6 +68,10 @@ export const Protocol = {
     errorCode: 4004,
     message: '타입이 맞지 않습니다.',
   },
+  OverlabReserveTime: {
+    errorCode: 4005,
+    message: '해당 시간대에 이미 예약이 있습니다.',
+  },
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 
