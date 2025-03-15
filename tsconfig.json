@@ -33,7 +33,7 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "test", "vitest.config.mjs"],
+  "include": ["src/**/*.ts", "lib", "test", "vitest.config.mjs"],
   "ts-node": {
     "files": true
   }
