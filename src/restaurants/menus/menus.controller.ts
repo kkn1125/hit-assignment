@@ -26,15 +26,16 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
+import { NumberArrayParsePipe } from '@restaurants/number-array-parse.pipe';
 import { RestaurantOwnerGuard } from '@restaurants/restaurant-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { Protocol } from '@util/protocol';
+import { Request } from 'express';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
 import { MenuDataParsePipe } from './menu-data-parse.pipe';
 import { MenusService } from './menus.service';
-import { Request } from 'express';
 
 @Controller('menus')
 export class MenusController {
@@ -84,6 +85,18 @@ export class MenusController {
     },
   )
   @ApiQuery({
+    name: 'name',
+    type: Number,
+    example: '파스타타',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'price',
+    type: [Number],
+    example: [10000, 25000],
+    required: false,
+  })
+  @ApiQuery({
     name: 'page',
     type: Number,
     example: DEFAULT_PAGE,
@@ -101,6 +114,8 @@ export class MenusController {
   findAll(
     @Req() req: Request,
     @Param('restaurantId') restaurantId: number,
+    @Query('name') name: string,
+    @Query('price', NumberArrayParsePipe) price: number[],
     @Query(
       'page',
       new ParseIntPipe({
@@ -124,11 +139,13 @@ export class MenusController {
     )
     perPage: number = PER_PAGE,
   ) {
+    const searchOption = { name, price };
     return this.menusService.findAll(
       req.originalUrl,
       +restaurantId,
       page,
       perPage,
+      searchOption,
     );
   }
 

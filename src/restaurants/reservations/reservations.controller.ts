@@ -1,3 +1,4 @@
+import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
@@ -10,7 +11,6 @@ import {
   Get,
   HttpStatus,
   Param,
-  ParseArrayPipe,
   ParseIntPipe,
   Patch,
   Post,
@@ -29,12 +29,11 @@ import { RestaurantOwnerGuard } from '@restaurants/restaurant-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { Protocol } from '@util/protocol';
 import { Request } from 'express';
+import { NumberArrayParsePipe } from '../number-array-parse.pipe';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
 import { ReservationsService } from './reservations.service';
-import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
-import { ReservationAmountParsePipe } from './reservation-amount-parse.pipe';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -135,7 +134,7 @@ export class ReservationsController {
     @Query('reserveStartAt') reserveStartAt: Date,
     @Query('reserveEndAt') reserveEndAt: Date,
     @Query('phone') phone: string,
-    @Query('amount', ReservationAmountParsePipe) amount: number[],
+    @Query('amount', NumberArrayParsePipe) amount: number[],
     @Query(
       'page',
       new ParseIntPipe({

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UtilService } from '@util/util.service';
-import { Repository } from 'typeorm';
+import { Between, Like, Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
@@ -31,13 +31,29 @@ export class MenusService {
     return { id: menu.id };
   }
 
-  findAll(path: string, restaurantId: number, page: number, perPage: number) {
+  findAll(
+    path: string,
+    restaurantId: number,
+    page: number,
+    perPage: number,
+    searchOption: SearchOption,
+  ) {
+    const { name, price } = searchOption;
     return this.utilService.searchPagination(
       this.menuRepository,
       path,
-      { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
+      {
+        where: {
+          restaurantId,
+          name: name ? Like('%' + name + '%') : undefined,
+          price: price ? Between(price[0], price[1]) : undefined,
+        },
+        take: perPage,
+        skip: (page - 1) * perPage,
+      },
       page,
       perPage,
+      searchOption,
     );
   }
 
