@@ -100,6 +100,7 @@ export class UsersService {
   }
 
   async getMeResrvations(
+    path: string,
     userTokenData: UserTokenData,
     page: number,
     perPage: number,
@@ -107,7 +108,7 @@ export class UsersService {
     const userId = userTokenData.id;
     const reservations = await searchPagination(
       this.reservationRepository,
-      '/users/me/reservations',
+      path,
       {
         where: {
           userId,
@@ -122,6 +123,9 @@ export class UsersService {
         },
         take: perPage,
         skip: (page - 1) * perPage,
+        order: {
+          createdAt: 'DESC',
+        },
       },
       page,
       perPage,

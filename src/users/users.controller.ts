@@ -154,7 +154,12 @@ export class UsersController {
     )
     perPage: number = PER_PAGE,
   ) {
-    return this.usersService.getMeResrvations(req.user, page, perPage);
+    return this.usersService.getMeResrvations(
+      req.originalUrl,
+      req.user,
+      page,
+      perPage,
+    );
   }
 
   @ApiResponseWithModel(
