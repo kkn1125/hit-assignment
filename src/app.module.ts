@@ -1,6 +1,6 @@
-import { BearerParserMiddleware } from '@middleware/bearer-parser.middleware';
 import secretConf from '@common/variables/secretConf';
 import swaggerConf from '@common/variables/swaggerConf';
+import { BearerParserMiddleware } from '@middleware/bearer-parser.middleware';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';

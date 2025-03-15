@@ -1,5 +1,3 @@
-import { fakerKO as faker } from '@faker-js/faker';
-
 const user1 = {
   userId: 'tomastrain1',
   phone: '010-1234-5678',
