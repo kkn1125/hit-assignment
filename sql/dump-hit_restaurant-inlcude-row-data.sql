@@ -199,7 +199,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tomastrain1','tomastrain1@example.com','김영호','qweQQ!!1',1,'010-1234-5678','2025-03-15 16:08:21.029706','2025-03-15 16:08:21.029706',NULL),(2,'matjung1221','matyoujung@example.com','최유정','qweQQ!!1',1,'010-2589-3562','2025-03-15 16:08:21.029706','2025-03-15 16:08:21.029706',NULL),(3,'resting0301','matzip@example.com','구승용','qweQQ!!1',1,'010-9562-4253','2025-03-15 16:08:21.029706','2025-03-15 16:08:21.029706',NULL),(4,'sushiryu0423','ryu0423@example.com','류정열','qweQQ!!1',2,'010-5132-9584','2025-03-15 16:08:21.029706','2025-03-15 16:08:21.029706',NULL),(5,'imfinedining','dining-fore0306@example.com','이승재','qweQQ!!1',2,'010-8261-0021','2025-03-15 16:08:21.029706','2025-03-15 16:08:21.029706',NULL);
+INSERT INTO `user` VALUES (1,'tomastrain1','tomastrain1@example.com','김영호','x0iT5AcmiGWzjYDPHvVjyu/WDzcR/Z002pBG4JH4DNI=',1,'010-1234-5678','2025-03-15 16:08:21.029706','2025-03-15 16:55:21.000000',NULL),(2,'matjung1221','matyoujung@example.com','최유정','3ND/MGcShXQP/ePXQG2EGVkfPNbCpd7QzPFl5NV3PGs=',1,'010-2589-3562','2025-03-15 16:08:21.029706','2025-03-15 16:55:56.000000',NULL),(3,'resting0301','matzip@example.com','구승용','0IlQaLh9GLEzFYJJ8xsxQLnkFzcaaXU2tIbsIBoEExI=',1,'010-9562-4253','2025-03-15 16:08:21.029706','2025-03-15 16:55:59.000000',NULL),(4,'sushiryu0423','ryu0423@example.com','류정열','E7bjB9HcnoU0SBeyPx30IpQUXuihtpw84tQDO9k3hZ8=',2,'010-5132-9584','2025-03-15 16:08:21.029706','2025-03-15 16:56:01.000000',NULL),(5,'imfinedining','dining-fore0306@example.com','이승재','Kd8QDTYYS3uZqG/Ah351+kgdq7P43Y8ZvFjY94M/d9o=',2,'010-8261-0021','2025-03-15 16:08:21.029706','2025-03-15 16:56:05.000000',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -212,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-16  1:13:08
+-- Dump completed on 2025-03-16  4:09:29
