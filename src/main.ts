@@ -56,9 +56,9 @@ async function bootstrap() {
     },
   });
 
-  await app.listen(commonOption.port, '127.0.0.1');
+  await app.listen(commonOption.port, '0.0.0.0');
   const listenUrl = await app.getUrl();
-  logger.debug(`listening on ${listenUrl}`);
+  logger.debug(`listening on http://127.0.0.1:8080`);
 }
 
 bootstrap().catch((err) => {
