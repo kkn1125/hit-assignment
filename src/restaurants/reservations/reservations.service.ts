@@ -59,7 +59,7 @@ export class ReservationsService {
       const menu = await this.utilService.throwNoExistsEntityWithSelectBy(
         this.menuRepository,
         {
-          where: { id },
+          where: { id, restaurantId },
         },
       );
 
@@ -80,24 +80,27 @@ export class ReservationsService {
     perPage: number,
     searchOption: SearchOption,
   ) {
+    const { menuName, reserveStartAt, reserveEndAt, phone, amount } =
+      searchOption;
     return this.utilService.searchPagination(
       this.reservationRepository,
       path,
       {
         where: {
           restaurantId,
-          phone: searchOption.phone
-            ? Like('%' + searchOption.phone + '%')
+          reservationMenus: {
+            menu: {
+              name: menuName ? Like('%' + menuName + '%') : undefined,
+            },
+          },
+          phone: phone ? Like('%' + phone + '%') : undefined,
+          reserveStartAt: reserveStartAt
+            ? MoreThanOrEqual(reserveStartAt)
             : undefined,
-          reserveStartAt: searchOption.reserveStartAt
-            ? MoreThanOrEqual(searchOption.reserveStartAt)
+          reserveEndAt: reserveEndAt
+            ? LessThanOrEqual(reserveEndAt)
             : undefined,
-          reserveEndAt: searchOption.reserveEndAt
-            ? LessThanOrEqual(searchOption.reserveEndAt)
-            : undefined,
-          amount: searchOption.amount
-            ? Between(+searchOption.amount[0], +searchOption.amount[1])
-            : undefined,
+          amount: amount ? Between(+amount[0], +amount[1]) : undefined,
         },
         take: perPage,
         skip: (page - 1) * perPage,
@@ -112,7 +115,9 @@ export class ReservationsService {
         relations: {
           user: true,
           restaurant: true,
-          reservationMenus: true,
+          reservationMenus: {
+            menu: true,
+          },
         },
         order: {
           createdAt: 'DESC',

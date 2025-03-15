@@ -13,6 +13,10 @@ export class NumberArrayParsePipe implements PipeTransform {
       return value;
     }
 
+    if (typeof value === 'undefined') {
+      return value;
+    }
+
     if (!Array.isArray(value)) {
       const errorProtocol = Protocol.TypeCheck;
       throw new BadRequestException(errorProtocol, {
@@ -25,10 +29,6 @@ export class NumberArrayParsePipe implements PipeTransform {
       throw new BadRequestException(errorProtocol, {
         cause: '정수로 입력되어야 합니다.',
       });
-    }
-
-    if (typeof value === 'undefined') {
-      return value;
     }
 
     return value.map(Number);

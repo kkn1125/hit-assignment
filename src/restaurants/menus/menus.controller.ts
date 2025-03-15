@@ -26,7 +26,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
-import { NumberArrayParsePipe } from '@restaurants/number-array-parse.pipe';
+import { NumberArrayParsePipe } from '@common/number-array-parse.pipe';
 import { RestaurantOwnerGuard } from '@restaurants/restaurant-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { Protocol } from '@util/protocol';

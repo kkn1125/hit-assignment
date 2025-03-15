@@ -29,7 +29,7 @@ import { RestaurantOwnerGuard } from '@restaurants/restaurant-owner.guard';
 import { UserRole } from '@util/enums/UserRole';
 import { Protocol } from '@util/protocol';
 import { Request } from 'express';
-import { NumberArrayParsePipe } from '../number-array-parse.pipe';
+import { NumberArrayParsePipe } from '../../common/number-array-parse.pipe';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
@@ -87,6 +87,12 @@ export class ReservationsController {
     },
   )
   @ApiQuery({
+    name: 'menuName',
+    type: String,
+    example: '파스타',
+    required: false,
+  })
+  @ApiQuery({
     name: 'reserveStartAt',
     type: Date,
     example: '2025-03-16T16:00',
@@ -130,6 +136,7 @@ export class ReservationsController {
   @Get()
   findAll(
     @Req() req: Request,
+    @Query('menuName') menuName: string,
     @Param('restaurantId') restaurantId: number,
     @Query('reserveStartAt') reserveStartAt: Date,
     @Query('reserveEndAt') reserveEndAt: Date,

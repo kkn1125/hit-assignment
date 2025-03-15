@@ -7,7 +7,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import { Repository } from 'typeorm';
+import {
+  Between,
+  LessThanOrEqual,
+  Like,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -109,21 +115,39 @@ export class UsersService {
     userTokenData: UserTokenData,
     page: number,
     perPage: number,
+    searchOption: SearchOption,
   ) {
     const userId = userTokenData.id;
+    const { menuName, reserveStartAt, reserveEndAt, phone, amount } =
+      searchOption;
     const reservations = await this.utilService.searchPagination(
       this.reservationRepository,
       path,
       {
         where: {
           userId,
+          reservationMenus: {
+            menu: {
+              name: menuName ? Like('%' + menuName + '%') : undefined,
+            },
+          },
+          phone: phone ? Like('%' + phone + '%') : undefined,
+          reserveStartAt: reserveStartAt
+            ? MoreThanOrEqual(reserveStartAt)
+            : undefined,
+          reserveEndAt: reserveEndAt
+            ? LessThanOrEqual(reserveEndAt)
+            : undefined,
+          amount: amount ? Between(+amount[0], +amount[1]) : undefined,
         },
         select: {
           user: this.userSelectOption,
         },
         relations: {
           restaurant: true,
-          reservationMenus: true,
+          reservationMenus: {
+            menu: true,
+          },
           user: true,
         },
         take: perPage,
@@ -134,6 +158,7 @@ export class UsersService {
       },
       page,
       perPage,
+      searchOption,
     );
     return reservations;
   }

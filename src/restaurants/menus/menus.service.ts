@@ -46,7 +46,7 @@ export class MenusService {
         where: {
           restaurantId,
           name: name ? Like('%' + name + '%') : undefined,
-          price: price ? Between(price[0], price[1]) : undefined,
+          price: price ? Between(+price[0], +price[1]) : undefined,
         },
         take: perPage,
         skip: (page - 1) * perPage,

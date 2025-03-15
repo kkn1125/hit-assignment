@@ -1,6 +1,7 @@
 import { ApiBodyWithModel } from '@common/decorators/api.body.with.model';
 import { ApiResponseSearchModel } from '@common/decorators/api.response.search.model';
 import { ApiResponseWithModel } from '@common/decorators/api.response.with.model';
+import { NumberArrayParsePipe } from '@common/number-array-parse.pipe';
 import { DEFAULT_PAGE, PER_PAGE } from '@common/variables/environment';
 import { Roles } from '@middleware/roles.decorator';
 import {
@@ -19,7 +20,6 @@ import {
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiParam,
   ApiQuery,
   PickType,
 } from '@nestjs/swagger';
@@ -114,6 +114,36 @@ export class UsersController {
     },
   )
   @ApiQuery({
+    name: 'menuName',
+    type: String,
+    example: '파스타',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'reserveStartAt',
+    type: Date,
+    example: '2025-03-16T16:00',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'reserveEndAt',
+    type: Date,
+    example: '2025-03-15T17:30',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'phone',
+    type: String,
+    example: '010-1234',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'amount',
+    type: [Number],
+    example: [1, 3],
+    required: false,
+  })
+  @ApiQuery({
     name: 'page',
     type: Number,
     example: DEFAULT_PAGE,
@@ -131,6 +161,11 @@ export class UsersController {
   @Get('me/reservations')
   async getMeResrvations(
     @Req() req: Request,
+    @Query('menuName') menuName: string,
+    @Query('reserveStartAt') reserveStartAt: Date,
+    @Query('reserveEndAt') reserveEndAt: Date,
+    @Query('phone') phone: string,
+    @Query('amount', NumberArrayParsePipe) amount: number[],
     @Query(
       'page',
       new ParseIntPipe({
@@ -154,11 +189,19 @@ export class UsersController {
     )
     perPage: number = PER_PAGE,
   ) {
+    const searchOption = {
+      menuName,
+      reserveStartAt,
+      reserveEndAt,
+      phone,
+      amount,
+    };
     return this.usersService.getMeResrvations(
       req.originalUrl,
       req.user,
       page,
       perPage,
+      searchOption,
     );
   }
 
