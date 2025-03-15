@@ -19,7 +19,11 @@ export class BearerParserMiddleware implements NestMiddleware {
     let authorization = req.headers?.authorization;
     let isRefresh = false;
 
-    if (req.originalUrl.endsWith('/auth/refresh')) {
+    if (
+      ['/auth/refresh', '/auth/logout'].some((ex) =>
+        req.originalUrl.endsWith(ex),
+      )
+    ) {
       // 쿠키에서 `Bearer token` 정보 가져오기
       authorization = req.cookies.refresh;
       isRefresh = true;
