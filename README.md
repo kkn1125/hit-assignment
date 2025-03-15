@@ -141,7 +141,7 @@ npm run start:prod
 
 ## API 진입점
 
-> 아래 호스팅 API의 경우 cloudtype 특성상 새벽에 서버 다운이 됩니다. 아침마다 다시 실행 예정이며, 접근이 안될 시, 위 실행 방법에 따라 로컬에서 실행하시기 바랍니다.
+> API는 AWS EC2 t3.micro 위에 배포되었습니다.
 
 - 호스팅 API: http:43.201.15.151:8080
 - API: http://<host>:<port>/api
