@@ -60,6 +60,14 @@ export const Protocol = {
     errorCode: 4002,
     message: '종료시간이 시작 시간보다 과거일 수 없습니다.',
   },
+  PageOver: {
+    errorCode: 4003,
+    message: '페이지 범위를 벗어났습니다.',
+  },
+  TypeCheck: {
+    errorCode: 4004,
+    message: '타입이 맞지 않습니다.',
+  },
 } as const;
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 

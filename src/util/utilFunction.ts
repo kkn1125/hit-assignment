@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 import {
   FindManyOptions,
@@ -14,20 +14,35 @@ export async function searchPagination<Domain extends ObjectLiteral>(
   query: FindManyOptions<Domain>,
   page: number,
   perPage: number,
+  searchOption?: SearchOption,
 ): Promise<{ data: Domain[]; pagination: Pagination }> {
+  const options = Object.fromEntries(
+    Object.entries(searchOption || {}).filter(
+      ([k, v]) => typeof v !== 'undefined',
+    ),
+  );
+  const searchParam = new URLSearchParams(options);
   const dataList = await orm.find(query);
   const totalAmount = await orm.countBy(query.where ?? {});
   const total = Math.ceil(totalAmount / perPage);
   const prev = (page - 1) * perPage > 0;
   const next = (page + 1) * perPage <= totalAmount;
+  const isNotEmptyParam = searchParam && searchParam.size > 0;
+  const prevQuery = prev
+    ? `${path}${page > 1 ? `?page=${page - 1}` : ''}${isNotEmptyParam ? '&' + searchParam.toString() : ''}`
+    : undefined;
+  const nextQuery = next
+    ? `${path}?page=${page + 1}${isNotEmptyParam ? '&' + searchParam.toString() : ''}`
+    : undefined;
+
   return {
     data: dataList,
     pagination: {
       page,
       count: dataList.length,
       total,
-      prev: prev ? `${path}${page > 1 ? `?page=${page - 1}` : ''}` : undefined,
-      next: next ? `${path}?page=${page + 1}` : undefined,
+      prev: prevQuery,
+      next: nextQuery,
     },
   };
 }
