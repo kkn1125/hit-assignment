@@ -14,6 +14,7 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { AppModule } from './../src/app.module';
+import dayjs from 'dayjs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
@@ -41,7 +42,7 @@ describe('AppController (e2e)', () => {
     const payload = {
       ok: true,
       status: HttpStatus.OK,
-      payload: '0.0.1',
+      payload: { version: '0.0.1' },
       path: '/version',
       method: 'GET',
     };
@@ -244,7 +245,7 @@ describe('AppController (e2e)', () => {
   it('토큰 만료 예외 처리', async () => {
     // given
     const wrongFormatToken =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdC51c2VyNjYiLCJlbWFpbCI6IjNkODNnNTNkZTNmczU2QGV4YW1wbGUuY29tIiwicm9sZSI6MiwiaWF0IjoxNzQxNTk3NjIzLCJleHAiOjE3NDE1OTc5MjMsImlzcyI6IkhpdFJlc3RhdXJhbnQifQ.qdPATuVSstJH3zzqZkYiz8cDAiiGizyLCdmNTeHt9RQ';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcklkIjoidGVzdF91c2VyMTYiLCJlbWFpbCI6IjNkODNnNTNkZTNmeV8zY3czZzUzaHpAZXhhbXBsZS5jb20iLCJyb2xlIjoyLCJwaG9uZSI6IjAyMS0zOTU3LTMxMzYiLCJpYXQiOjE3NDIwNDgyNjAsImV4cCI6MTc0MjA0ODU2MCwiaXNzIjoiSGl0UmVzdGF1cmFudCJ9.MOw-3WUkadYLicaCNzdaQnSIhyIICRJNvPL4oX9SA98';
 
     // when
     const wrongAccess = await request(app.getHttpServer())
@@ -288,6 +289,7 @@ describe('AppController (e2e)', () => {
       .post('/users')
       .send(userData)
       .expect(HttpStatus.CREATED);
+
     const login = await request(app.getHttpServer())
       .post('/auth/login')
       .send(userData)
@@ -297,7 +299,7 @@ describe('AppController (e2e)', () => {
     const accessToken = login.body.payload.accessToken;
     expect(signup.body.status).toStrictEqual(HttpStatus.CREATED);
     expect(accessToken).toBeDefined();
-
+    console.log(accessToken);
     // given
     const restaurantId = 1;
     const menuData = {};
@@ -308,6 +310,35 @@ describe('AppController (e2e)', () => {
       .set('Authorization', 'Bearer ' + accessToken)
       .send(menuData)
       .expect(HttpStatus.UNAUTHORIZED);
+
+    // given
+    const startAt = dayjs().add(1, 'd').set('m', 30).set('s', 0).set('ms', 0);
+    const endAt = dayjs()
+      .add(1, 'd')
+      .add(1, 'h')
+      .set('m', 30)
+      .set('s', 0)
+      .set('ms', 0);
+    const reservationData = {
+      reserveStartAt: startAt,
+      reserveEndAt: endAt,
+      phone: '010-2234-5678',
+      amount: 5,
+      menu: [1],
+    };
+    const isAnotherDay = !dayjs(endAt).isSame(startAt, 'd');
+
+    // when
+    const reservationResult = await request(app.getHttpServer())
+      .post(`/restaurants/${restaurantId}/reservations`)
+      .set('Authorization', 'Bearer ' + accessToken)
+      .send(reservationData)
+      .expect(isAnotherDay ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
+
+    if (!isAnotherDay) {
+      // then
+      expect(reservationResult.body.payload.id).toStrictEqual(1);
+    }
   });
 
   it('식당(점주) 예약 접근 제어', async () => {

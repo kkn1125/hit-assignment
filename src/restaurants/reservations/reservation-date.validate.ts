@@ -22,6 +22,11 @@ export class IsAfterStartTimeConstraint
     const isAfterStart =
       dayjs(endTime).isSame(object.reserveStartAt, 'minute') ||
       dayjs(endTime).isAfter(object.reserveStartAt);
+    const isAnotherDay = !dayjs(endTime).isSame(object.reserveStartAt, 'd');
+
+    if (isAnotherDay) {
+      this.errorMessage = '예약일은 같은 날 0시 ~ 23시 내로 설정 가능합니다.';
+    }
 
     if (isMinuteSmall) {
       this.errorMessage = '시작과 종료 시간은 최소 30분의 간격이 필요합니다.';
@@ -31,7 +36,7 @@ export class IsAfterStartTimeConstraint
       this.errorMessage = '예약 종료 시간은 시작 시간보다 과거일 수 없습니다.';
     }
 
-    return !isMinuteSmall && isAfterStart;
+    return !isAnotherDay && !isMinuteSmall && isAfterStart;
   }
 
   defaultMessage(args: ValidationArguments) {

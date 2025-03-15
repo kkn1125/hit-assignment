@@ -28,7 +28,6 @@ export const typeormOption: DataSourceOptions = {
   port: DB_PORT,
   database: DB_NAME,
   logging: isTest || isDev ? ['query', 'error'] : ['error'],
-  timezone: 'z',
   dropSchema: isTest,
 };
 export const typeormSource = new DataSource(typeormOption);
