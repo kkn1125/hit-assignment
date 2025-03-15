@@ -147,6 +147,7 @@
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#remove" >remove</a>
                             </li>
                             <li>
@@ -170,7 +171,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(restaurantRepository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>)</code>
+<code>constructor(restaurantRepository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>, utilService: <a href="../injectables/UtilService.html" target="_self">UtilService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -197,6 +198,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../entitys/Restaurant.html" target="_self" >Repository&lt;Restaurant&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>utilService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UtilService.html" target="_self" >UtilService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -240,8 +253,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="17"
-                                    class="link-to-prism">src/restaurants/restaurants.service.ts:17</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="18"
+                                    class="link-to-prism">src/restaurants/restaurants.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -312,15 +325,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findAll(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>findAll(path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, searchOption: SearchOption)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="25"
-                                    class="link-to-prism">src/restaurants/restaurants.service.ts:25</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="26"
+                                    class="link-to-prism">src/restaurants/restaurants.service.ts:26</a></div>
                         </td>
                     </tr>
 
@@ -337,10 +350,21 @@
                                             <td>이름</td>
                                                 <td>타입</td>
                                             <td>선택적</td>
-                                                <td>기본 값</td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
                                         <tr>
                                                 <td>page</td>
                                             <td>
@@ -351,9 +375,6 @@
                                                     아니오
                                             </td>
 
-                                            <td>
-                                                    <code>1</code>
-                                            </td>
 
                                         </tr>
                                         <tr>
@@ -366,9 +387,18 @@
                                                     아니오
                                             </td>
 
+
+                                        </tr>
+                                        <tr>
+                                                <td>searchOption</td>
                                             <td>
-                                                    <code>10</code>
+                                                        <code>SearchOption</code>
                                             </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
 
                                         </tr>
                                     </tbody>
@@ -407,8 +437,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="37"
-                                    class="link-to-prism">src/restaurants/restaurants.service.ts:37</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="67"
+                                    class="link-to-prism">src/restaurants/restaurants.service.ts:67</a></div>
                         </td>
                     </tr>
 
@@ -460,6 +490,7 @@
                 <td class="col-md-4">
                     <a name="remove"></a>
                     <span class="name">
+                            <span class="modifier">Async</span>
                         <span ><b>remove</b></span>
                         <a href="#remove"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -467,15 +498,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="52"
-                                    class="link-to-prism">src/restaurants/restaurants.service.ts:52</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="95"
+                                    class="link-to-prism">src/restaurants/restaurants.service.ts:95</a></div>
                         </td>
                     </tr>
 
@@ -511,7 +543,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>반환 : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -541,8 +573,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="48"
-                                    class="link-to-prism">src/restaurants/restaurants.service.ts:48</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="91"
+                                    class="link-to-prism">src/restaurants/restaurants.service.ts:91</a></div>
                         </td>
                     </tr>
 
@@ -609,8 +641,8 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, NotFoundException } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Protocol } from &#x27;@util/protocol&#x27;;
-import { searchPagination } from &#x27;@util/utilFunction&#x27;;
-import { Repository } from &#x27;typeorm&#x27;;
+import { UtilService } from &#x27;@util/util.service&#x27;;
+import { Like, Repository } from &#x27;typeorm&#x27;;
 import { CreateRestaurantDto } from &#x27;./dto/create-restaurant.dto&#x27;;
 import { UpdateRestaurantDto } from &#x27;./dto/update-restaurant.dto&#x27;;
 import { Restaurant } from &#x27;./entities/restaurant.entity&#x27;;
@@ -620,6 +652,7 @@ export class RestaurantsService {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository&lt;Restaurant&gt;,
+    private readonly utilService: UtilService,
   ) {}
 
   async create(userId: number, createRestaurantDto: CreateRestaurantDto) {
@@ -630,20 +663,62 @@ export class RestaurantsService {
     return { id: restaurant.id };
   }
 
-  findAll(page: number &#x3D; 1, perPage: number &#x3D; 10) {
-    return searchPagination(
+  findAll(
+    path: string,
+    page: number,
+    perPage: number,
+    searchOption: SearchOption,
+  ) {
+    return this.utilService.searchPagination(
       this.restaurantRepository,
-      &#x27;/restaurants&#x27;,
+      path,
       {
         take: perPage,
         skip: (page - 1) * perPage,
+        where: {
+          category: searchOption.category
+            ? Like(&#x27;%&#x27; + searchOption.category + &#x27;%&#x27;)
+            : undefined,
+          name: searchOption.name
+            ? Like(&#x27;%&#x27; + searchOption.name + &#x27;%&#x27;)
+            : undefined,
+          location: searchOption.location
+            ? Like(&#x27;%&#x27; + searchOption.location + &#x27;%&#x27;)
+            : undefined,
+        },
+        relations: {
+          menus: true,
+          user: true,
+        },
+        select: {
+          user: {
+            id: true,
+            userId: true,
+            username: true,
+          },
+        },
       },
       page,
+      perPage,
+      searchOption,
     );
   }
 
   async findOne(id: number) {
-    const restaurant &#x3D; await this.restaurantRepository.findOneBy({ id });
+    const restaurant &#x3D; await this.restaurantRepository.findOne({
+      where: { id },
+      relations: {
+        menus: true,
+        user: true,
+      },
+      select: {
+        user: {
+          id: true,
+          userId: true,
+          username: true,
+        },
+      },
+    });
     if (!restaurant) {
       const errorProtocol &#x3D; Protocol.NotFound;
       throw new NotFoundException(errorProtocol, {
@@ -657,8 +732,9 @@ export class RestaurantsService {
     return this.restaurantRepository.update(id, updateRestaurantDto);
   }
 
-  remove(id: number) {
-    return this.restaurantRepository.softDelete(id);
+  async remove(id: number) {
+    await this.restaurantRepository.softDelete(id);
+    return { id };
   }
 }
 </code></pre>

@@ -380,9 +380,9 @@ export class ResponseFormat implements CommonResponseFormat {
   ) {
     this.ok &#x3D; [200, 201].includes(status);
     this.status &#x3D; status;
-    this.payload &#x3D; payload;
     this.method &#x3D; method;
     this.path &#x3D; path;
+    this.payload &#x3D; payload;
     this.timestamp &#x3D; dayjs().format(&#x27;YYYY-MM-DD HH:mm:ss.SSS&#x27;);
 
     if (message) {

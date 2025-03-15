@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -89,9 +89,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >ParseArrayOrOnePipe</li>
+  <li class="breadcrumb-item">클래스</li>
+  <li class="breadcrumb-item" >IsPhoneNumberFormatConstraint</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -115,11 +119,18 @@
             <h3>파일</h3>
         </p>
         <p class="comment">
-            <code>src/restaurants/menus/pipe/parse-array-or-one.pipe.ts</code>
+            <code>src/common/phone.validate.ts</code>
         </p>
 
 
 
+
+            <p class="comment">
+                <h3>구현</h3>
+            </p>
+            <p class="comment">
+                        <code>ValidatorConstraintInterface</code>
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -136,7 +147,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#transform" >transform</a>
+                                <a href="#defaultMessage" >defaultMessage</a>
+                            </li>
+                            <li>
+                                <a href="#validate" >validate</a>
                             </li>
                         </ul>
                     </td>
@@ -151,6 +165,7 @@
 </section>
 
 
+
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -160,24 +175,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="transform"></a>
+                    <a name="defaultMessage"></a>
                     <span class="name">
-                        <span ><b>transform</b></span>
-                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>defaultMessage</b></span>
+                        <a href="#defaultMessage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>transform(value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, metadata: ArgumentMetadata)</code>
+<code>defaultMessage(args: ValidationArguments)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="11"
-                                    class="link-to-prism">src/restaurants/menus/pipe/parse-array-or-one.pipe.ts:11</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="23"
+                                    class="link-to-prism">src/common/phone.validate.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -198,21 +213,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>value</td>
+                                                <td>args</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>metadata</td>
-                                            <td>
-                                                        <code>ArgumentMetadata</code>
+                                                        <code>ValidationArguments</code>
                                             </td>
 
                                             <td>
@@ -225,7 +228,86 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validate"></a>
+                    <span class="name">
+                        <span ><b>validate</b></span>
+                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validate(phone: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, args: ValidationArguments)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="13"
+                                    class="link-to-prism">src/common/phone.validate.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>매개변수 :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>이름</td>
+                                                <td>타입</td>
+                                            <td>선택적</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>phone</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>args</td>
+                                            <td>
+                                                        <code>ValidationArguments</code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </div>
                             <div class="io-description">
@@ -237,44 +319,55 @@
     </table>
 </section>
 
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  ArgumentMetadata,
-  BadRequestException,
-  Injectable,
-  PipeTransform,
-} from &#x27;@nestjs/common&#x27;;
-import { Protocol } from &#x27;@util/protocol&#x27;;
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from &#x27;class-validator&#x27;;
 
-@Injectable()
-export class ParseArrayOrOnePipe implements PipeTransform {
-  transform(value: any, metadata: ArgumentMetadata) {
-    if (Array.isArray(value)) {
-      if (value.length &#x3D;&#x3D;&#x3D; 0) {
-        const errorProtocol &#x3D; Protocol.ArgsRequired;
-        throw new BadRequestException(errorProtocol);
-      }
+@ValidatorConstraint({ name: &#x27;IsPhoneNumberFormat&#x27;, async: false })
+export class IsPhoneNumberFormatConstraint
+  implements ValidatorConstraintInterface
+{
+  validate(phone: string, args: ValidationArguments) {
+    if (!phone) return false; // 값이 없으면 검증 실패
+    const phoneNumberFormat &#x3D;
+      /\b(\d{3}-\d{4}-\d{4}|\d{2}-\d{4}-\d{4}|\d{2}-\d{3,4}-\d{4})/;
+    if (!phone.match(phoneNumberFormat)) {
+      return false;
     }
-
-    if (Object.keys(value).length &#x3D;&#x3D;&#x3D; 0) {
-      const errorProtocol &#x3D; Protocol.ArgsRequired;
-      throw new BadRequestException(errorProtocol);
-    }
-
-    return value;
+    return true;
   }
+
+  defaultMessage(args: ValidationArguments) {
+    return &#x60;${args.value}는 전화번호 형식이 아닙니다. 하이픈이 연결된 ###-####-#### 형식만 가능합니다.&#x60;;
+  }
+}
+
+export function IsPhoneNumberFormat(validationOptions?: ValidationOptions) {
+  return function (object: object, propertyName: string) {
+    registerDecorator({
+      target: object.constructor,
+      propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: IsPhoneNumberFormatConstraint,
+    });
+  };
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -309,8 +402,8 @@ export class ParseArrayOrOnePipe implements PipeTransform {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'ParseArrayOrOnePipe.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'IsPhoneNumberFormatConstraint.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

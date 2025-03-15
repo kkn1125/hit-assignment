@@ -131,6 +131,7 @@
                             <code><a href="../entitys/Reservation.html" target="_self" >PickType(Reservation, [
   &#x27;reserveStartAt&#x27;,
   &#x27;reserveEndAt&#x27;,
+  &#x27;phone&#x27;,
   &#x27;amount&#x27;,
 ])</a></code>
             </p>
@@ -150,6 +151,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#menu" >menu</a>
                             </li>
                         </ul>
@@ -177,6 +182,10 @@
                 <td class="col-md-4">
                     <a name="menu"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>menu</b></span>
                         <a href="#menu"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -188,9 +197,18 @@
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>데코레이터 : </b>
+                        <br />
+                        <code>
+                            @ApiProperty({type: Number, example: undefined})<br />@IsArray({message: &#x27;메뉴는 배열형태로 전달되어야 합니다.&#x27;})<br />@ArrayMinSize(1, {message: &#x27;최소 하나 이상의 메뉴를 선택해주세요.&#x27;})<br />@Type(undefined)<br />
+                        </code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="9" class="link-to-prism">src/restaurants/reservations/dto/create-reservation.dto.ts:9</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="28" class="link-to-prism">src/restaurants/reservations/dto/create-reservation.dto.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -209,22 +227,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty, PickType } from &#x27;@nestjs/swagger&#x27;;
+import { Type } from &#x27;class-transformer&#x27;;
+import {
+  ArrayMinSize,
+  IsArray,
+  IsDate,
+  IsInt,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  Min,
+  ValidateNested,
+} from &#x27;class-validator&#x27;;
 import { Reservation } from &#x27;../entities/reservation.entity&#x27;;
 
 export class CreateReservationDto extends PickType(Reservation, [
   &#x27;reserveStartAt&#x27;,
   &#x27;reserveEndAt&#x27;,
-  &#x27;amount&#x27;,
-]) {
-  menu!: number[];
-}
-export class CreateReservationWithPhoneDto extends PickType(Reservation, [
-  &#x27;reserveStartAt&#x27;,
-  &#x27;reserveEndAt&#x27;,
   &#x27;phone&#x27;,
   &#x27;amount&#x27;,
 ]) {
+  @ApiProperty({ type: Number, example: [1, 2, 3] })
+  @IsArray({
+    message: &#x27;메뉴는 배열형태로 전달되어야 합니다.&#x27;,
+  })
+  @ArrayMinSize(1, { message: &#x27;최소 하나 이상의 메뉴를 선택해주세요.&#x27; })
+  @Type(() &#x3D;&gt; Number)
   menu!: number[];
 }
 </code></pre>

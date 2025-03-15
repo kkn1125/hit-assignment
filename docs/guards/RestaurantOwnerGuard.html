@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content class">
+               <div class="content guard">
                    <div class="content-data">
 
 
@@ -91,11 +91,9 @@
 
 
 
-
-
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">클래스</li>
-  <li class="breadcrumb-item" >CreateReservationWithPhoneDto</li>
+    <li class="breadcrumb-item">가드</li>
+    <li class="breadcrumb-item" >RestaurantOwnerGuard</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -114,44 +112,35 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
-        <p class="comment">
+        <div class="tab-pane fade active in" id="info">
+            <p class="comment">
             <h3>파일</h3>
-        </p>
-        <p class="comment">
-            <code>src/restaurants/reservations/dto/create-reservation.dto.ts</code>
-        </p>
-
-
-
-            <p class="comment">
-                <h3>Extends</h3>
             </p>
             <p class="comment">
-                            <code><a href="../entitys/Reservation.html" target="_self" >PickType(Reservation, [
-  &#x27;reserveStartAt&#x27;,
-  &#x27;reserveEndAt&#x27;,
-  &#x27;phone&#x27;,
-  &#x27;amount&#x27;,
-])</a></code>
+                <code>src/restaurants/restaurant-owner.guard.ts</code>
             </p>
 
 
 
-            <section data-compodoc="block-index">
+
+
+
+                <section data-compodoc="block-index">
     <h3 id="index">색인</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+
                 <tr>
                     <td class="col-md-4">
-                        <h6><b>속성</b></h6>
+                        <h6><b>메소드</b></h6>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#menu" >menu</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#canActivate" >canActivate</a>
                             </li>
                         </ul>
                     </td>
@@ -161,76 +150,190 @@
 
 
 
-
         </tbody>
     </table>
 </section>
 
+                <section data-compodoc="block-constructor">
+    <h3 id="constructor">생성자</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(restaurantRepository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="15" class="link-to-prism">src/restaurants/restaurant-owner.guard.ts:15</a></div>
+                            </td>
+                        </tr>
 
-            <section data-compodoc="block-properties">
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>매개변수 :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>이름</td>
+                                                    <td>타입</td>
+                                                <td>선택적</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>restaurantRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Restaurant.html" target="_self" >Repository&lt;Restaurant&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+                <section data-compodoc="block-methods">
     
-    <h3 id="inputs">
-        속성
+    <h3 id="methods">
+        메소드
     </h3>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="menu"></a>
+                    <a name="canActivate"></a>
                     <span class="name">
-                        <span ><b>menu</b></span>
-                        <a href="#menu"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Async</span>
+                        <span ><b>canActivate</b></span>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>타입 : </i>    <code>number[]</code>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canActivate(context: ExecutionContext)</code>
+                </td>
+            </tr>
 
-                    </td>
-                </tr>
+
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="17" class="link-to-prism">src/restaurants/reservations/dto/create-reservation.dto.ts:17</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="21"
+                                    class="link-to-prism">src/restaurants/restaurant-owner.guard.ts:21</a></div>
                         </td>
                     </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>매개변수 :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>이름</td>
+                                                <td>타입</td>
+                                            <td>선택적</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>context</td>
+                                            <td>
+                                                        <code>ExecutionContext</code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>반환 : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
+        </div>
 
 
+        <div class="tab-pane fade  tab-source-code" id="source">
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  NotFoundException,
+} from &#x27;@nestjs/common&#x27;;
+import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
+import { Protocol } from &#x27;@util/protocol&#x27;;
+import { Request } from &#x27;express&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
 
+@Injectable()
+export class RestaurantOwnerGuard implements CanActivate {
+  constructor(
+    @InjectRepository(Restaurant)
+    private readonly restaurantRepository: Repository&lt;Restaurant&gt;,
+  ) {}
 
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
+    const request &#x3D; context.switchToHttp().getRequest&lt;Request&gt;();
+    const userId &#x3D; request.user.id;
+    const restaurantId &#x3D; +request.params.restaurantId;
 
+    if (Number.isNaN(restaurantId)) {
+      const errorProtocol &#x3D; Protocol.WrongParamType;
+      throw new BadRequestException(errorProtocol);
+    }
 
+    const restaurant &#x3D; await this.restaurantRepository.findOneBy({
+      id: restaurantId,
+    });
 
-    </div>
+    if (!restaurant) {
+      const errorProtocol &#x3D; Protocol.NotFound;
+      throw new NotFoundException(errorProtocol);
+    }
 
+    if (restaurant.userId !&#x3D;&#x3D; userId) {
+      const errorProtocol &#x3D; Protocol.NoMatchOwnRestaurant;
+      throw new BadRequestException(errorProtocol);
+    }
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
-import { Reservation } from &#x27;../entities/reservation.entity&#x27;;
-
-export class CreateReservationDto extends PickType(Reservation, [
-  &#x27;reserveStartAt&#x27;,
-  &#x27;reserveEndAt&#x27;,
-  &#x27;amount&#x27;,
-]) {
-  menu!: number[];
-}
-export class CreateReservationWithPhoneDto extends PickType(Reservation, [
-  &#x27;reserveStartAt&#x27;,
-  &#x27;reserveEndAt&#x27;,
-  &#x27;phone&#x27;,
-  &#x27;amount&#x27;,
-]) {
-  menu!: number[];
+    return true;
+  }
 }
 </code></pre>
-    </div>
+        </div>
 </div>
+
+
 
 
 
@@ -265,8 +368,8 @@ export class CreateReservationWithPhoneDto extends PickType(Reservation, [
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'CreateReservationWithPhoneDto.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
+            var COMPODOC_CURRENT_PAGE_URL = 'RestaurantOwnerGuard.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -145,9 +145,21 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#create" >create</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -159,6 +171,10 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
@@ -166,9 +182,15 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#remove" >remove</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -202,6 +224,9 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>create</b></span>
                         <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -210,7 +235,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(req: Request, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, createReservationDto: <a href="../entitys/Reservation.html" target="_self">CreateReservationDto | CreateReservationWithPhoneDto</a>)</code>
+                    <code>create(req: Request, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, createReservationDto: <a href="../classes/CreateReservationDto.html" target="_self">CreateReservationDto</a>)</code>
                 </td>
             </tr>
 
@@ -218,14 +243,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 추가&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Post()<br /></code>
+                    <code>@ApiResponseWithModel({CreateReservationResponse: undefined}, {ok: true, status: undefined, method: &#x27;GET&#x27;, path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;})<br />@ApiBodyWithModel({CreateReservationDto: })<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 추가&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Post()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="31"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:31</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="60"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -272,7 +297,7 @@
                                         <tr>
                                                 <td>createReservationDto</td>
                                             <td>
-                                                            <code><a href="../entitys/Reservation.html" target="_self" >CreateReservationDto | CreateReservationWithPhoneDto</a></code>
+                                                            <code><a href="../classes/CreateReservationDto.html" target="_self" >CreateReservationDto</a></code>
                                             </td>
 
                                             <td>
@@ -305,6 +330,15 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>findAll</b></span>
                         <a href="#findAll"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -313,7 +347,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>findAll(req: Request, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, reserveStartAt: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, reserveEndAt: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, phone: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, amount: number[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -321,14 +355,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 전체 예약 조회&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Get()<br /></code>
+                    <code>@ApiResponseSearchModel({SearchReservationResponse: Reservation}, &#x27;/restaurants/:restaurantId/reservations&#x27;, {page: 2, count: 10, total: 3})<br />@ApiQuery({name: &#x27;reserveStartAt&#x27;, type: Date, example: &#x27;2025-03-16T16:00&#x27;, required: false})<br />@ApiQuery({name: &#x27;reserveEndAt&#x27;, type: Date, example: &#x27;2025-03-15T17:30&#x27;, required: false})<br />@ApiQuery({name: &#x27;phone&#x27;, type: String, example: &#x27;010-1234&#x27;, required: false})<br />@ApiQuery({name: &#x27;amount&#x27;, type: undefined, example: undefined, required: false})<br />@ApiQuery({name: &#x27;page&#x27;, type: Number, example: DEFAULT_PAGE, required: false})<br />@ApiQuery({name: &#x27;perPage&#x27;, type: Number, example: PER_PAGE, required: false})<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 전체 예약 조회&#x27;})<br />@UseGuards(RestaurantOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Get()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="49"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:49</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="132"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:132</a></div>
                         </td>
                     </tr>
 
@@ -350,9 +384,79 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                                <td>req</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
                                                 <td>restaurantId</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>reserveStartAt</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>reserveEndAt</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>phone</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>amount</td>
+                                            <td>
+                                                        <code>number[]</code>
                                             </td>
 
                                             <td>
@@ -374,7 +478,7 @@
                                             </td>
 
                                             <td>
-                                                    <code>1</code>
+                                                    <code>DEFAULT_PAGE</code>
                                             </td>
 
                                         </tr>
@@ -389,7 +493,7 @@
                                             </td>
 
                                             <td>
-                                                    <code>1</code>
+                                                    <code>PER_PAGE</code>
                                             </td>
 
                                         </tr>
@@ -417,6 +521,10 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>findOne</b></span>
                         <a href="#findOne"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -425,7 +533,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findOne(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>findOne(reservationId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -433,14 +541,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 단건 예약 상세 조회&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Get(&#x27;:id&#x27;)<br /></code>
+                    <code>@ApiResponseWithModel({FindOneReservationResponse: Reservation}, {ok: true, status: undefined, method: &#x27;GET&#x27;, path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;})<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;reservationId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 단건 예약 상세 조회&#x27;})<br />@UseGuards(RestaurantOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Get(&#x27;:reservationId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="61"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:61</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="190"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:190</a></div>
                         </td>
                     </tr>
 
@@ -461,7 +569,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>reservationId</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -496,6 +604,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>remove</b></span>
                         <a href="#remove"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -504,7 +614,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>remove(reservationId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -512,14 +622,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 취소&#x27;})<br />@Roles()<br />@Delete(&#x27;:id&#x27;)<br /></code>
+                    <code>@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;reservationId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 취소&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Delete(&#x27;:reservationId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="80"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:80</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="236"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:236</a></div>
                         </td>
                     </tr>
 
@@ -540,7 +650,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>reservationId</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -575,6 +685,10 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>update</b></span>
                         <a href="#update"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -583,7 +697,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>update(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updateReservationDto: <a href="../classes/UpdateReservationDto.html" target="_self">UpdateReservationDto</a>)</code>
+                    <code>update(reservationId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updateReservationDto: <a href="../classes/UpdateReservationDto.html" target="_self">UpdateReservationDto</a>)</code>
                 </td>
             </tr>
 
@@ -591,14 +705,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 수정&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Patch(&#x27;:id&#x27;)<br /></code>
+                    <code>@ApiResponseWithModel({PatchReservationResponse: undefined}, {ok: true, status: undefined, method: &#x27;PATCH&#x27;, path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;})<br />@ApiBodyWithModel({UpdateReservationDto: })<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;reservationId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 예약 수정&#x27;})<br />@Roles([&#x27;undefined&#x27;])<br />@Patch(&#x27;:reservationId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="69"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:69</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="212"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.controller.ts:212</a></div>
                         </td>
                     </tr>
 
@@ -619,7 +733,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>id</td>
+                                                <td>reservationId</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -660,32 +774,61 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &#x27;@auth/guard/roles.decorator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiResponseSearchModel } from &#x27;@common/decorators/api.response.search.model&#x27;;
+import { ApiResponseWithModel } from &#x27;@common/decorators/api.response.with.model&#x27;;
+import { DEFAULT_PAGE, PER_PAGE } from &#x27;@common/variables/environment&#x27;;
+import { Roles } from &#x27;@middleware/roles.decorator&#x27;;
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
+  ParseArrayPipe,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
   Req,
+  UseGuards,
+  ValidationPipe,
 } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
-import { UserRole } from &#x27;@util/enums/UserRole&#x27;;
-import { Request } from &#x27;express&#x27;;
 import {
-  CreateReservationDto,
-  CreateReservationWithPhoneDto,
-} from &#x27;./dto/create-reservation.dto&#x27;;
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+} from &#x27;@nestjs/swagger&#x27;;
+import { RestaurantOwnerGuard } from &#x27;@restaurants/restaurant-owner.guard&#x27;;
+import { UserRole } from &#x27;@util/enums/UserRole&#x27;;
+import { Protocol } from &#x27;@util/protocol&#x27;;
+import { Request } from &#x27;express&#x27;;
+import { CreateReservationDto } from &#x27;./dto/create-reservation.dto&#x27;;
 import { UpdateReservationDto } from &#x27;./dto/update-reservation.dto&#x27;;
+import { Reservation } from &#x27;./entities/reservation.entity&#x27;;
 import { ReservationsService } from &#x27;./reservations.service&#x27;;
+import { ApiBodyWithModel } from &#x27;@common/decorators/api.body.with.model&#x27;;
+import { ReservationAmountParsePipe } from &#x27;./reservation-amount-parse.pipe&#x27;;
 
 @Controller(&#x27;reservations&#x27;)
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @ApiResponseWithModel(
+    {
+      CreateReservationResponse: { id: 1 },
+    },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: &#x27;GET&#x27;,
+      path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;,
+    },
+  )
+  @ApiBodyWithModel({ CreateReservationDto })
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
   @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 예약 추가&#x27; })
   @Roles([UserRole.Customer])
@@ -693,54 +836,181 @@ export class ReservationsController {
   create(
     @Req() req: Request,
     @Param(&#x27;restaurantId&#x27;) restaurantId: number,
-    @Body()
-    createReservationDto: CreateReservationDto | CreateReservationWithPhoneDto,
+    @Body(
+      new ValidationPipe({
+        stopAtFirstError: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    )
+    createReservationDto: CreateReservationDto,
   ) {
     const user &#x3D; req.user;
     return this.reservationsService.create(
-      +user.id,
+      user,
       +restaurantId,
       createReservationDto,
     );
   }
 
+  @ApiResponseSearchModel(
+    { SearchReservationResponse: Reservation },
+    &#x27;/restaurants/:restaurantId/reservations&#x27;,
+    {
+      page: 2,
+      count: 10,
+      total: 3,
+    },
+  )
+  @ApiQuery({
+    name: &#x27;reserveStartAt&#x27;,
+    type: Date,
+    example: &#x27;2025-03-16T16:00&#x27;,
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;reserveEndAt&#x27;,
+    type: Date,
+    example: &#x27;2025-03-15T17:30&#x27;,
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;phone&#x27;,
+    type: String,
+    example: &#x27;010-1234&#x27;,
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;amount&#x27;,
+    type: [Number],
+    example: [1, 3],
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;page&#x27;,
+    type: Number,
+    example: DEFAULT_PAGE,
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;perPage&#x27;,
+    type: Number,
+    example: PER_PAGE,
+    required: false,
+  })
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
   @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 전체 예약 조회&#x27; })
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Get()
   findAll(
+    @Req() req: Request,
     @Param(&#x27;restaurantId&#x27;) restaurantId: number,
-    @Query(&#x27;page&#x27;) page: number &#x3D; 1,
-    @Query(&#x27;perPage&#x27;) perPage: number &#x3D; 1,
+    @Query(&#x27;reserveStartAt&#x27;) reserveStartAt: Date,
+    @Query(&#x27;reserveEndAt&#x27;) reserveEndAt: Date,
+    @Query(&#x27;phone&#x27;) phone: string,
+    @Query(&#x27;amount&#x27;, ReservationAmountParsePipe) amount: number[],
+    @Query(
+      &#x27;page&#x27;,
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol &#x3D; Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    page: number &#x3D; DEFAULT_PAGE,
+    @Query(
+      &#x27;perPage&#x27;,
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol &#x3D; Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    perPage: number &#x3D; PER_PAGE,
   ) {
-    return this.reservationsService.findAll(restaurantId, +page, +perPage);
+    const searchOption &#x3D; { reserveStartAt, reserveEndAt, phone, amount };
+    return this.reservationsService.findAll(
+      req.originalUrl,
+      restaurantId,
+      page,
+      perPage,
+      searchOption,
+    );
   }
 
+  @ApiResponseWithModel(
+    {
+      FindOneReservationResponse: Reservation,
+    },
+    {
+      ok: true,
+      status: HttpStatus.OK,
+      method: &#x27;GET&#x27;,
+      path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;,
+    },
+  )
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;reservationId&#x27;, type: Number, example: 1 })
   @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 단건 예약 상세 조회&#x27; })
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
-  @Get(&#x27;:id&#x27;)
-  findOne(@Param(&#x27;id&#x27;) id: string) {
-    return this.reservationsService.findOne(+id);
+  @Get(&#x27;:reservationId&#x27;)
+  findOne(@Param(&#x27;reservationId&#x27;) reservationId: string) {
+    return this.reservationsService.findOne(+reservationId);
   }
 
+  @ApiResponseWithModel(
+    {
+      PatchReservationResponse: { id: 1 },
+    },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: &#x27;PATCH&#x27;,
+      path: &#x27;/restaurants/:restaurantId/reservations/:reservationId&#x27;,
+    },
+  )
+  @ApiBodyWithModel({ UpdateReservationDto })
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;reservationId&#x27;, type: Number, example: 1 })
   @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 예약 수정&#x27; })
   @Roles([UserRole.Customer])
-  @Patch(&#x27;:id&#x27;)
+  @Patch(&#x27;:reservationId&#x27;)
   update(
-    @Param(&#x27;id&#x27;) id: string,
-    @Body() updateReservationDto: UpdateReservationDto,
+    @Param(&#x27;reservationId&#x27;) reservationId: string,
+    @Body(
+      new ValidationPipe({
+        stopAtFirstError: true,
+        transformOptions: {
+          enableImplicitConversion: true,
+        },
+      }),
+    )
+    updateReservationDto: UpdateReservationDto,
   ) {
-    return this.reservationsService.update(+id, updateReservationDto);
+    return this.reservationsService.update(
+      +reservationId,
+      updateReservationDto,
+    );
   }
 
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;reservationId&#x27;, type: Number, example: 1 })
   @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 예약 취소&#x27; })
-  @Roles()
-  @Delete(&#x27;:id&#x27;)
-  remove(@Param(&#x27;id&#x27;) id: string) {
-    return this.reservationsService.remove(+id);
+  @Roles([UserRole.Customer])
+  @Delete(&#x27;:reservationId&#x27;)
+  remove(@Param(&#x27;reservationId&#x27;) reservationId: string) {
+    return this.reservationsService.remove(+reservationId);
   }
 }
 </code></pre>

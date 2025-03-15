@@ -113,7 +113,7 @@
             <h3>파일</h3>
         </p>
         <p class="comment">
-            <code>src/restaurants/entities/reservation-menu.entity.ts</code>
+            <code>src/restaurants/reservations/entities/reservation-menu.entity.ts</code>
         </p>
 
 
@@ -202,7 +202,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="10" class="link-to-prism">src/restaurants/entities/reservation-menu.entity.ts:10</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="16" class="link-to-prism">src/restaurants/reservations/entities/reservation-menu.entity.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -238,7 +238,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="26" class="link-to-prism">src/restaurants/entities/reservation-menu.entity.ts:26</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="32" class="link-to-prism">src/restaurants/reservations/entities/reservation-menu.entity.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -275,7 +275,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="14" class="link-to-prism">src/restaurants/entities/reservation-menu.entity.ts:14</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="20" class="link-to-prism">src/restaurants/reservations/entities/reservation-menu.entity.ts:20</a></div>
                         </td>
                     </tr>
 
@@ -311,7 +311,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="23" class="link-to-prism">src/restaurants/entities/reservation-menu.entity.ts:23</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="29" class="link-to-prism">src/restaurants/reservations/entities/reservation-menu.entity.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -348,7 +348,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="18" class="link-to-prism">src/restaurants/entities/reservation-menu.entity.ts:18</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="24" class="link-to-prism">src/restaurants/reservations/entities/reservation-menu.entity.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -363,10 +363,16 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Menu } from &#x27;@restaurants/menus/entities/menu.entity&#x27;;
 import { Reservation } from &#x27;@restaurants/reservations/entities/reservation.entity&#x27;;
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from &#x27;typeorm&#x27;;
 
 @Entity()
-export class ReservationMenu {
+export class ReservationMenu extends BaseEntity {
   @ApiProperty({ type: Number, example: 1 })
   @PrimaryGeneratedColumn()
   id!: number;

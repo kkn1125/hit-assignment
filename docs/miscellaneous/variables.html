@@ -112,6 +112,12 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#API_PATH" title="src/common/variables/environment.ts" ><b>API_PATH</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ApiBodyWithCaseModel" title="src/common/decorators/api.body.with.case.model.ts" ><b>ApiBodyWithCaseModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.body.with.case.model.ts)</a>
+                        </li>
+                        <li>
                             <a href="#ApiBodyWithModel" title="src/common/decorators/api.body.with.model.ts" ><b>ApiBodyWithModel</b>&nbsp;&nbsp;&nbsp;(src/.../api.body.with.model.ts)</a>
                         </li>
                         <li>
@@ -142,10 +148,22 @@
                             <a href="#DB_USER" title="src/common/variables/environment.ts" ><b>DB_USER</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
+                            <a href="#DEFAULT_PAGE" title="src/common/variables/environment.ts" ><b>DEFAULT_PAGE</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#EXAMPLE_JWT" title="src/common/variables/environment.ts" ><b>EXAMPLE_JWT</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
                             <a href="#isDev" title="src/util/typeorm.ts" ><b>isDev</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
                         </li>
                         <li>
                             <a href="#isTest" title="src/util/typeorm.ts" ><b>isTest</b>&nbsp;&nbsp;&nbsp;(src/.../typeorm.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LOG_LEVEL" title="src/common/variables/environment.ts" ><b>LOG_LEVEL</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#PER_PAGE" title="src/common/variables/environment.ts" ><b>PER_PAGE</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
                             <a href="#PORT" title="src/common/variables/environment.ts" ><b>PORT</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
@@ -154,7 +172,7 @@
                             <a href="#Protocol" title="src/util/protocol.ts" ><b>Protocol</b>&nbsp;&nbsp;&nbsp;(src/.../protocol.ts)</a>
                         </li>
                         <li>
-                            <a href="#Roles" title="src/auth/guard/roles.decorator.ts" ><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
+                            <a href="#Roles" title="src/middleware/roles.decorator.ts" ><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
                         </li>
                         <li>
                             <a href="#RUN_MODE" title="src/common/variables/environment.ts" ><b>RUN_MODE</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
@@ -196,468 +214,35 @@
     </table>
 </section>
 
-    <h3>src/common/decorators/api.body.with.model.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ApiBodyWithModel"></a>
-                    <span class="name">
-                        <span ><b>ApiBodyWithModel</b></span>
-                        <a href="#ApiBodyWithModel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(modelProps: {
-  [k: string]: Model;
-}) &#x3D;&gt; {
-  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
-  const isClass &#x3D;
-    model.constructor.toString().startsWith(&#x27;class&#x27;) ||
-    model.constructor.toString().match(/function (Function)/);
-
-  if (isClass) {
-    const extendsModel &#x3D; model as Type&lt;any&gt;;
-    const createClass &#x3D; {
-      [modelName]: class extends extendsModel {},
-    }[modelName];
-    return applyDecorators(
-      ApiBody({
-        schema: { $ref: getSchemaPath(createClass) },
-      }),
-      ApiExtraModels(createClass),
-    );
-  }
-
-  return applyDecorators(
-    ApiBody({
-      schema: {
-        title: modelName,
-        properties: Object.fromEntries(
-          Object.entries(model).map(([k, v]) &#x3D;&gt; [
-            k,
-            {
-              type: typeof v,
-              example: v,
-            },
-          ]),
-        ),
-      },
-    }),
-  );
-}</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/common/decorators/api.response.search.model.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ApiResponseSearchModel"></a>
-                    <span class="name">
-                        <span ><b>ApiResponseSearchModel</b></span>
-                        <a href="#ApiResponseSearchModel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt;&gt;(
-  modelProps: {
-    [k: string]: Model;
-  },
-  path: string,
-  pagination: PaginationType,
-) &#x3D;&gt; {
-  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
-
-  return applyDecorators(
-    ApiResponse({
-      status: HttpStatus.OK,
-      schema: {
-        anyOf: [
-          {
-            title: modelName,
-            properties: {
-              ok: {
-                type: &#x27;boolean&#x27;,
-                example: true,
-              },
-              status: {
-                type: &#x27;number&#x27;,
-                example: HttpStatus.OK,
-              },
-              path: {
-                type: &#x27;string&#x27;,
-                example: path,
-              },
-              payload: {
-                properties: {
-                  data: {
-                    type: &#x27;array&#x27;,
-                    items: {
-                      $ref: getSchemaPath(model),
-                    },
-                  },
-                  pagination: {
-                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
-                    properties: {
-                      page: {
-                        type: &#x27;number&#x27;,
-                        example: pagination.page,
-                      },
-                      total: {
-                        type: &#x27;number&#x27;,
-                        example: pagination.total,
-                      },
-                      prev: {
-                        type: &#x27;string&#x27;,
-                        example: &#x60;${path}?page&#x3D;${pagination.prev}&#x60;,
-                        description:
-                          &#x27;이전 페이지가 없을 시 prev는 응답에 포함되지 않습니다.&#x27;,
-                      },
-                      next: {
-                        type: &#x27;string&#x27;,
-                        example: &#x60;${path}?page&#x3D;${pagination.next}&#x60;,
-                        description:
-                          &#x27;다음 페이지가 없을 시 next는 응답에 포함되지 않습니다.&#x27;,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-          {
-            title: modelName,
-            properties: {
-              ok: {
-                type: &#x27;boolean&#x27;,
-                example: true,
-              },
-              status: {
-                type: &#x27;number&#x27;,
-                example: HttpStatus.OK,
-              },
-              path: {
-                type: &#x27;string&#x27;,
-                example: path,
-              },
-              payload: {
-                properties: {
-                  data: {
-                    type: &#x27;array&#x27;,
-                    items: {
-                      $ref: getSchemaPath(model),
-                    },
-                  },
-                  pagination: {
-                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
-                    properties: {
-                      page: {
-                        type: &#x27;number&#x27;,
-                        example: pagination.page,
-                      },
-                      total: {
-                        type: &#x27;number&#x27;,
-                        example: pagination.total,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        ],
-      },
-    }),
-    ApiExtraModels(model),
-  );
-}</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/common/decorators/api.response.with.case.model.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ApiResponseWithCaseModel"></a>
-                    <span class="name">
-                        <span ><b>ApiResponseWithCaseModel</b></span>
-                        <a href="#ApiResponseWithCaseModel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
-  modelProps: {
-    [k: string]: {
-      [summary: string]: Model | Model[];
-    };
-  },
-  status: HttpStatus,
-  path: string,
-  method: string,
-) &#x3D;&gt; {
-  const [modelName, models] &#x3D; Object.entries(modelProps)[0];
-  const extraModels: Type&lt;any&gt;[] &#x3D; [];
-  const schema: SchemaObject &#x3D; {
-    title: modelName,
-    oneOf: Object.entries(models).map(([summary, model]) &#x3D;&gt; {
-      const isArray &#x3D; Array.isArray(model);
-      const useModel &#x3D; isArray ? model[0] : model;
-      const isClass &#x3D; typeof useModel &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
-
-      if (isClass) {
-        extraModels.push(useModel);
-        return {
-          title: summary,
-          type: &#x27;object&#x27;,
-          properties: {
-            ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
-            status: { type: &#x27;number&#x27;, example: status },
-            method: { type: &#x27;string&#x27;, example: method },
-            path: { type: &#x27;string&#x27;, example: path },
-            payload: isArray
-              ? {
-                  type: &#x27;array&#x27;,
-                  items: {
-                    $ref: getSchemaPath(useModel),
-                  },
-                }
-              : {
-                  type: &#x27;object&#x27;,
-                  $ref: getSchemaPath(useModel),
-                },
-            timestamp: { type: &#x27;number&#x27;, example: 1741672686205 },
-          },
-        };
-      }
-      return {
-        title: summary,
-        type: &#x27;object&#x27;,
-        properties: {
-          ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
-          status: { type: &#x27;number&#x27;, example: status },
-          method: { type: &#x27;string&#x27;, example: method },
-          path: { type: &#x27;string&#x27;, example: path },
-          payload: isArray
-            ? {
-                type: &#x27;array&#x27;,
-                items: {
-                  properties: Object.fromEntries(
-                    Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
-                      k,
-                      {
-                        type: typeof v,
-                        value: v,
-                      },
-                    ]),
-                  ),
-                },
-              }
-            : {
-                type: &#x27;object&#x27;,
-                properties: Object.fromEntries(
-                  Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
-                    k,
-                    {
-                      type: typeof v,
-                      value: v,
-                    },
-                  ]),
-                ),
-              },
-          timestamp: { type: &#x27;number&#x27;, example: 1741672686205 },
-        },
-      };
-    }),
-  };
-
-  const examples &#x3D; Object.fromEntries(
-    Object.entries(models).map(([summary, model]) &#x3D;&gt; [
-      summary,
-      {
-        summary,
-        value: {
-          ok: true,
-          status,
-          method,
-          path,
-          payload: model,
-          timestamp: 1741672686205,
-        },
-      },
-    ]),
-  );
-
-  if (extraModels.length &gt; 0) {
-    return applyDecorators(
-      ApiResponse({ schema, examples }),
-      ApiExtraModels(...extraModels),
-    );
-  }
-  return applyDecorators(ApiResponse({ schema, examples }));
-}</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/common/decorators/api.response.with.model.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ApiResponseWithModel"></a>
-                    <span class="name">
-                        <span ><b>ApiResponseWithModel</b></span>
-                        <a href="#ApiResponseWithModel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
-  modelProps: { [k: string]: Model },
-  { ok, status, method, path, message }: ResponseProperty,
-  options?: Omit&lt;ApiResponseOptions, &#x27;schema&#x27;&gt;,
-) &#x3D;&gt; {
-  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
-  const isArray &#x3D; Array.isArray(model);
-  const properties: Record&lt;string, any&gt; &#x3D; {};
-  properties.ok &#x3D; { type: &#x27;boolean&#x27;, example: ok };
-  properties.status &#x3D; { type: &#x27;number&#x27;, example: status };
-  properties.method &#x3D; { type: &#x27;string&#x27;, example: method };
-  properties.path &#x3D; { type: &#x27;string&#x27;, example: path };
-  properties.payload &#x3D; {};
-  if (message) {
-    properties.message &#x3D; { type: &#x27;string&#x27;, example: message };
-  }
-  properties.timestamp &#x3D; { type: &#x27;number&#x27;, example: 1741672686205 };
-
-  const pickModel &#x3D; isArray ? model[0] : model;
-  const isClass &#x3D;
-    pickModel.constructor.toString().startsWith(&#x27;class&#x27;) ||
-    pickModel.constructor.toString().match(/function (Function)/);
-
-  if (isClass) {
-    properties.payload &#x3D; isArray
-      ? { type: &#x27;array&#x27;, items: { $ref: getSchemaPath(pickModel) } }
-      : {
-          $ref: getSchemaPath(pickModel),
-        };
-
-    return applyDecorators(
-      ApiResponse({
-        ...options,
-        status,
-        schema: { properties },
-      }),
-      ApiExtraModels(pickModel),
-    );
-  }
-
-  properties.payload &#x3D; {
-    properties: isArray
-      ? Object.fromEntries(
-          Object.entries(model[0]).map(([k, v]) &#x3D;&gt; [
-            k,
-            {
-              type: typeof v,
-              example: v,
-            },
-          ]),
-        )
-      : Object.fromEntries(
-          Object.entries(model).map(([k, v]) &#x3D;&gt; [
-            k,
-            {
-              type: typeof v,
-              example: v,
-            },
-          ]),
-        ),
-  };
-
-  return applyDecorators(
-    ApiResponse({
-      ...options,
-      status,
-      schema: {
-        title: modelName,
-        properties,
-      },
-    }),
-  );
-}</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/util/common.ts</h3>
-    <section data-compodoc="block-properties">
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="commonOption"></a>
-                    <span class="name">
-                        <span ><b>commonOption</b></span>
-                        <a href="#commonOption"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>{
-  version: VERSION,
-  port: PORT,
-  allowOrigins:
-    RUN_MODE &#x3D;&#x3D;&#x3D; &#x27;development&#x27;
-      ? [&#x27;localhost:8080&#x27;]
-      : [
-          /* production host */
-        ],
-}</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
     <h3>src/common/variables/environment.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="API_PATH"></a>
+                    <span class="name">
+                        <span ><b>API_PATH</b></span>
+                        <a href="#API_PATH"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&#x27;/api&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
@@ -751,6 +336,104 @@
                 <tr>
                     <td class="col-md-4">
                         <i>기본 값 : </i><code>process.env.DB_USER as string</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DEFAULT_PAGE"></a>
+                    <span class="name">
+                        <span ><b>DEFAULT_PAGE</b></span>
+                        <a href="#DEFAULT_PAGE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>1</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EXAMPLE_JWT"></a>
+                    <span class="name">
+                        <span ><b>EXAMPLE_JWT</b></span>
+                        <a href="#EXAMPLE_JWT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&#x27;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcklkIjoidGVzdHVzZXIxIiwiZW1haWwiOiJ0ZXN0dXNlcjFAZXhhbXBsZS5jb20iLCJyb2xlIjoxLCJwaG9uZSI6IjAxMC0yMTM0LTE1MzQiLCJpYXQiOjE3NDE5MjAzNjQsImV4cCI6MTc0MTkyMDY2NCwiaXNzIjoiSGl0UmVzdGF1cmFudCJ9.scLKEQA5nszs3faE69WWIcMoE0v96fg2GZRougoY6AI&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="LOG_LEVEL"></a>
+                    <span class="name">
+                        <span ><b>LOG_LEVEL</b></span>
+                        <a href="#LOG_LEVEL"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>+(process.env.LOG_LEVEL ?? 5)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="PER_PAGE"></a>
+                    <span class="name">
+                        <span ><b>PER_PAGE</b></span>
+                        <a href="#PER_PAGE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>10</code>
                     </td>
                 </tr>
 
@@ -904,6 +587,564 @@
         </tbody>
     </table>
 </section>
+    <h3>src/common/decorators/api.body.with.case.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiBodyWithCaseModel"></a>
+                    <span class="name">
+                        <span ><b>ApiBodyWithCaseModel</b></span>
+                        <a href="#ApiBodyWithCaseModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;
+  Model extends Type&lt;any&gt; | object,
+&gt;(modelProps: {
+  [k: string]: {
+    [summary: string]: Model | Model[];
+  };
+}) &#x3D;&gt; {
+  const [modelName, models] &#x3D; Object.entries(modelProps)[0];
+  const extraModels: Type&lt;any&gt;[] &#x3D; [];
+  const schema: SchemaObject &#x3D; {
+    title: modelName,
+    oneOf: Object.entries(models).map(([summary, model]) &#x3D;&gt; {
+      const isArray &#x3D; Array.isArray(model);
+      const useModel &#x3D; isArray ? model[0] : model;
+      const isClass &#x3D; typeof useModel &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
+      if (isClass) {
+        extraModels.push(useModel);
+        return isArray
+          ? {
+              title: summary,
+              type: &#x27;array&#x27;,
+              items: {
+                $ref: getSchemaPath(useModel),
+              },
+            }
+          : {
+              title: summary,
+              type: &#x27;object&#x27;,
+              $ref: getSchemaPath(useModel),
+            };
+      }
+
+      return isArray
+        ? {
+            title: summary,
+            type: &#x27;array&#x27;,
+            items: {
+              properties: Object.fromEntries(
+                Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                  k,
+                  {
+                    type: typeof v,
+                    value: v,
+                  },
+                ]),
+              ),
+            },
+          }
+        : {
+            title: summary,
+            type: &#x27;object&#x27;,
+            properties: Object.fromEntries(
+              Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                k,
+                {
+                  type: typeof v,
+                  value: v,
+                },
+              ]),
+            ),
+          };
+    }),
+  };
+
+  if (extraModels.length &gt; 0) {
+    return applyDecorators(ApiBody({ schema }), ApiExtraModels(...extraModels));
+  }
+  return applyDecorators(ApiBody({ schema }));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.body.with.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiBodyWithModel"></a>
+                    <span class="name">
+                        <span ><b>ApiBodyWithModel</b></span>
+                        <a href="#ApiBodyWithModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(modelProps: {
+  [k: string]: Model;
+}) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+  const isClass &#x3D;
+    model.constructor.toString().startsWith(&#x27;class&#x27;) ||
+    model.constructor.toString().match(/function (Function)/);
+
+  if (isClass) {
+    const extendsModel &#x3D; model as Type&lt;any&gt;;
+    const createClass &#x3D; {
+      [modelName]: class extends extendsModel {},
+    }[modelName];
+    return applyDecorators(
+      ApiBody({
+        schema: { $ref: getSchemaPath(createClass) },
+      }),
+      ApiExtraModels(createClass),
+    );
+  }
+
+  return applyDecorators(
+    ApiBody({
+      schema: {
+        title: modelName,
+        properties: Object.fromEntries(
+          Object.entries(model).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        ),
+      },
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.search.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseSearchModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseSearchModel</b></span>
+                        <a href="#ApiResponseSearchModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt;&gt;(
+  modelProps: {
+    [k: string]: Model;
+  },
+  path: string,
+  pagination: PaginationType,
+) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+
+  return applyDecorators(
+    ApiResponse({
+      status: HttpStatus.OK,
+      schema: {
+        anyOf: [
+          {
+            title: modelName,
+            properties: {
+              ok: {
+                type: &#x27;boolean&#x27;,
+                example: true,
+              },
+              status: {
+                type: &#x27;number&#x27;,
+                example: HttpStatus.OK,
+              },
+              path: {
+                type: &#x27;string&#x27;,
+                example: API_PATH + path,
+              },
+              payload: {
+                properties: {
+                  data: {
+                    type: &#x27;array&#x27;,
+                    items: {
+                      $ref: getSchemaPath(model),
+                    },
+                  },
+                  pagination: {
+                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
+                    properties: {
+                      page: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.page,
+                      },
+                      count: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.count,
+                      },
+                      total: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.total,
+                      },
+                      prev: {
+                        type: &#x27;string&#x27;,
+                        example: &#x60;${API_PATH + path}?page&#x3D;${pagination.page - 1}&#x60;,
+                        description:
+                          &#x27;이전 페이지가 없을 시 prev는 응답에 포함되지 않습니다.&#x27;,
+                      },
+                      next: {
+                        type: &#x27;string&#x27;,
+                        example: &#x60;${API_PATH + path}?page&#x3D;${pagination.page + 1}&#x60;,
+                        description:
+                          &#x27;다음 페이지가 없을 시 next는 응답에 포함되지 않습니다.&#x27;,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          {
+            title: modelName,
+            properties: {
+              ok: {
+                type: &#x27;boolean&#x27;,
+                example: true,
+              },
+              status: {
+                type: &#x27;number&#x27;,
+                example: HttpStatus.OK,
+              },
+              path: {
+                type: &#x27;string&#x27;,
+                example: API_PATH + path,
+              },
+              payload: {
+                properties: {
+                  data: {
+                    type: &#x27;array&#x27;,
+                    items: {
+                      $ref: getSchemaPath(model),
+                    },
+                  },
+                  pagination: {
+                    required: [&#x27;page&#x27;, &#x27;total&#x27;],
+                    properties: {
+                      page: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.page,
+                      },
+                      count: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.count,
+                      },
+                      total: {
+                        type: &#x27;number&#x27;,
+                        example: pagination.total,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        ],
+      },
+    }),
+    ApiExtraModels(model),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.with.case.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseWithCaseModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseWithCaseModel</b></span>
+                        <a href="#ApiResponseWithCaseModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
+  modelProps: {
+    [k: string]: {
+      [summary: string]: Model | Model[];
+    };
+  },
+  status: HttpStatus,
+  path: string,
+  method: string,
+) &#x3D;&gt; {
+  const [modelName, models] &#x3D; Object.entries(modelProps)[0];
+  const extraModels: Type&lt;any&gt;[] &#x3D; [];
+  const schema: SchemaObject &#x3D; {
+    title: modelName,
+    oneOf: Object.entries(models).map(([summary, model]) &#x3D;&gt; {
+      const isArray &#x3D; Array.isArray(model);
+      const useModel &#x3D; isArray ? model[0] : model;
+      const isClass &#x3D; typeof useModel &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
+
+      if (isClass) {
+        extraModels.push(useModel);
+        return {
+          title: summary,
+          type: &#x27;object&#x27;,
+          properties: {
+            ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
+            status: { type: &#x27;number&#x27;, example: status },
+            method: { type: &#x27;string&#x27;, example: method },
+            path: { type: &#x27;string&#x27;, example: API_PATH + path },
+            payload: isArray
+              ? {
+                  type: &#x27;array&#x27;,
+                  items: {
+                    $ref: getSchemaPath(useModel),
+                  },
+                }
+              : {
+                  type: &#x27;object&#x27;,
+                  $ref: getSchemaPath(useModel),
+                },
+            timestamp: { type: &#x27;string&#x27;, example: &#x27;2025-03-14 21:28:30.718&#x27; },
+          },
+        };
+      }
+      return {
+        title: summary,
+        type: &#x27;object&#x27;,
+        properties: {
+          ok: { type: &#x27;boolean&#x27;, example: [200, 201].includes(status) },
+          status: { type: &#x27;number&#x27;, example: status },
+          method: { type: &#x27;string&#x27;, example: method },
+          path: { type: &#x27;string&#x27;, example: API_PATH + path },
+          payload: isArray
+            ? {
+                type: &#x27;array&#x27;,
+                items: {
+                  properties: Object.fromEntries(
+                    Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                      k,
+                      {
+                        type: typeof v,
+                        value: v,
+                      },
+                    ]),
+                  ),
+                },
+              }
+            : {
+                type: &#x27;object&#x27;,
+                properties: Object.fromEntries(
+                  Object.entries(useModel).map(([k, v]) &#x3D;&gt; [
+                    k,
+                    {
+                      type: typeof v,
+                      value: v,
+                    },
+                  ]),
+                ),
+              },
+          timestamp: { type: &#x27;string&#x27;, example: &#x27;2025-03-14 21:28:30.718&#x27; },
+        },
+      };
+    }),
+  };
+
+  const examples &#x3D; Object.fromEntries(
+    Object.entries(models).map(([summary, model]) &#x3D;&gt; [
+      summary,
+      {
+        summary,
+        value: {
+          ok: true,
+          status,
+          method,
+          path: API_PATH + path,
+          payload: model,
+          timestamp: &#x27;2025-03-14 21:28:30.718&#x27;,
+        },
+      },
+    ]),
+  );
+
+  if (extraModels.length &gt; 0) {
+    return applyDecorators(
+      ApiResponse({ schema, examples }),
+      ApiExtraModels(...extraModels),
+    );
+  }
+  return applyDecorators(ApiResponse({ schema, examples }));
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/common/decorators/api.response.with.model.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApiResponseWithModel"></a>
+                    <span class="name">
+                        <span ><b>ApiResponseWithModel</b></span>
+                        <a href="#ApiResponseWithModel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>&lt;Model extends Type&lt;any&gt; | object&gt;(
+  modelProps: { [k: string]: Model },
+  { ok, status, method, path, message }: ResponseProperty,
+  options?: Omit&lt;ApiResponseOptions, &#x27;schema&#x27;&gt;,
+) &#x3D;&gt; {
+  const [modelName, model] &#x3D; Object.entries(modelProps)[0];
+  const isArray &#x3D; Array.isArray(model);
+  const properties: Record&lt;string, any&gt; &#x3D; {};
+  properties.ok &#x3D; { type: &#x27;boolean&#x27;, example: ok };
+  properties.status &#x3D; { type: &#x27;number&#x27;, example: status };
+  properties.method &#x3D; { type: &#x27;string&#x27;, example: method };
+  properties.path &#x3D; { type: &#x27;string&#x27;, example: API_PATH + path };
+  properties.payload &#x3D; {};
+  if (message) {
+    properties.message &#x3D; { type: &#x27;string&#x27;, example: message };
+  }
+  properties.timestamp &#x3D; { type: &#x27;string&#x27;, example: &#x27;2025-03-14 21:28:30.718&#x27; };
+
+  const pickModel &#x3D; isArray ? model[0] : model;
+  const isClass &#x3D;
+    pickModel.constructor.toString().startsWith(&#x27;class&#x27;) ||
+    pickModel.constructor.toString().match(/function (Function)/);
+
+  if (isClass) {
+    properties.payload &#x3D; isArray
+      ? { type: &#x27;array&#x27;, items: { $ref: getSchemaPath(pickModel) } }
+      : {
+          $ref: getSchemaPath(pickModel),
+        };
+
+    return applyDecorators(
+      ApiResponse({
+        ...options,
+        status,
+        schema: { properties },
+      }),
+      ApiExtraModels(pickModel),
+    );
+  }
+
+  properties.payload &#x3D; {
+    properties: isArray
+      ? Object.fromEntries(
+          Object.entries(model[0]).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        )
+      : Object.fromEntries(
+          Object.entries(model).map(([k, v]) &#x3D;&gt; [
+            k,
+            {
+              type: typeof v,
+              example: v,
+            },
+          ]),
+        ),
+  };
+
+  return applyDecorators(
+    ApiResponse({
+      ...options,
+      status,
+      schema: {
+        title: modelName,
+        properties,
+      },
+    }),
+  );
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/util/common.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonOption"></a>
+                    <span class="name">
+                        <span ><b>commonOption</b></span>
+                        <a href="#commonOption"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>기본 값 : </i><code>{
+  version: VERSION,
+  port: PORT,
+  allowOrigins:
+    RUN_MODE &#x3D;&#x3D;&#x3D; &#x27;development&#x27;
+      ? [&#x27;localhost:8080&#x27;]
+      : [
+          /* production host */
+        ],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
     <h3>src/util/typeorm.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -966,8 +1207,8 @@
                 <tr>
                     <td class="col-md-4">
                         <i>기본 값 : </i><code>{
-  type: &#x27;mysql&#x27;,
-  synchronize: isTest || isDev,
+  type: &#x27;mariadb&#x27;,
+  synchronize: isTest,
   namingStrategy: new SnakeNamingStrategy(),
   entities: [User, Restaurant, Reservation, Menu, ReservationMenu],
   username: DB_USER,
@@ -976,7 +1217,7 @@
   port: DB_PORT,
   database: DB_NAME,
   logging: isTest || isDev ? [&#x27;query&#x27;, &#x27;error&#x27;] : [&#x27;error&#x27;],
-  timezone: &#x27;+09:00&#x27;,
+  migrations: [Migration1741439368275],
   dropSchema: isTest,
 }</code>
                     </td>
@@ -1082,6 +1323,14 @@
     errorCode: 4002,
     message: &#x27;종료시간이 시작 시간보다 과거일 수 없습니다.&#x27;,
   },
+  PageOver: {
+    errorCode: 4003,
+    message: &#x27;페이지 범위를 벗어났습니다.&#x27;,
+  },
+  TypeCheck: {
+    errorCode: 4004,
+    message: &#x27;타입이 맞지 않습니다.&#x27;,
+  },
 } as const</code>
                     </td>
                 </tr>
@@ -1090,7 +1339,7 @@
         </tbody>
     </table>
 </section>
-    <h3>src/auth/guard/roles.decorator.ts</h3>
+    <h3>src/middleware/roles.decorator.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>

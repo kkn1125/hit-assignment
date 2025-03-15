@@ -146,6 +146,7 @@
                                 <a href="#findOne" >findOne</a>
                             </li>
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#remove" >remove</a>
                             </li>
                             <li>
@@ -169,12 +170,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(reservationRepository: <a href="../entitys/Reservation.html" target="_self">Repository&lt;Reservation&gt;</a>, userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>)</code>
+<code>constructor(menuRepository: <a href="../entitys/Menu.html" target="_self">Repository&lt;Menu&gt;</a>, reservationRepository: <a href="../entitys/Reservation.html" target="_self">Repository&lt;Reservation&gt;</a>, utilService: <a href="../injectables/UtilService.html" target="_self">UtilService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="19" class="link-to-prism">src/restaurants/reservations/reservations.service.ts:19</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="18" class="link-to-prism">src/restaurants/reservations/reservations.service.ts:18</a></div>
                             </td>
                         </tr>
 
@@ -192,6 +193,18 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
+                                                        <td>menuRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Menu.html" target="_self" >Repository&lt;Menu&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
                                                         <td>reservationRepository</td>
                                                   
                                                         <td>
@@ -204,10 +217,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>userRepository</td>
+                                                        <td>utilService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../entitys/User.html" target="_self" >Repository&lt;User&gt;</a></code>
+                                                                        <code><a href="../injectables/UtilService.html" target="_self" >UtilService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -244,15 +257,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>create(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, createReservationDto: <a href="../entitys/Reservation.html" target="_self">CreateReservationDto | CreateReservationWithPhoneDto</a>)</code>
+                    <code>create(user: <a href="../entitys/User.html" target="_self">UserTokenData</a>, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, createReservationDto: <a href="../classes/CreateReservationDto.html" target="_self">CreateReservationDto</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="35"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:35</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="34"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -273,9 +286,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>userId</td>
+                                                <td>user</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                            <code><a href="../entitys/User.html" target="_self" >UserTokenData</a></code>
                                             </td>
 
                                             <td>
@@ -299,7 +312,7 @@
                                         <tr>
                                                 <td>createReservationDto</td>
                                             <td>
-                                                            <code><a href="../entitys/Reservation.html" target="_self" >CreateReservationDto | CreateReservationWithPhoneDto</a></code>
+                                                            <code><a href="../classes/CreateReservationDto.html" target="_self" >CreateReservationDto</a></code>
                                             </td>
 
                                             <td>
@@ -335,15 +348,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findAll(restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>findAll(path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, searchOption: SearchOption)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="75"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:75</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="76"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:76</a></div>
                         </td>
                     </tr>
 
@@ -363,6 +376,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
                                         <tr>
                                                 <td>restaurantId</td>
                                             <td>
@@ -391,6 +416,18 @@
                                                 <td>perPage</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>searchOption</td>
+                                            <td>
+                                                        <code>SearchOption</code>
                                             </td>
 
                                             <td>
@@ -433,8 +470,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="84"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:84</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="127"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -486,6 +523,7 @@
                 <td class="col-md-4">
                     <a name="remove"></a>
                     <span class="name">
+                            <span class="modifier">Async</span>
                         <span ><b>remove</b></span>
                         <a href="#remove"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -493,15 +531,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>remove(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="92"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:92</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="135"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:135</a></div>
                         </td>
                     </tr>
 
@@ -537,7 +576,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>반환 : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -567,8 +606,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="88"
-                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:88</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="131"
+                                    class="link-to-prism">src/restaurants/reservations/reservations.service.ts:131</a></div>
                         </td>
                     </tr>
 
@@ -632,30 +671,30 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BadRequestException, Injectable } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
-import { User } from &#x27;@users/entities/user.entity&#x27;;
-import { Protocol } from &#x27;@util/protocol&#x27;;
+import { Menu } from &#x27;@restaurants/menus/entities/menu.entity&#x27;;
+import { ReservationMenu } from &#x27;@restaurants/reservations/entities/reservation-menu.entity&#x27;;
+import { UtilService } from &#x27;@util/util.service&#x27;;
 import {
-  searchPagination,
-  throwNoExistsEntityWithSelectBy,
-} from &#x27;@util/utilFunction&#x27;;
-import dayjs from &#x27;dayjs&#x27;;
-import { Repository } from &#x27;typeorm&#x27;;
-import {
-  CreateReservationDto,
-  CreateReservationWithPhoneDto,
-} from &#x27;./dto/create-reservation.dto&#x27;;
+  Between,
+  LessThanOrEqual,
+  Like,
+  MoreThanOrEqual,
+  Repository,
+} from &#x27;typeorm&#x27;;
+import { CreateReservationDto } from &#x27;./dto/create-reservation.dto&#x27;;
 import { UpdateReservationDto } from &#x27;./dto/update-reservation.dto&#x27;;
 import { Reservation } from &#x27;./entities/reservation.entity&#x27;;
 
 @Injectable()
 export class ReservationsService {
   constructor(
+    @InjectRepository(Menu)
+    private readonly menuRepository: Repository&lt;Menu&gt;,
     @InjectRepository(Reservation)
     private readonly reservationRepository: Repository&lt;Reservation&gt;,
-    @InjectRepository(User)
-    private readonly userRepository: Repository&lt;User&gt;,
+    private readonly utilService: UtilService,
   ) {}
 
   /* 
@@ -665,53 +704,96 @@ export class ReservationsService {
   4. 예약 일자 과거 입력을 방지한다.
   5. 예약 종료일자는 시작일자보다 과거일 수 없다.
   */
-  // TODO: 메뉴(배열) 추가 로직
   async create(
-    userId: number,
+    user: UserTokenData,
     restaurantId: number,
-    createReservationDto: CreateReservationDto | CreateReservationWithPhoneDto,
+    createReservationDto: CreateReservationDto,
   ) {
-    const user &#x3D; await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      id: userId,
-    });
+    const { phone } &#x3D; createReservationDto;
 
-    if (!(&#x27;phone&#x27; in createReservationDto)) {
+    /* 입력 전화번호 없을 시 사용자 전화번호가 기본값 */
+    if (!phone) {
       Object.assign(createReservationDto, { phone: user.phone });
     }
 
-    if (createReservationDto.amount &lt;&#x3D; 0) {
-      const errorProtocol &#x3D; Protocol.MustPositive;
-      throw new BadRequestException(errorProtocol);
-    }
+    const { menu, ...dtoData } &#x3D; createReservationDto;
 
-    if (dayjs(createReservationDto.reserveStartAt).isBefore(dayjs())) {
-      const errorProtocol &#x3D; Protocol.NotAllowedPastTime;
-      throw new BadRequestException(errorProtocol);
-    }
-
-    if (
-      dayjs(createReservationDto.reserveEndAt).isBefore(
-        createReservationDto.reserveStartAt,
-      )
-    ) {
-      const errorProtocol &#x3D; Protocol.InvalidTimeRange;
-      throw new BadRequestException(errorProtocol);
-    }
-    const reservation &#x3D; await this.reservationRepository.save({
-      userId,
+    /* 예약 객체 미리 생성 */
+    const reservation &#x3D; this.reservationRepository.create({
+      userId: user.id,
       restaurantId,
-      ...createReservationDto,
+      ...dtoData,
     });
+
+    await this.reservationRepository.save(reservation);
+
+    /* 메뉴 데이터베이스 존재 검증 */
+    for (const id of menu) {
+      const menu &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
+        this.menuRepository,
+        {
+          where: { id },
+        },
+      );
+
+      const reservationMenu &#x3D; new ReservationMenu();
+      reservationMenu.menuId &#x3D; menu.id;
+      reservationMenu.reservationId &#x3D; reservation.id;
+
+      await this.reservationRepository.manager.save(reservationMenu);
+    }
 
     return { id: reservation.id };
   }
 
-  findAll(restaurantId: number, page: number, perPage: number) {
-    return searchPagination(
+  findAll(
+    path: string,
+    restaurantId: number,
+    page: number,
+    perPage: number,
+    searchOption: SearchOption,
+  ) {
+    return this.utilService.searchPagination(
       this.reservationRepository,
-      &#x60;/restaurants/${restaurantId}/reservations&#x60;,
-      { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },
+      path,
+      {
+        where: {
+          restaurantId,
+          phone: searchOption.phone
+            ? Like(&#x27;%&#x27; + searchOption.phone + &#x27;%&#x27;)
+            : undefined,
+          reserveStartAt: searchOption.reserveStartAt
+            ? MoreThanOrEqual(searchOption.reserveStartAt)
+            : undefined,
+          reserveEndAt: searchOption.reserveEndAt
+            ? LessThanOrEqual(searchOption.reserveEndAt)
+            : undefined,
+          amount: searchOption.amount
+            ? Between(+searchOption.amount[0], +searchOption.amount[1])
+            : undefined,
+        },
+        take: perPage,
+        skip: (page - 1) * perPage,
+        select: {
+          user: {
+            id: true,
+            userId: true,
+            username: true,
+            phone: true,
+          },
+        },
+        relations: {
+          user: true,
+          restaurant: true,
+          reservationMenus: true,
+        },
+        order: {
+          createdAt: &#x27;DESC&#x27;,
+        },
+      },
       page,
+      perPage,
+      searchOption,
     );
   }
 
@@ -723,8 +805,9 @@ export class ReservationsService {
     return this.reservationRepository.update(id, updateReservationDto);
   }
 
-  remove(id: number) {
-    return this.reservationRepository.softDelete(id);
+  async remove(id: number) {
+    await this.reservationRepository.softDelete(id);
+    return { id };
   }
 }
 </code></pre>

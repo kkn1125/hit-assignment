@@ -91,7 +91,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >BearerParserMiddleware</li>
+  <li class="breadcrumb-item" >ReservationAmountParsePipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -115,7 +115,7 @@
             <h3>파일</h3>
         </p>
         <p class="comment">
-            <code>src/middleware/bearer-parser.middleware.ts</code>
+            <code>src/restaurants/reservations/reservation-amount-parse.pipe.ts</code>
         </p>
 
 
@@ -136,7 +136,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#use" >use</a>
+                                <a href="#transform" >transform</a>
                             </li>
                         </ul>
                     </td>
@@ -150,54 +150,6 @@
     </table>
 </section>
 
-            <section data-compodoc="block-constructor">
-    <h3 id="constructor">생성자</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(commonService: <a href="../injectables/CommonService.html" target="_self">CommonService</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="14" class="link-to-prism">src/middleware/bearer-parser.middleware.ts:14</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>매개변수 :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>이름</td>
-                                                    <td>타입</td>
-                                                <td>선택적</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>commonService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/CommonService.html" target="_self" >CommonService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            아니오
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-</section>
 
             <section data-compodoc="block-methods">
     
@@ -208,24 +160,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="use"></a>
+                    <a name="transform"></a>
                     <span class="name">
-                        <span ><b>use</b></span>
-                        <a href="#use"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>transform</b></span>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>use(req: Request, _res, next: NextFunction)</code>
+<code>transform(value: number | number[], metadata: ArgumentMetadata)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="17"
-                                    class="link-to-prism">src/middleware/bearer-parser.middleware.ts:17</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="11"
+                                    class="link-to-prism">src/restaurants/reservations/reservation-amount-parse.pipe.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -246,9 +198,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>req</td>
+                                                <td>value</td>
                                             <td>
-                                                        <code>Request</code>
+                                                        <code>number | number[]</code>
                                             </td>
 
                                             <td>
@@ -258,20 +210,9 @@
 
                                         </tr>
                                         <tr>
-                                                <td>_res</td>
+                                                <td>metadata</td>
                                             <td>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>next</td>
-                                            <td>
-                                                        <code>NextFunction</code>
+                                                        <code>ArgumentMetadata</code>
                                             </td>
 
                                             <td>
@@ -284,7 +225,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -300,68 +241,40 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonService } from &#x27;@common/common.service&#x27;;
-import { SecretOption } from &#x27;@common/variables/secretConf&#x27;;
-import {
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ArgumentMetadata,
   BadRequestException,
   Injectable,
-  NestMiddleware,
-  UnauthorizedException,
+  PipeTransform,
 } from &#x27;@nestjs/common&#x27;;
 import { Protocol } from &#x27;@util/protocol&#x27;;
-import { NextFunction, Request } from &#x27;express&#x27;;
-import * as jwt from &#x27;jsonwebtoken&#x27;;
 
 @Injectable()
-export class BearerParserMiddleware implements NestMiddleware {
-  constructor(private readonly commonService: CommonService) {}
-
-  use(req: Request, _res, next: NextFunction) {
-    // 헤더에서 &#x60;Bearer token&#x60; 정보 가져오기
-    let authorization &#x3D; req.headers?.authorization;
-    let isRefresh &#x3D; false;
-
-    if (
-      [&#x27;/auth/refresh&#x27;, &#x27;/auth/logout&#x27;].some((ex) &#x3D;&gt;
-        req.originalUrl.endsWith(ex),
-      )
-    ) {
-      // 쿠키에서 &#x60;Bearer token&#x60; 정보 가져오기
-      authorization &#x3D; req.cookies.refresh;
-      isRefresh &#x3D; true;
+export class ReservationAmountParsePipe implements PipeTransform {
+  transform(value: number | number[], metadata: ArgumentMetadata) {
+    if (!metadata.metatype) {
+      return value;
     }
 
-    const secretOption &#x3D; this.commonService.getConfig&lt;SecretOption&gt;(&#x27;secret&#x27;);
-    if (authorization) {
-      const accessToken &#x3D; authorization.replace(/^bearer\s/i, &#x27;&#x27;);
-      try {
-        const userData &#x3D; jwt.verify(
-          accessToken,
-          isRefresh ? secretOption.refreshToken : secretOption.accessToken,
-        ) as UserTokenData;
-        req.user &#x3D; userData;
-      } catch (error: any) {
-        switch (error.message) {
-          case &#x27;invalid signature&#x27;: {
-            const errorProtocol &#x3D; Protocol.JwtWrongSignature;
-            throw new UnauthorizedException(errorProtocol);
-          }
-          case &#x27;jwt expired&#x27;: {
-            const errorProtocol &#x3D; Protocol.JwtExpired;
-            throw new UnauthorizedException(errorProtocol);
-          }
-          case &#x27;jwt malformed&#x27;: {
-            const errorProtocol &#x3D; Protocol.JwtMalFormed;
-            throw new UnauthorizedException(errorProtocol);
-          }
-          default: {
-            const errorProtocol &#x3D; Protocol.JwtServerException;
-            throw new BadRequestException(errorProtocol);
-          }
-        }
-      }
+    if (!Array.isArray(value)) {
+      const errorProtocol &#x3D; Protocol.TypeCheck;
+      throw new BadRequestException(errorProtocol, {
+        cause: &#x27;예약 인원 검색에 두개의 amount 파라미터가 필요합니다.&#x27;,
+      });
     }
-    next();
+
+    if (value.some((item) &#x3D;&gt; Number.isNaN(+item))) {
+      const errorProtocol &#x3D; Protocol.TypeCheck;
+      throw new BadRequestException(errorProtocol, {
+        cause: &#x27;예약 인원 수는 정수로 구성되어야 합니다.&#x27;,
+      });
+    }
+
+    if (typeof value &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      return value;
+    }
+
+    return value.map(Number);
   }
 }
 </code></pre>
@@ -407,7 +320,7 @@ export class BearerParserMiddleware implements NestMiddleware {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'BearerParserMiddleware.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ReservationAmountParsePipe.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

@@ -143,6 +143,8 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#email" >email</a>
                             </li>
                             <li>
@@ -156,6 +158,7 @@
                                 <a href="#password" >password</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#phone" >phone</a>
@@ -183,6 +186,7 @@
                                 <a href="#userId" >userId</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#username" >username</a>
@@ -234,7 +238,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="46" class="link-to-prism">src/users/entities/user.entity.ts:46</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="52" class="link-to-prism">src/users/entities/user.entity.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -271,7 +275,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="52" class="link-to-prism">src/users/entities/user.entity.ts:52</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="58" class="link-to-prism">src/users/entities/user.entity.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -284,6 +288,8 @@
                 <td class="col-md-4">
                     <a name="email"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>email</b></span>
@@ -302,13 +308,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: String, example: &#x27;test1@example.com&#x27;})<br />@Column({type: &#x27;varchar&#x27;, unique: true, length: 100})<br />
+                            @ApiProperty({type: String, example: &#x27;test1@example.com&#x27;})<br />@IsNotEmpty()<br />@IsEmail()<br />@Column({type: &#x27;varchar&#x27;, unique: true, length: 100})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="27" class="link-to-prism">src/users/entities/user.entity.ts:27</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="31" class="link-to-prism">src/users/entities/user.entity.ts:31</a></div>
                         </td>
                     </tr>
 
@@ -345,7 +351,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="19" class="link-to-prism">src/users/entities/user.entity.ts:19</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="21" class="link-to-prism">src/users/entities/user.entity.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -382,7 +388,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="35" class="link-to-prism">src/users/entities/user.entity.ts:35</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="40" class="link-to-prism">src/users/entities/user.entity.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -395,6 +401,7 @@
                 <td class="col-md-4">
                     <a name="phone"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>phone</b></span>
@@ -413,13 +420,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: () &#x3D;&gt; String, example: &#x27;010-1234-5678&#x27;})<br />@Column({type: &#x27;varchar&#x27;, unique: true, length: 13})<br />
+                            @ApiProperty({type: () &#x3D;&gt; String, example: &#x27;010-1234-5678&#x27;})<br />@IsPhoneNumberFormat()<br />@Column({type: &#x27;varchar&#x27;, unique: true, length: 13})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="43" class="link-to-prism">src/users/entities/user.entity.ts:43</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="49" class="link-to-prism">src/users/entities/user.entity.ts:49</a></div>
                         </td>
                     </tr>
 
@@ -455,7 +462,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="58" class="link-to-prism">src/users/entities/user.entity.ts:58</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="64" class="link-to-prism">src/users/entities/user.entity.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -491,7 +498,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="55" class="link-to-prism">src/users/entities/user.entity.ts:55</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="61" class="link-to-prism">src/users/entities/user.entity.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -528,7 +535,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="39" class="link-to-prism">src/users/entities/user.entity.ts:39</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="44" class="link-to-prism">src/users/entities/user.entity.ts:44</a></div>
                         </td>
                     </tr>
 
@@ -564,7 +571,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="49" class="link-to-prism">src/users/entities/user.entity.ts:49</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="55" class="link-to-prism">src/users/entities/user.entity.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -601,7 +608,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="23" class="link-to-prism">src/users/entities/user.entity.ts:23</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="25" class="link-to-prism">src/users/entities/user.entity.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -614,6 +621,7 @@
                 <td class="col-md-4">
                     <a name="username"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>username</b></span>
@@ -632,13 +640,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: String, example: &#x27;김윤호&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 20})<br />
+                            @ApiProperty({type: String, example: &#x27;김윤호&#x27;})<br />@IsString({message: &#x27;사용자 이름은 문자만 가능합니다.&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 20})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="31" class="link-to-prism">src/users/entities/user.entity.ts:31</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="36" class="link-to-prism">src/users/entities/user.entity.ts:36</a></div>
                         </td>
                     </tr>
 
@@ -650,9 +658,11 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsPhoneNumberFormat } from &#x27;@common/phone.validate&#x27;;
+import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
 import { Reservation } from &#x27;@restaurants/reservations/entities/reservation.entity&#x27;;
+import { IsEmail, IsNotEmpty, IsString } from &#x27;class-validator&#x27;;
 import {
   Column,
   CreateDateColumn,
@@ -675,10 +685,13 @@ export class User {
   userId!: string;
 
   @ApiProperty({ type: String, example: &#x27;test1@example.com&#x27; })
+  @IsNotEmpty()
+  @IsEmail()
   @Column({ type: &#x27;varchar&#x27;, unique: true, length: 100 })
   email!: string;
 
   @ApiProperty({ type: String, example: &#x27;김윤호&#x27; })
+  @IsString({ message: &#x27;사용자 이름은 문자만 가능합니다.&#x27; })
   @Column({ type: &#x27;varchar&#x27;, length: 20 })
   username!: string;
 
@@ -691,6 +704,7 @@ export class User {
   role!: UserRole;
 
   @ApiProperty({ type: () &#x3D;&gt; String, example: &#x27;010-1234-5678&#x27; })
+  @IsPhoneNumberFormat()
   @Column({ type: &#x27;varchar&#x27;, unique: true, length: 13 })
   phone!: string;
 

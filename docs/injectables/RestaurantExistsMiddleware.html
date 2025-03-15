@@ -157,7 +157,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(repository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>)</code>
+<code>constructor(repository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>, utilService: <a href="../injectables/UtilService.html" target="_self">UtilService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -184,6 +184,18 @@
                                                   
                                                         <td>
                                                                         <code><a href="../entitys/Restaurant.html" target="_self" >Repository&lt;Restaurant&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>utilService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UtilService.html" target="_self" >UtilService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -227,8 +239,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="15"
-                                    class="link-to-prism">src/restaurants/middleware/restaurant-exists.middleware.ts:15</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="16"
+                                    class="link-to-prism">src/restaurants/middleware/restaurant-exists.middleware.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -306,7 +318,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, NestMiddleware } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
-import { throwNoExistsEntityWithSelectBy } from &#x27;@util/utilFunction&#x27;;
+import { UtilService } from &#x27;@util/util.service&#x27;;
 import { Request } from &#x27;express&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 
@@ -315,13 +327,14 @@ export class RestaurantExistsMiddleware implements NestMiddleware {
   constructor(
     @InjectRepository(Restaurant)
     private readonly repository: Repository&lt;Restaurant&gt;,
+    private readonly utilService: UtilService,
   ) {}
 
   async use(req: Request, _res, next: () &#x3D;&gt; void) {
     const restaurantId &#x3D; req.params.restaurantId;
 
-    await throwNoExistsEntityWithSelectBy(this.repository, {
-      id: +restaurantId,
+    await this.utilService.throwNoExistsEntityWithSelectBy(this.repository, {
+      where: { id: +restaurantId },
     });
 
     next();

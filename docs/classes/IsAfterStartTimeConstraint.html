@@ -79,7 +79,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content guard">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -91,9 +91,11 @@
 
 
 
+
+
 <ol class="breadcrumb">
-    <li class="breadcrumb-item">가드</li>
-    <li class="breadcrumb-item" >CheckOwnerGuard</li>
+  <li class="breadcrumb-item">클래스</li>
+  <li class="breadcrumb-item" >IsAfterStartTimeConstraint</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -112,23 +114,43 @@
 </ul>
 
 <div class="tab-content">
-        <div class="tab-pane fade active in" id="info">
-            <p class="comment">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
             <h3>파일</h3>
+        </p>
+        <p class="comment">
+            <code>src/restaurants/reservations/reservation-date.validate.ts</code>
+        </p>
+
+
+
+
+            <p class="comment">
+                <h3>구현</h3>
             </p>
             <p class="comment">
-                <code>src/restaurants/guard/check-owner.guard.ts</code>
+                        <code>ValidatorConstraintInterface</code>
             </p>
 
 
-
-
-
-
-                <section data-compodoc="block-index">
+            <section data-compodoc="block-index">
     <h3 id="index">색인</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>속성</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -139,8 +161,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Async</span>
-                                <a href="#canActivate" >canActivate</a>
+                                <a href="#defaultMessage" >defaultMessage</a>
+                            </li>
+                            <li>
+                                <a href="#validate" >validate</a>
                             </li>
                         </ul>
                     </td>
@@ -154,56 +178,41 @@
     </table>
 </section>
 
-                <section data-compodoc="block-constructor">
-    <h3 id="constructor">생성자</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor(restaurantRepository: <a href="../entitys/Restaurant.html" target="_self">Repository&lt;Restaurant&gt;</a>)</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="15" class="link-to-prism">src/restaurants/guard/check-owner.guard.ts:15</a></div>
-                            </td>
-                        </tr>
 
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        속성
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                            <div>
-                                    <b>매개변수 :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>이름</td>
-                                                    <td>타입</td>
-                                                <td>선택적</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>restaurantRepository</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../entitys/Restaurant.html" target="_self" >Repository&lt;Restaurant&gt;</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            아니오
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="15" class="link-to-prism">src/restaurants/reservations/reservation-date.validate.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
 </section>
 
-                <section data-compodoc="block-methods">
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         메소드
@@ -212,26 +221,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="canActivate"></a>
+                    <a name="defaultMessage"></a>
                     <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>canActivate</b></span>
-                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>defaultMessage</b></span>
+                        <a href="#defaultMessage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>canActivate(context: ExecutionContext)</code>
+<code>defaultMessage(args: ValidationArguments)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="21"
-                                    class="link-to-prism">src/restaurants/guard/check-owner.guard.ts:21</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="42"
+                                    class="link-to-prism">src/restaurants/reservations/reservation-date.validate.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -252,9 +259,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>context</td>
+                                                <td>args</td>
                                             <td>
-                                                        <code>ExecutionContext</code>
+                                                        <code>ValidationArguments</code>
                                             </td>
 
                                             <td>
@@ -267,7 +274,86 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>    <code>Promise&lt;boolean&gt;</code>
+                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validate"></a>
+                    <span class="name">
+                        <span ><b>validate</b></span>
+                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validate(endTime: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, args: ValidationArguments)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="17"
+                                    class="link-to-prism">src/restaurants/reservations/reservation-date.validate.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>매개변수 :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>이름</td>
+                                                <td>타입</td>
+                                            <td>선택적</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>endTime</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>args</td>
+                                            <td>
+                                                        <code>ValidationArguments</code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                             <div class="io-description">
@@ -278,62 +364,75 @@
         </tbody>
     </table>
 </section>
-        </div>
 
 
-        <div class="tab-pane fade  tab-source-code" id="source">
-            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  NotFoundException,
-} from &#x27;@nestjs/common&#x27;;
-import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
-import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
-import { Protocol } from &#x27;@util/protocol&#x27;;
-import { Request } from &#x27;express&#x27;;
-import { Repository } from &#x27;typeorm&#x27;;
 
-@Injectable()
-export class CheckOwnerGuard implements CanActivate {
-  constructor(
-    @InjectRepository(Restaurant)
-    private readonly restaurantRepository: Repository&lt;Restaurant&gt;,
-  ) {}
 
-  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
-    const request &#x3D; context.switchToHttp().getRequest&lt;Request&gt;();
-    const userId &#x3D; request.user.id;
-    const restaurantId &#x3D; +request.params.restaurantId;
 
-    if (Number.isNaN(restaurantId)) {
-      const errorProtocol &#x3D; Protocol.WrongParamType;
-      throw new BadRequestException(errorProtocol);
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from &#x27;class-validator&#x27;;
+import dayjs from &#x27;dayjs&#x27;;
+import { CreateReservationDto } from &#x27;./dto/create-reservation.dto&#x27;;
+
+@ValidatorConstraint({ name: &#x27;IsAfterStartTime&#x27;, async: false })
+export class IsAfterStartTimeConstraint
+  implements ValidatorConstraintInterface
+{
+  errorMessage!: string;
+
+  validate(endTime: Date, args: ValidationArguments) {
+    const object &#x3D; args.object as CreateReservationDto;
+
+    const diffMinute &#x3D; dayjs(endTime).diff(object.reserveStartAt, &#x27;minute&#x27;);
+    const isMinuteSmall &#x3D; diffMinute &lt; 30;
+    const isAfterStart &#x3D;
+      dayjs(endTime).isSame(object.reserveStartAt, &#x27;minute&#x27;) ||
+      dayjs(endTime).isAfter(object.reserveStartAt);
+    const isAnotherDay &#x3D; !dayjs(endTime).isSame(object.reserveStartAt, &#x27;d&#x27;);
+
+    if (isAnotherDay) {
+      this.errorMessage &#x3D; &#x27;예약일은 같은 날 0시 ~ 23시 내로 설정 가능합니다.&#x27;;
     }
 
-    const restaurant &#x3D; await this.restaurantRepository.findOneBy({
-      id: restaurantId,
-    });
-
-    if (!restaurant) {
-      const errorProtocol &#x3D; Protocol.NotFound;
-      throw new NotFoundException(errorProtocol);
+    if (isMinuteSmall) {
+      this.errorMessage &#x3D; &#x27;시작과 종료 시간은 최소 30분의 간격이 필요합니다.&#x27;;
     }
 
-    if (restaurant.userId !&#x3D;&#x3D; userId) {
-      const errorProtocol &#x3D; Protocol.NoMatchOwnRestaurant;
-      throw new BadRequestException(errorProtocol);
+    if (!isAfterStart) {
+      this.errorMessage &#x3D; &#x27;예약 종료 시간은 시작 시간보다 과거일 수 없습니다.&#x27;;
     }
 
-    return true;
+    return !isAnotherDay &amp;&amp; !isMinuteSmall &amp;&amp; isAfterStart;
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    return this.errorMessage;
   }
 }
+
+export function IsAfterStartTime(validationOptions?: ValidationOptions) {
+  return function (object: object, propertyName: string) {
+    registerDecorator({
+      target: object.constructor,
+      propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: IsAfterStartTimeConstraint,
+    });
+  };
+}
 </code></pre>
-        </div>
+    </div>
 </div>
-
-
 
 
 
@@ -368,8 +467,8 @@ export class CheckOwnerGuard implements CanActivate {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
-            var COMPODOC_CURRENT_PAGE_URL = 'CheckOwnerGuard.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'IsAfterStartTimeConstraint.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

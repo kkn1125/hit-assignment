@@ -148,15 +148,21 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#create" >create</a>
                             </li>
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#findAll" >findAll</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -167,9 +173,16 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#remove" >remove</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
@@ -207,6 +220,7 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>create</b></span>
                         <a href="#create"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -223,14 +237,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiResponseWithCaseModel({CreateMenuDto: undefined}, HttpStatus.CREATED, &#x27;/restaurants/:restaurantId/menus&#x27;, &#x27;POS&#x27;)<br />@ApiBodyWithModel({CreateMenuDto: })<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiOperation({summary: &#x27;식당 메뉴 추가&#x27;})<br />@UseGuards(CheckOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Post()<br /></code>
+                    <code>@ApiResponseWithCaseModel({CreateMenuDto: undefined}, HttpStatus.CREATED, &#x27;/restaurants/:restaurantId/menus&#x27;, &#x27;POS&#x27;)<br />@ApiBodyWithCaseModel({CreateMenuDto: undefined})<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 메뉴 추가&#x27;})<br />@UseGuards(RestaurantOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Post()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="44"
-                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:44</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="66"
+                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -297,6 +311,9 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>findAll</b></span>
                         <a href="#findAll"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -305,7 +322,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findAll(restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>findAll(req: Request, restaurantId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -313,14 +330,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;식당 메뉴 전체 조회&#x27;})<br />@Roles()<br />@Get()<br /></code>
+                    <code>@ApiResponseSearchModel({SearchMenuResponse: Menu}, &#x27;/restaurants/:restaurantId/menus&#x27;, {page: 2, count: 10, total: 3})<br />@ApiQuery({name: &#x27;page&#x27;, type: Number, example: DEFAULT_PAGE, required: false})<br />@ApiQuery({name: &#x27;perPage&#x27;, type: Number, example: PER_PAGE, required: false})<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiOperation({summary: &#x27;식당 메뉴 전체 조회&#x27;})<br />@Get()<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="57"
-                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:57</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="101"
+                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:101</a></div>
                         </td>
                     </tr>
 
@@ -337,9 +354,24 @@
                                             <td>이름</td>
                                                 <td>타입</td>
                                             <td>선택적</td>
+                                                <td>기본 값</td>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr>
+                                                <td>req</td>
+                                            <td>
+                                                        <code>Request</code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
                                         <tr>
                                                 <td>restaurantId</td>
                                             <td>
@@ -350,6 +382,38 @@
                                                     아니오
                                             </td>
 
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>page</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                                    <code>DEFAULT_PAGE</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>perPage</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+                                            <td>
+                                                    <code>PER_PAGE</code>
+                                            </td>
 
                                         </tr>
                                     </tbody>
@@ -375,6 +439,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>findOne</b></span>
                         <a href="#findOne"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -391,14 +457,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;식당 메뉴 상세 조회&#x27;})<br />@Roles()<br />@Get(&#x27;:menuId&#x27;)<br /></code>
+                    <code>@ApiResponseWithModel({SearchMenuResponse: Menu}, {ok: true, status: undefined, method: &#x27;GET&#x27;, path: &#x27;/restaurants/:restaurantId/menus/:menuId&#x27;})<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;menuId&#x27;, type: Number, example: 1})<br />@ApiOperation({summary: &#x27;식당 메뉴 상세 조회&#x27;})<br />@Get(&#x27;:menuId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="64"
-                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:64</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="150"
+                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:150</a></div>
                         </td>
                     </tr>
 
@@ -454,6 +520,9 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>remove</b></span>
                         <a href="#remove"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -470,14 +539,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiOperation({summary: &#x27;식당 메뉴 제거&#x27;})<br />@UseGuards(CheckOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Delete(&#x27;:menuId&#x27;)<br /></code>
+                    <code>@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;menuId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 메뉴 제거&#x27;})<br />@UseGuards(RestaurantOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Delete(&#x27;:menuId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="84"
-                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:84</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="187"
+                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:187</a></div>
                         </td>
                     </tr>
 
@@ -534,6 +603,10 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>update</b></span>
                         <a href="#update"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -550,14 +623,14 @@
                 <td class="col-md-4">
                     <b>데코레이터 : </b>
                     <br />
-                    <code>@ApiBodyWithModel({UpdateMenuDto: })<br />@ApiOperation({summary: &#x27;식당 메뉴 수정&#x27;})<br />@UseGuards(CheckOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Patch(&#x27;:menuId&#x27;)<br /></code>
+                    <code>@ApiResponseWithModel({PatchMenuResponse: undefined}, {ok: true, status: undefined, method: &#x27;PATCH&#x27;, path: &#x27;/restaurants/:restaurantId/menus/:menuId&#x27;})<br />@ApiBodyWithModel({UpdateMenuDto: })<br />@ApiParam({name: &#x27;restaurantId&#x27;, type: Number, example: 1})<br />@ApiParam({name: &#x27;menuId&#x27;, type: Number, example: 1})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;식당 메뉴 수정&#x27;})<br />@UseGuards(RestaurantOwnerGuard)<br />@Roles([&#x27;undefined&#x27;])<br />@Patch(&#x27;:menuId&#x27;)<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="73"
-                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:73</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="173"
+                                    class="link-to-prism">src/restaurants/menus/menus.controller.ts:173</a></div>
                         </td>
                     </tr>
 
@@ -619,27 +692,43 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &#x27;@auth/guard/roles.decorator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiBodyWithCaseModel } from &#x27;@common/decorators/api.body.with.case.model&#x27;;
 import { ApiBodyWithModel } from &#x27;@common/decorators/api.body.with.model&#x27;;
+import { ApiResponseSearchModel } from &#x27;@common/decorators/api.response.search.model&#x27;;
 import { ApiResponseWithCaseModel } from &#x27;@common/decorators/api.response.with.case.model&#x27;;
+import { ApiResponseWithModel } from &#x27;@common/decorators/api.response.with.model&#x27;;
+import { DEFAULT_PAGE, PER_PAGE } from &#x27;@common/variables/environment&#x27;;
+import { Roles } from &#x27;@middleware/roles.decorator&#x27;;
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
+  Query,
+  Req,
   UseGuards,
 } from &#x27;@nestjs/common&#x27;;
-import { ApiOperation, ApiParam } from &#x27;@nestjs/swagger&#x27;;
-import { CheckOwnerGuard } from &#x27;@restaurants/guard/check-owner.guard&#x27;;
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+} from &#x27;@nestjs/swagger&#x27;;
+import { RestaurantOwnerGuard } from &#x27;@restaurants/restaurant-owner.guard&#x27;;
 import { UserRole } from &#x27;@util/enums/UserRole&#x27;;
+import { Protocol } from &#x27;@util/protocol&#x27;;
 import { CreateMenuDto } from &#x27;./dto/create-menu.dto&#x27;;
 import { UpdateMenuDto } from &#x27;./dto/update-menu.dto&#x27;;
+import { Menu } from &#x27;./entities/menu.entity&#x27;;
+import { MenuDataParsePipe } from &#x27;./menu-data-parse.pipe&#x27;;
 import { MenusService } from &#x27;./menus.service&#x27;;
-import { ParseArrayOrOnePipe } from &#x27;./pipe/parse-array-or-one.pipe&#x27;;
+import { Request } from &#x27;express&#x27;;
 
 @Controller(&#x27;menus&#x27;)
 export class MenusController {
@@ -656,15 +745,22 @@ export class MenusController {
     &#x27;/restaurants/:restaurantId/menus&#x27;,
     &#x27;POS&#x27;,
   )
-  @ApiBodyWithModel({ CreateMenuDto })
+  @ApiBodyWithCaseModel({
+    CreateMenuDto: {
+      &#x27;개별 추가&#x27;: CreateMenuDto,
+      &#x27;다중 추가&#x27;: [CreateMenuDto],
+    },
+  })
   @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 메뉴 추가&#x27; })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Post()
   create(
     @Param(&#x27;restaurantId&#x27;) restaurantId: number,
-    @Body(ParseArrayOrOnePipe) createMenuDto: CreateMenuDto | CreateMenuDto[],
+    @Body(MenuDataParsePipe)
+    createMenuDto: CreateMenuDto | CreateMenuDto[],
   ) {
     if (Array.isArray(createMenuDto)) {
       return this.menusService.createBulk(+restaurantId, createMenuDto);
@@ -672,34 +768,114 @@ export class MenusController {
     return this.menusService.create(+restaurantId, createMenuDto);
   }
 
+  @ApiResponseSearchModel(
+    { SearchMenuResponse: Menu },
+    &#x27;/restaurants/:restaurantId/menus&#x27;,
+    {
+      page: 2,
+      count: 10,
+      total: 3,
+    },
+  )
+  @ApiQuery({
+    name: &#x27;page&#x27;,
+    type: Number,
+    example: DEFAULT_PAGE,
+    required: false,
+  })
+  @ApiQuery({
+    name: &#x27;perPage&#x27;,
+    type: Number,
+    example: PER_PAGE,
+    required: false,
+  })
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
   @ApiOperation({ summary: &#x27;식당 메뉴 전체 조회&#x27; })
-  @Roles()
   @Get()
-  findAll(@Param(&#x27;restaurantId&#x27;) restaurantId: number) {
-    return this.menusService.findAll(+restaurantId);
+  findAll(
+    @Req() req: Request,
+    @Param(&#x27;restaurantId&#x27;) restaurantId: number,
+    @Query(
+      &#x27;page&#x27;,
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol &#x3D; Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    page: number &#x3D; DEFAULT_PAGE,
+    @Query(
+      &#x27;perPage&#x27;,
+      new ParseIntPipe({
+        exceptionFactory(error) {
+          const errorProtocol &#x3D; Protocol.ArgsRequired;
+          throw new BadRequestException(errorProtocol, { cause: error });
+        },
+        optional: true,
+      }),
+    )
+    perPage: number &#x3D; PER_PAGE,
+  ) {
+    return this.menusService.findAll(
+      req.originalUrl,
+      +restaurantId,
+      page,
+      perPage,
+    );
   }
 
+  @ApiResponseWithModel(
+    {
+      SearchMenuResponse: Menu,
+    },
+    {
+      ok: true,
+      status: HttpStatus.OK,
+      method: &#x27;GET&#x27;,
+      path: &#x27;/restaurants/:restaurantId/menus/:menuId&#x27;,
+    },
+  )
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;menuId&#x27;, type: Number, example: 1 })
   @ApiOperation({ summary: &#x27;식당 메뉴 상세 조회&#x27; })
-  @Roles()
   @Get(&#x27;:menuId&#x27;)
   findOne(@Param(&#x27;menuId&#x27;) menuId: string) {
     return this.menusService.findOne(+menuId);
   }
 
+  @ApiResponseWithModel(
+    {
+      PatchMenuResponse: { id: 1 },
+    },
+    {
+      ok: true,
+      status: HttpStatus.CREATED,
+      method: &#x27;PATCH&#x27;,
+      path: &#x27;/restaurants/:restaurantId/menus/:menuId&#x27;,
+    },
+  )
   @ApiBodyWithModel({ UpdateMenuDto })
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;menuId&#x27;, type: Number, example: 1 })
+  @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 메뉴 수정&#x27; })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Patch(&#x27;:menuId&#x27;)
   update(
     @Param(&#x27;menuId&#x27;) menuId: string,
-    @Body() updateMenuDto: UpdateMenuDto,
+    @Body(MenuDataParsePipe) updateMenuDto: UpdateMenuDto,
   ) {
     return this.menusService.update(+menuId, updateMenuDto);
   }
 
+  @ApiParam({ name: &#x27;restaurantId&#x27;, type: Number, example: 1 })
+  @ApiParam({ name: &#x27;menuId&#x27;, type: Number, example: 1 })
+  @ApiBearerAuth()
   @ApiOperation({ summary: &#x27;식당 메뉴 제거&#x27; })
-  @UseGuards(CheckOwnerGuard)
+  @UseGuards(RestaurantOwnerGuard)
   @Roles([UserRole.Shopkeeper])
   @Delete(&#x27;:menuId&#x27;)
   remove(@Param(&#x27;menuId&#x27;) menuId: string) {

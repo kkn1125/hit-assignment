@@ -117,7 +117,7 @@
             <h3>파일</h3>
             </p>
             <p class="comment">
-                <code>src/auth/guard/role.guard.ts</code>
+                <code>src/middleware/role.guard.ts</code>
             </p>
 
 
@@ -139,6 +139,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#canActivate" >canActivate</a>
                             </li>
                             <li>
@@ -163,12 +164,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(reflector: Reflector)</code>
+<code>constructor(usersService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, reflector: Reflector)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="14" class="link-to-prism">src/auth/guard/role.guard.ts:14</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="15" class="link-to-prism">src/middleware/role.guard.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -185,6 +186,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>usersService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>reflector</td>
                                                   
@@ -217,6 +230,7 @@
                 <td class="col-md-4">
                     <a name="canActivate"></a>
                     <span class="name">
+                            <span class="modifier">Async</span>
                         <span ><b>canActivate</b></span>
                         <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -224,15 +238,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>canActivate(context: ExecutionContext)</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canActivate(context: ExecutionContext)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="17"
-                                    class="link-to-prism">src/auth/guard/role.guard.ts:17</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="21"
+                                    class="link-to-prism">src/middleware/role.guard.ts:21</a></div>
                         </td>
                     </tr>
 
@@ -268,7 +283,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>    <code>boolean | Promise | Observable</code>
+                            <b>반환 : </b>    <code>Promise&lt;boolean&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -300,8 +315,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="48"
-                                    class="link-to-prism">src/auth/guard/role.guard.ts:48</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="53"
+                                    class="link-to-prism">src/middleware/role.guard.ts:53</a></div>
                         </td>
                     </tr>
 
@@ -367,22 +382,24 @@
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   CanActivate,
   ExecutionContext,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from &#x27;@nestjs/common&#x27;;
 import { Reflector } from &#x27;@nestjs/core&#x27;;
+import { UsersService } from &#x27;@users/users.service&#x27;;
 import { UserRole } from &#x27;@util/enums/UserRole&#x27;;
 import { Protocol } from &#x27;@util/protocol&#x27;;
 import { Request } from &#x27;express&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
 
 @Injectable()
 export class RoleGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly reflector: Reflector,
+  ) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise&lt;boolean&gt; | Observable&lt;boolean&gt; {
+  async canActivate(context: ExecutionContext): Promise&lt;boolean&gt; {
     const request &#x3D; context.switchToHttp().getRequest&lt;Request&gt;();
     const user &#x3D; request.user;
     const roles &#x3D;
@@ -401,6 +418,9 @@ export class RoleGuard implements CanActivate {
     if (roles.length &#x3D;&#x3D;&#x3D; 0) {
       return true;
     }
+
+    /* 데이터베이스 사용자 데이터 존재 검증, 없으면 throw */
+    await this.usersService.findOne(user.id);
 
     const isMatchRole &#x3D; this.matchRoles(roles, user.role);
     if (!isMatchRole) {

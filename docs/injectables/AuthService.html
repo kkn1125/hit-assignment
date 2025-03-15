@@ -169,7 +169,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="18" class="link-to-prism">src/auth/auth.service.ts:18</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="17" class="link-to-prism">src/auth/auth.service.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -258,8 +258,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="26"
-                                    class="link-to-prism">src/auth/auth.service.ts:26</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="25"
+                                    class="link-to-prism">src/auth/auth.service.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -337,8 +337,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="61"
-                                    class="link-to-prism">src/auth/auth.service.ts:61</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="52"
+                                    class="link-to-prism">src/auth/auth.service.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -406,8 +406,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="65"
-                                    class="link-to-prism">src/auth/auth.service.ts:65</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="56"
+                                    class="link-to-prism">src/auth/auth.service.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -482,7 +482,6 @@ import { User } from &#x27;@users/entities/user.entity&#x27;;
 import { UsersService } from &#x27;@users/users.service&#x27;;
 import { Protocol } from &#x27;@util/protocol&#x27;;
 import { UtilService } from &#x27;@util/util.service&#x27;;
-import { throwNoExistsEntityWithSelectBy } from &#x27;@util/utilFunction&#x27;;
 import { Request, Response } from &#x27;express&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 import { LoginDto } from &#x27;./dto/login.dto&#x27;;
@@ -497,33 +496,25 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto, res: Response) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      userId: loginDto.userId,
-    });
+    /* 유저 조회 후 없으면 throw */
+    await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { userId: loginDto.userId },
+      },
+    );
 
+    /* 비밀번호 검증, 틀리면 throw */
     const user &#x3D; await this.usersService.comparePassword(
       loginDto.userId,
       loginDto.password,
     );
 
-    const message &#x3D; loginDto.userId + loginDto.password;
-    const isCorrectPassword &#x3D; this.utilService.compareInputPasswordWith(
-      message,
-      user.password,
-    );
-
-    if (!isCorrectPassword) {
-      const errorProtocol &#x3D; Protocol.WrongLoginData;
-      throw new BadRequestException(errorProtocol);
-    }
-
     try {
       const { accessToken, refreshToken } &#x3D; this.utilService.createToken(user);
-      res.cookie(&#x27;refresh&#x27;, refreshToken, {
-        httpOnly: true,
-        sameSite: &#x27;strict&#x27;,
-        maxAge: 1 * 24 * 60 * 60 * 1000,
-      });
+
+      res.cookie(&#x27;refresh&#x27;, refreshToken, this.utilService.cookieOptions);
+
       return { accessToken };
     } catch (error) {
       const errorProtocol &#x3D; Protocol.JwtCreate;
@@ -540,18 +531,19 @@ export class AuthService {
       const errorProtocol &#x3D; Protocol.NoRefreshCookie;
       throw new UnauthorizedException(errorProtocol);
     }
+
     const user &#x3D; req.user;
     const foundUser &#x3D; await this.usersService.findOne(user.id);
+
     if (!foundUser) {
       const errorProtocol &#x3D; Protocol.NotFound;
       throw new NotFoundException(errorProtocol);
     }
+
     const { accessToken, refreshToken } &#x3D; this.utilService.createToken(user);
-    res.cookie(&#x27;refresh&#x27;, refreshToken, {
-      httpOnly: true,
-      sameSite: &#x27;strict&#x27;,
-      maxAge: 1 * 24 * 60 * 60 * 1000,
-    });
+
+    res.cookie(&#x27;refresh&#x27;, refreshToken, this.utilService.cookieOptions);
+
     return { accessToken };
   }
 }

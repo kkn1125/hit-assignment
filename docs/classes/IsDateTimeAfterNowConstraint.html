@@ -79,16 +79,23 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content class">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">컨트롤러</li>
-  <li class="breadcrumb-item" >AuthController</li>
+  <li class="breadcrumb-item">클래스</li>
+  <li class="breadcrumb-item" >IsDateTimeAfterNowConstraint</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -112,25 +119,38 @@
             <h3>파일</h3>
         </p>
         <p class="comment">
-            <code>src/auth/auth.controller.ts</code>
+            <code>src/common/datetime.validate.ts</code>
         </p>
 
+
+
+
             <p class="comment">
-                <h3>접두어</h3>
+                <h3>구현</h3>
             </p>
             <p class="comment">
-                <code>auth</code>
+                        <code>ValidatorConstraintInterface</code>
             </p>
-
-
-
-
 
 
             <section data-compodoc="block-index">
     <h3 id="index">색인</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>속성</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -141,26 +161,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#login" >login</a>
+                                <a href="#defaultMessage" >defaultMessage</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#logout" >logout</a>
-                            </li>
-                            <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#refresh" >refresh</a>
+                                <a href="#validate" >validate</a>
                             </li>
                         </ul>
                     </td>
@@ -168,6 +172,40 @@
 
 
 
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        속성
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>타입 : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="14" class="link-to-prism">src/common/datetime.validate.ts:14</a></div>
+                        </td>
+                    </tr>
 
 
         </tbody>
@@ -183,36 +221,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="login"></a>
+                    <a name="defaultMessage"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>login</b></span>
-                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>defaultMessage</b></span>
+                        <a href="#defaultMessage"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(res: Response, loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+<code>defaultMessage(args: ValidationArguments)</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({LoginResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/login&#x27;})<br />@ApiBodyWithModel({LoginDto: })<br />@ApiOperation({summary: &#x27;로그인&#x27;})<br />@Post(&#x27;login&#x27;)<br /></code>
-                </td>
-            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="31"
-                                    class="link-to-prism">src/auth/auth.controller.ts:31</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="30"
+                                    class="link-to-prism">src/common/datetime.validate.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -233,21 +259,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>res</td>
+                                                <td>args</td>
                                             <td>
-                                                        <code>Response</code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>loginDto</td>
-                                            <td>
-                                                            <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                        <code>ValidationArguments</code>
                                             </td>
 
                                             <td>
@@ -260,7 +274,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                         </div>
                             <div class="io-description">
@@ -274,36 +288,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="logout"></a>
+                    <a name="validate"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>logout</b></span>
-                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>validate</b></span>
+                        <a href="#validate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>logout(res: Response)</code>
+<code>validate(datetime: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>, args)</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({LogoutResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/logout&#x27;})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;로그아웃&#x27;})<br />@Post(&#x27;logout&#x27;)<br /></code>
-                </td>
-            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="47"
-                                    class="link-to-prism">src/auth/auth.controller.ts:47</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="16"
+                                    class="link-to-prism">src/common/datetime.validate.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -324,9 +326,20 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>res</td>
+                                                <td>datetime</td>
                                             <td>
-                                                        <code>Response</code>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>args</td>
+                                            <td>
                                             </td>
 
                                             <td>
@@ -339,7 +352,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>    <code>{ result: boolean; }</code>
+                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </div>
                             <div class="io-description">
@@ -349,184 +362,64 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="refresh"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>refresh</b></span>
-                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>refresh(req: Request, res: Response)</code>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({RefreshResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/login&#x27;})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;토큰 리프레시&#x27;})<br />@Roles()<br />@Post(&#x27;refresh&#x27;)<br /></code>
-                </td>
-            </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="69"
-                                    class="link-to-prism">src/auth/auth.controller.ts:69</a></div>
-                        </td>
-                    </tr>
+</section>
 
 
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>매개변수 :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>이름</td>
-                                                <td>타입</td>
-                                            <td>선택적</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>req</td>
-                                            <td>
-                                                        <code>Request</code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
 
 
-                                        </tr>
-                                        <tr>
-                                                <td>res</td>
-                                            <td>
-                                                        <code>Response</code>
-                                            </td>
 
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    </div>
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &#x27;@middleware/roles.decorator&#x27;;
-import { ApiBodyWithModel } from &#x27;@common/decorators/api.body.with.model&#x27;;
-import { ApiResponseWithModel } from &#x27;@common/decorators/api.response.with.model&#x27;;
-import { Body, Controller, HttpStatus, Post, Req, Res } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
-import { Request, Response } from &#x27;express&#x27;;
-import { AuthService } from &#x27;./auth.service&#x27;;
-import { LoginDto } from &#x27;./dto/login.dto&#x27;;
-import { EXAMPLE_JWT } from &#x27;@common/variables/environment&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from &#x27;class-validator&#x27;;
+import dayjs from &#x27;dayjs&#x27;;
 
-@Controller(&#x27;auth&#x27;)
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+@ValidatorConstraint({ name: &#x27;IsDateTimeAfterNow&#x27;, async: false })
+export class IsDateTimeAfterNowConstraint
+  implements ValidatorConstraintInterface
+{
+  errorMessage!: string;
 
-  @ApiResponseWithModel(
-    {
-      LoginResponse: {
-        accessToken: EXAMPLE_JWT,
-      },
-    },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/login&#x27;,
-    },
-  )
-  @ApiBodyWithModel({ LoginDto })
-  @ApiOperation({ summary: &#x27;로그인&#x27; })
-  @Post(&#x27;login&#x27;)
-  login(@Res({ passthrough: true }) res: Response, @Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto, res);
+  validate(datetime: Date, args: ValidationArguments &amp; { message: string }) {
+    const isDivTenMinute &#x3D; dayjs(datetime).minute() % 10 &#x3D;&#x3D;&#x3D; 0;
+    const isPast &#x3D; dayjs().isSame(datetime) || dayjs(datetime).isBefore();
+
+    if (!isDivTenMinute) {
+      this.errorMessage &#x3D; &#x27;시간은 10분 단위로 지정 가능합니다.&#x27;;
+    }
+    if (isPast) {
+      this.errorMessage &#x3D; &#x27;현재 시간보다 과거의 시간을 지정할 수 없습니다.&#x27;;
+    }
+
+    return isDivTenMinute &amp;&amp; !isPast;
   }
 
-  @ApiResponseWithModel(
-    { LogoutResponse: { result: true } },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/logout&#x27;,
-    },
-  )
-  @ApiBearerAuth()
-  @ApiOperation({ summary: &#x27;로그아웃&#x27; })
-  @Post(&#x27;logout&#x27;)
-  logout(@Res({ passthrough: true }) res: Response) {
-    this.authService.logout(res);
-    return { result: true };
+  defaultMessage(args: ValidationArguments) {
+    return this.errorMessage;
   }
+}
 
-  @ApiResponseWithModel(
-    {
-      RefreshResponse: {
-        accessToken: EXAMPLE_JWT,
-      },
-    },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/login&#x27;,
-    },
-  )
-  @ApiBearerAuth()
-  @ApiOperation({ summary: &#x27;토큰 리프레시&#x27; })
-  @Roles()
-  @Post(&#x27;refresh&#x27;)
-  refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    return this.authService.refreshToken(req, res);
-  }
+export function IsDateTimeAfterNow(validationOptions?: ValidationOptions) {
+  return function (object: object, propertyName: string) {
+    registerDecorator({
+      target: object.constructor,
+      propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: IsDateTimeAfterNowConstraint,
+    });
+  };
 }
 </code></pre>
     </div>
 </div>
-
-
-
-
-
-
-
 
 
 
@@ -561,8 +454,8 @@ export class AuthController {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'AuthController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'IsDateTimeAfterNowConstraint.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

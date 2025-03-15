@@ -153,11 +153,6 @@
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#isOutput" >isOutput</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
                                 <a href="#levels" >levels</a>
                             </li>
                             <li>
@@ -492,33 +487,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="isOutput"></a>
-                    <span class="name">
-                            <span class="modifier">Private</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>isOutput</b></span>
-                        <a href="#isOutput"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>기본 값 : </i><code>RUN_MODE !&#x3D;&#x3D; &#x27;production&#x27;</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="9" class="link-to-prism">src/logger/logger.service.ts:9</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="levels"></a>
                     <span class="name">
                             <span class="modifier">Private</span>
@@ -615,7 +583,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">다음에 정의됨 <a href="" data-line="49" class="link-to-prism">src/logger/logger.service.ts:49</a></div>
+                                    <div class="io-line">다음에 정의됨 <a href="" data-line="52" class="link-to-prism">src/logger/logger.service.ts:52</a></div>
                                 </td>
                             </tr>
 
@@ -626,7 +594,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { RUN_MODE } from &#x27;@common/variables/environment&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { LOG_LEVEL, RUN_MODE } from &#x27;@common/variables/environment&#x27;;
 import { Injectable } from &#x27;@nestjs/common&#x27;;
 import dayjs from &#x27;dayjs&#x27;;
 
@@ -634,7 +602,7 @@ type LogMethod &#x3D; (...messages: any) &#x3D;&gt; void;
 
 @Injectable()
 export class LoggerService {
-  private readonly isOutput &#x3D; RUN_MODE !&#x3D;&#x3D; &#x27;production&#x27;;
+  // private readonly isOutput &#x3D; RUN_MODE !&#x3D;&#x3D; &#x27;production&#x27;;
   private context: string &#x3D; &#x27;System&#x27;;
   private levels &#x3D; [&#x27;log&#x27;, &#x27;info&#x27;, &#x27;debug&#x27;, &#x27;warn&#x27;, &#x27;error&#x27;] as const;
   private icons &#x3D; [&#x27;📄&#x27;, &#x27;✨&#x27;, &#x27;🐛&#x27;, &#x27;⚠️&#x27;, &#x27;❌&#x27;] as const;
@@ -660,10 +628,13 @@ export class LoggerService {
 
   update() {
     for (const level of this.levels) {
-      const icon &#x3D; this.icons[this.levels.indexOf(level)];
+      const index &#x3D; this.levels.indexOf(level);
+      const icon &#x3D; this.icons[index];
+
       Object.defineProperty(this, level, {
         get() {
-          if (!this.isOutput) return () &#x3D;&gt; {};
+          // if (!this.isOutput) return () &#x3D;&gt; {};
+          if (index &gt;&#x3D; LOG_LEVEL) return () &#x3D;&gt; {};
           return console[level].bind(
             this,
             &#x60;${icon} [${level.toUpperCase()}] ${this.timestamp} --&#x60;,

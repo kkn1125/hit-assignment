@@ -134,6 +134,8 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#category" >category</a>
                             </li>
                             <li>
@@ -148,6 +150,9 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#description" >description</a>
                             </li>
                             <li>
@@ -157,9 +162,14 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#name" >name</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#price" >price</a>
@@ -207,6 +217,8 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>category</b></span>
                         <a href="#category"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -223,13 +235,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: String, example: &#x27;main&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 50})<br />
+                            @ApiProperty({type: String, example: &#x27;main&#x27;})<br />@IsNotEmpty({message: &#x27;카테고리는 필수 값입니다.&#x27;})<br />@IsString({message: &#x27;메뉴 종류는 문자만 입력 가능합니다.&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 50})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="26" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:26</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="29" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -265,7 +277,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="44" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:44</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="55" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:55</a></div>
                         </td>
                     </tr>
 
@@ -302,7 +314,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="50" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:50</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="61" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -315,6 +327,9 @@
                 <td class="col-md-4">
                     <a name="description"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>description</b></span>
@@ -333,13 +348,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Number, example: &#x27;홍게살/아스파라거스/레몬, Sauvignon Blanc(소비뇽 블랑)&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 255})<br />
+                            @ApiProperty({type: Number, example: &#x27;홍게살/아스파라거스/레몬, Sauvignon Blanc(소비뇽 블랑)&#x27;})<br />@IsNotEmpty({message: &#x27;설명을 비워둘 수 없습니다.&#x27;})<br />@MinLength(2, {message: &#x27;설명은 최소 2자 이상 작성해주세요.&#x27;})<br />@IsString({message: &#x27;메뉴 설명은 문자만 입력 가능합니다.&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 255})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="41" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:41</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="52" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -375,7 +390,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="18" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:18</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="19" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -388,6 +403,8 @@
                 <td class="col-md-4">
                     <a name="name"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>name</b></span>
@@ -406,13 +423,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: String, example: &#x27;Lunch 와인 페어링&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 50})<br />
+                            @ApiProperty({type: String, example: &#x27;Lunch 와인 페어링&#x27;})<br />@IsNotEmpty({message: &#x27;메뉴명은 필수 값입니다.&#x27;})<br />@IsString({message: &#x27;메뉴명은 문자만 입력 가능합니다.&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 50})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="30" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:30</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="35" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -425,6 +442,9 @@
                 <td class="col-md-4">
                     <a name="price"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>price</b></span>
@@ -443,13 +463,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Number, example: 100000})<br />@Column({type: &#x27;int&#x27;, unsigned: true})<br />
+                            @ApiProperty({type: Number, example: 100000})<br />@IsNotEmpty({message: &#x27;가격은 필수 값입니다.&#x27;})<br />@IsInt({message: &#x27;가격은 0이상의 정수만 가능합니다.&#x27;})<br />@Min(0, {message: &#x27;가격은 0보다 작을 수 없습니다.&#x27;})<br />@Column({type: &#x27;int&#x27;, unsigned: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="34" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:34</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="42" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -485,7 +505,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="61" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:61</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="72" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -521,7 +541,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="55" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:55</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="66" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -558,7 +578,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="22" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:22</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="23" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -594,7 +614,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="47" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:47</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="58" class="link-to-prism">src/restaurants/menus/entities/menu.entity.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -607,8 +627,9 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { ReservationMenu } from &#x27;@restaurants/entities/reservation-menu.entity&#x27;;
 import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
+import { ReservationMenu } from &#x27;@restaurants/reservations/entities/reservation-menu.entity&#x27;;
+import { IsInt, IsNotEmpty, IsString, Min, MinLength } from &#x27;class-validator&#x27;;
 import {
   Column,
   CreateDateColumn,
@@ -630,14 +651,21 @@ export class Menu {
   restaurantId!: number;
 
   @ApiProperty({ type: String, example: &#x27;main&#x27; })
+  @IsNotEmpty({ message: &#x27;카테고리는 필수 값입니다.&#x27; })
+  @IsString({ message: &#x27;메뉴 종류는 문자만 입력 가능합니다.&#x27; })
   @Column({ type: &#x27;varchar&#x27;, length: 50 })
   category!: string;
 
   @ApiProperty({ type: String, example: &#x27;Lunch 와인 페어링&#x27; })
+  @IsNotEmpty({ message: &#x27;메뉴명은 필수 값입니다.&#x27; })
+  @IsString({ message: &#x27;메뉴명은 문자만 입력 가능합니다.&#x27; })
   @Column({ type: &#x27;varchar&#x27;, length: 50 })
   name!: string;
 
   @ApiProperty({ type: Number, example: 100_000 })
+  @IsNotEmpty({ message: &#x27;가격은 필수 값입니다.&#x27; })
+  @IsInt({ message: &#x27;가격은 0이상의 정수만 가능합니다.&#x27; })
+  @Min(0, { message: &#x27;가격은 0보다 작을 수 없습니다.&#x27; })
   @Column({ type: &#x27;int&#x27;, unsigned: true })
   price!: number;
 
@@ -645,6 +673,9 @@ export class Menu {
     type: Number,
     example: &#x27;홍게살/아스파라거스/레몬, Sauvignon Blanc(소비뇽 블랑)&#x27;,
   })
+  @IsNotEmpty({ message: &#x27;설명을 비워둘 수 없습니다.&#x27; })
+  @MinLength(2, { message: &#x27;설명은 최소 2자 이상 작성해주세요.&#x27; })
+  @IsString({ message: &#x27;메뉴 설명은 문자만 입력 가능합니다.&#x27; })
   @Column({ type: &#x27;varchar&#x27;, length: 255 })
   description!: string;
 

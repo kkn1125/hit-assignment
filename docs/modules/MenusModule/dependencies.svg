@@ -22,29 +22,45 @@
 <text text-anchor="start" x="429.73" y="-15.4" font-family="Times-12" font-size="14.00"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_MenusModule</title>
-<polygon fill="none" stroke="black" stroke-dasharray="1,5" points="166,-70 166,-195 330,-195 330,-70 166,-70"/>
+<polygon fill="none" stroke="black" stroke-dasharray="1,5" points="108,-70 108,-195 388,-195 388,-70 108,-70"/>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_MenusModule_imports</title>
+<polygon fill="none" stroke="black" points="272,-78 272,-130 380,-130 380,-78 272,-78"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_MenusModule_providers</title>
-<polygon fill="none" stroke="black" points="174,-78 174,-130 322,-130 322,-78 174,-78"/>
+<polygon fill="none" stroke="black" points="116,-78 116,-130 264,-130 264,-78 116,-78"/>
 </g>
-<!-- MenusService -->
+<!-- UsersModule -->
 <g id="node1" class="node">
-<title>MenusService</title>
-<ellipse fill="#fdb462" stroke="black" cx="248" cy="-104" rx="66.05" ry="18"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00">MenusService</text>
+<title>UsersModule</title>
+<polygon fill="#8dd3c7" stroke="black" points="371.92,-122 368.92,-126 347.92,-126 344.92,-122 280.08,-122 280.08,-86 371.92,-86 371.92,-122"/>
+<text text-anchor="middle" x="326" y="-99.8" font-family="Times,serif" font-size="14.00">UsersModule</text>
 </g>
 <!-- MenusModule -->
 <g id="node2" class="node">
 <title>MenusModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="296.65,-187 293.65,-191 272.65,-191 269.65,-187 199.35,-187 199.35,-151 296.65,-151 296.65,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00">MenusModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="306.65,-187 303.65,-191 282.65,-191 279.65,-187 209.35,-187 209.35,-151 306.65,-151 306.65,-187"/>
+<text text-anchor="middle" x="258" y="-164.8" font-family="Times,serif" font-size="14.00">MenusModule</text>
+</g>
+<!-- UsersModule&#45;&gt;MenusModule -->
+<g id="edge1" class="edge">
+<title>UsersModule&#45;&gt;MenusModule</title>
+<path fill="none" stroke="black" d="M293.56,-122.11C293.56,-122.11 293.56,-140.99 293.56,-140.99"/>
+<polygon fill="black" stroke="black" points="290.06,-140.99 293.56,-150.99 297.06,-140.99 290.06,-140.99"/>
+</g>
+<!-- MenusService -->
+<g id="node3" class="node">
+<title>MenusService</title>
+<ellipse fill="#fdb462" stroke="black" cx="190" cy="-104" rx="66.05" ry="18"/>
+<text text-anchor="middle" x="190" y="-99.8" font-family="Times,serif" font-size="14.00">MenusService</text>
 </g>
 <!-- MenusService&#45;&gt;MenusModule -->
-<g id="edge1" class="edge">
+<g id="edge2" class="edge">
 <title>MenusService&#45;&gt;MenusModule</title>
-<path fill="none" stroke="black" d="M248,-122.11C248,-122.11 248,-140.99 248,-140.99"/>
-<polygon fill="black" stroke="black" points="244.5,-140.99 248,-150.99 251.5,-140.99 244.5,-140.99"/>
+<path fill="none" stroke="black" d="M232.72,-117.78C232.72,-117.78 232.72,-140.55 232.72,-140.55"/>
+<polygon fill="black" stroke="black" points="229.22,-140.55 232.72,-150.55 236.22,-140.55 229.22,-140.55"/>
 </g>
 </g>
 </svg>

@@ -234,7 +234,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                            <b>반환 : </b>    <code>{ version: any; }</code>
 
                         </div>
                 </td>
@@ -255,9 +255,9 @@ import { CommonOption } from &#x27;./common/variables/commonConf&#x27;;
 export class AppService {
   constructor(private readonly commonService: CommonService) {}
 
-  getServerVersion(): string {
+  getServerVersion() {
     const commonConfig &#x3D; this.commonService.getConfig&lt;CommonOption&gt;(&#x27;common&#x27;);
-    return commonConfig.version;
+    return { version: commonConfig.version };
   }
 }
 </code></pre>

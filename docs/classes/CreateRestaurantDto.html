@@ -137,67 +137,8 @@
 
 
 
-            <section data-compodoc="block-index">
-    <h3 id="index">색인</h3>
-    <table class="table table-sm table-bordered index-table">
-        <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>속성</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#menu" >menu</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
-
-
-
-
-        </tbody>
-    </table>
-</section>
-
-
-            <section data-compodoc="block-properties">
-    
-    <h3 id="inputs">
-        속성
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="menu"></a>
-                    <span class="name">
-                        <span ><b>menu</b></span>
-                        <a href="#menu"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>타입 : </i>        <code><a href="../classes/CreateMenuDto.html" target="_self" >CreateMenuDto[]</a></code>
-
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="10" class="link-to-prism">src/restaurants/dto/create-restaurant.dto.ts:10</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-</section>
 
 
 
@@ -211,15 +152,12 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { PickType } from &#x27;@nestjs/swagger&#x27;;
 import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
-import { CreateMenuDto } from &#x27;@restaurants/menus/dto/create-menu.dto&#x27;;
 
 export class CreateRestaurantDto extends PickType(Restaurant, [
   &#x27;category&#x27;,
   &#x27;name&#x27;,
   &#x27;location&#x27;,
-]) {
-  menu!: CreateMenuDto[];
-}
+]) {}
 </code></pre>
     </div>
 </div>

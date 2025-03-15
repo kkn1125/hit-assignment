@@ -242,9 +242,10 @@ import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
 import { User } from &#x27;./entities/user.entity&#x27;;
 import { UsersController } from &#x27;./users.controller&#x27;;
 import { UsersService } from &#x27;./users.service&#x27;;
+import { Reservation } from &#x27;@restaurants/reservations/entities/reservation.entity&#x27;;
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User, Reservation])],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

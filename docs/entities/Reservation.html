@@ -134,6 +134,8 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#amount" >amount</a>
                             </li>
                             <li>
@@ -153,6 +155,9 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#phone" >phone</a>
                             </li>
                             <li>
@@ -162,9 +167,14 @@
                             <li>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                 <a href="#reserveEndAt" >reserveEndAt</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#reserveStartAt" >reserveStartAt</a>
@@ -174,6 +184,7 @@
                                 <a href="#restaurant" >restaurant</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#restaurantId" >restaurantId</a>
@@ -187,6 +198,7 @@
                                 <a href="#user" >user</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                 <a href="#userId" >userId</a>
@@ -217,6 +229,8 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                         <span ><b>amount</b></span>
                         <a href="#amount"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -233,13 +247,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Date, example: 5})<br />@Column({type: &#x27;int&#x27;, unsigned: true})<br />
+                            @ApiProperty({type: Date, example: 5})<br />@IsInt({message: &#x27;정수만 가능합니다.&#x27;})<br />@Min(1, {message: &#x27;0이상의 정수만 가능합니다.&#x27;})<br />@Column({type: &#x27;int&#x27;, unsigned: true})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="44" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:44</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="60" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:60</a></div>
                         </td>
                     </tr>
 
@@ -275,7 +289,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="47" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:47</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="63" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:63</a></div>
                         </td>
                     </tr>
 
@@ -312,7 +326,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="53" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:53</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="69" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:69</a></div>
                         </td>
                     </tr>
 
@@ -349,7 +363,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="20" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:20</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="24" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -362,6 +376,9 @@
                 <td class="col-md-4">
                     <a name="phone"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>phone</b></span>
@@ -380,13 +397,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Date, example: &#x27;2025-03-13 15:00&#x27;})<br />@Column({type: &#x27;varchar&#x27;, length: 13})<br />
+                            @ApiProperty({type: String, example: &#x27;010-1234-5678&#x27;})<br />@IsOptional()<br />@IsString({message: &#x27;문자만 가능합니다&#x27;})<br />@IsPhoneNumberFormat()<br />@Column({type: &#x27;varchar&#x27;, length: 13})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="40" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:40</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="54" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -422,7 +439,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="67" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:67</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="83" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:83</a></div>
                         </td>
                     </tr>
 
@@ -435,6 +452,9 @@
                 <td class="col-md-4">
                     <a name="reserveEndAt"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>reserveEndAt</b></span>
@@ -453,13 +473,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Date, example: &#x27;2025-03-13 15:00&#x27;})<br />@Column({type: &#x27;datetime&#x27;})<br />
+                            @ApiProperty({type: Date, example: &#x27;2025-03-13T15:00&#x27;})<br />@IsDate({message: &#x27;시간 형식만 가능합니다.&#x27;})<br />@IsAfterStartTime()<br />@IsDateTimeAfterNow()<br />@Column({type: &#x27;datetime&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="36" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:36</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="47" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:47</a></div>
                         </td>
                     </tr>
 
@@ -472,6 +492,8 @@
                 <td class="col-md-4">
                     <a name="reserveStartAt"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>reserveStartAt</b></span>
@@ -490,13 +512,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Date, example: &#x27;2025-03-13 13:00&#x27;})<br />@Column({type: &#x27;datetime&#x27;})<br />
+                            @ApiProperty({type: Date, example: &#x27;2025-03-13T13:00&#x27;})<br />@IsDate({message: &#x27;시간 형식만 가능합니다.&#x27;})<br />@IsDateTimeAfterNow()<br />@Column({type: &#x27;datetime&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="32" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:32</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="40" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -532,7 +554,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="61" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:61</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="77" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -545,6 +567,7 @@
                 <td class="col-md-4">
                     <a name="restaurantId"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>restaurantId</b></span>
@@ -563,13 +586,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Number, example: 1})<br />@Column({type: &#x27;int&#x27;})<br />
+                            @ApiProperty({type: Number, example: 1})<br />@IsInt({message: &#x27;정수만 가능합니다.&#x27;})<br />@Column({type: &#x27;int&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="28" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:28</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="34" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:34</a></div>
                         </td>
                     </tr>
 
@@ -605,7 +628,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="50" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:50</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="66" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:66</a></div>
                         </td>
                     </tr>
 
@@ -641,7 +664,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="56" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:56</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="72" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:72</a></div>
                         </td>
                     </tr>
 
@@ -654,6 +677,7 @@
                 <td class="col-md-4">
                     <a name="userId"></a>
                     <span class="name">
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>userId</b></span>
@@ -672,13 +696,13 @@
                         <b>데코레이터 : </b>
                         <br />
                         <code>
-                            @ApiProperty({type: Number, example: 1})<br />@Column({type: &#x27;int&#x27;})<br />
+                            @ApiProperty({type: Number, example: 1})<br />@IsInt({message: &#x27;정수만 가능합니다.&#x27;})<br />@Column({type: &#x27;int&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="24" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:24</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="29" class="link-to-prism">src/restaurants/reservations/entities/reservation.entity.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -691,9 +715,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
-import { ReservationMenu } from &#x27;@restaurants/entities/reservation-menu.entity&#x27;;
 import { Restaurant } from &#x27;@restaurants/entities/restaurant.entity&#x27;;
+import { ReservationMenu } from &#x27;@restaurants/reservations/entities/reservation-menu.entity&#x27;;
 import { User } from &#x27;@users/entities/user.entity&#x27;;
+import { IsDate, IsInt, IsOptional, IsString, Min } from &#x27;class-validator&#x27;;
 import {
   Column,
   CreateDateColumn,
@@ -704,6 +729,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from &#x27;typeorm&#x27;;
+import { IsPhoneNumberFormat } from &#x27;../../../common/phone.validate&#x27;;
+import { IsAfterStartTime } from &#x27;../reservation-date.validate&#x27;;
+import { IsDateTimeAfterNow } from &#x27;@common/datetime.validate&#x27;;
 
 @Entity()
 export class Reservation {
@@ -712,26 +740,38 @@ export class Reservation {
   id!: number;
 
   @ApiProperty({ type: Number, example: 1 })
+  @IsInt({ message: &#x27;정수만 가능합니다.&#x27; })
   @Column({ type: &#x27;int&#x27; })
   userId!: number;
 
   @ApiProperty({ type: Number, example: 1 })
+  @IsInt({ message: &#x27;정수만 가능합니다.&#x27; })
   @Column({ type: &#x27;int&#x27; })
   restaurantId!: number;
 
-  @ApiProperty({ type: Date, example: &#x27;2025-03-13 13:00&#x27; })
+  @ApiProperty({ type: Date, example: &#x27;2025-03-13T13:00&#x27; })
+  @IsDate({ message: &#x27;시간 형식만 가능합니다.&#x27; })
+  @IsDateTimeAfterNow()
   @Column({ type: &#x27;datetime&#x27; })
   reserveStartAt!: Date;
 
-  @ApiProperty({ type: Date, example: &#x27;2025-03-13 15:00&#x27; })
+  @ApiProperty({ type: Date, example: &#x27;2025-03-13T15:00&#x27; })
+  @IsDate({ message: &#x27;시간 형식만 가능합니다.&#x27; })
+  @IsAfterStartTime()
+  @IsDateTimeAfterNow()
   @Column({ type: &#x27;datetime&#x27; })
   reserveEndAt!: Date;
 
-  @ApiProperty({ type: Date, example: &#x27;2025-03-13 15:00&#x27; })
+  @ApiProperty({ type: String, example: &#x27;010-1234-5678&#x27; })
+  @IsOptional()
+  @IsString({ message: &#x27;문자만 가능합니다&#x27; })
+  @IsPhoneNumberFormat()
   @Column({ type: &#x27;varchar&#x27;, length: 13 })
   phone!: string;
 
   @ApiProperty({ type: Date, example: 5 })
+  @IsInt({ message: &#x27;정수만 가능합니다.&#x27; })
+  @Min(1, { message: &#x27;0이상의 정수만 가능합니다.&#x27; })
   @Column({ type: &#x27;int&#x27;, unsigned: true })
   amount!: number;
 

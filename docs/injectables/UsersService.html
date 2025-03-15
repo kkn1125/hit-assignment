@@ -174,6 +174,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getMeResrvations" >getMeResrvations</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#isDuplicatedBy" >isDuplicatedBy</a>
                             </li>
                             <li>
@@ -202,12 +206,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>, utilService: <a href="../injectables/UtilService.html" target="_self">UtilService</a>)</code>
+<code>constructor(reservationRepository: <a href="../entitys/Reservation.html" target="_self">Repository&lt;Reservation&gt;</a>, userRepository: <a href="../entitys/User.html" target="_self">Repository&lt;User&gt;</a>, utilService: <a href="../injectables/UtilService.html" target="_self">UtilService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="24" class="link-to-prism">src/users/users.service.ts:24</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="23" class="link-to-prism">src/users/users.service.ts:23</a></div>
                             </td>
                         </tr>
 
@@ -224,6 +228,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>reservationRepository</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Reservation.html" target="_self" >Repository&lt;Reservation&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            아니오
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>userRepository</td>
                                                   
@@ -284,8 +300,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="59"
-                                    class="link-to-prism">src/users/users.service.ts:59</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="42"
+                                    class="link-to-prism">src/users/users.service.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -365,8 +381,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="74"
-                                    class="link-to-prism">src/users/users.service.ts:74</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="64"
+                                    class="link-to-prism">src/users/users.service.ts:64</a></div>
                         </td>
                     </tr>
 
@@ -432,8 +448,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="87"
-                                    class="link-to-prism">src/users/users.service.ts:87</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="77"
+                                    class="link-to-prism">src/users/users.service.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -471,8 +487,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="113"
-                                    class="link-to-prism">src/users/users.service.ts:113</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="141"
+                                    class="link-to-prism">src/users/users.service.ts:141</a></div>
                         </td>
                     </tr>
 
@@ -540,8 +556,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="91"
-                                    class="link-to-prism">src/users/users.service.ts:91</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="81"
+                                    class="link-to-prism">src/users/users.service.ts:81</a></div>
                         </td>
                     </tr>
 
@@ -609,8 +625,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="101"
-                                    class="link-to-prism">src/users/users.service.ts:101</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="93"
+                                    class="link-to-prism">src/users/users.service.ts:93</a></div>
                         </td>
                     </tr>
 
@@ -660,6 +676,111 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getMeResrvations"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getMeResrvations</b></span>
+                        <a href="#getMeResrvations"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMeResrvations(path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, userTokenData: <a href="../entitys/User.html" target="_self">UserTokenData</a>, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, perPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="107"
+                                    class="link-to-prism">src/users/users.service.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>매개변수 :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>이름</td>
+                                                <td>타입</td>
+                                            <td>선택적</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userTokenData</td>
+                                            <td>
+                                                            <code><a href="../entitys/User.html" target="_self" >UserTokenData</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>page</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>perPage</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>반환 : </b>    <code>unknown</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="isDuplicatedBy"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -678,8 +799,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="50"
-                                    class="link-to-prism">src/users/users.service.ts:50</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="33"
+                                    class="link-to-prism">src/users/users.service.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -755,8 +876,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="138"
-                                    class="link-to-prism">src/users/users.service.ts:138</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="184"
+                                    class="link-to-prism">src/users/users.service.ts:184</a></div>
                         </td>
                     </tr>
 
@@ -824,8 +945,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="123"
-                                    class="link-to-prism">src/users/users.service.ts:123</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="153"
+                                    class="link-to-prism">src/users/users.service.ts:153</a></div>
                         </td>
                     </tr>
 
@@ -919,7 +1040,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">다음에 정의됨 <a href="" data-line="18" class="link-to-prism">src/users/users.service.ts:18</a></div>
+                                <div class="io-line">다음에 정의됨 <a href="" data-line="17" class="link-to-prism">src/users/users.service.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -936,16 +1057,15 @@
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
 } from &#x27;@nestjs/common&#x27;;
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
+import { Reservation } from &#x27;@restaurants/reservations/entities/reservation.entity&#x27;;
 import { Protocol } from &#x27;@util/protocol&#x27;;
 import { UtilService } from &#x27;@util/util.service&#x27;;
-import { FindOptionsSelect, FindOptionsWhere, Repository } from &#x27;typeorm&#x27;;
+import { Repository } from &#x27;typeorm&#x27;;
 import { CreateUserDto } from &#x27;./dto/create-user.dto&#x27;;
 import { UpdateUserDto } from &#x27;./dto/update-user.dto&#x27;;
 import { User } from &#x27;./entities/user.entity&#x27;;
-import { throwNoExistsEntityWithSelectBy } from &#x27;@util/utilFunction&#x27;;
 
 @Injectable()
 export class UsersService {
@@ -958,28 +1078,12 @@ export class UsersService {
   };
 
   constructor(
+    @InjectRepository(Reservation)
+    private readonly reservationRepository: Repository&lt;Reservation&gt;,
     @InjectRepository(User)
     private readonly userRepository: Repository&lt;User&gt;,
     private readonly utilService: UtilService,
   ) {}
-
-  /* user&#x27;s util */
-  // async throwNoExistsUserWithSelectBy(
-  //   whereOption: FindOptionsWhere&lt;User&gt;,
-  //   selectOption?: FindOptionsSelect&lt;User&gt;,
-  // ) {
-  //   const user &#x3D; await this.userRepository.findOne({
-  //     where: whereOption,
-  //     select: selectOption,
-  //   });
-
-  //   if (!user) {
-  //     const errorProtocol &#x3D; Protocol.NoMatchUser;
-  //     throw new NotFoundException(errorProtocol);
-  //   }
-
-  //   return user;
-  // }
 
   async isDuplicatedBy&lt;T extends object&gt;(whereOption: T) {
     const count &#x3D; await this.userRepository.countBy(whereOption);
@@ -991,16 +1095,23 @@ export class UsersService {
   }
 
   async comparePassword(userId: string, inputPassword: string) {
-    const user &#x3D; await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      userId,
-    });
+    const user &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { userId },
+      },
+    );
     const message &#x3D; userId + inputPassword;
-    const hashedPassword &#x3D; this.utilService.createHashedPassword(message);
+    const isSamePassword &#x3D; this.utilService.compareInputPasswordWith(
+      message,
+      user.password,
+    );
 
-    if (user.password !&#x3D;&#x3D; hashedPassword) {
+    if (!isSamePassword) {
       const errorProtocol &#x3D; Protocol.WrongLoginData;
       throw new BadRequestException(errorProtocol);
     }
+
     return user;
   }
   /* user&#x27;s util */
@@ -1023,10 +1134,12 @@ export class UsersService {
   }
 
   async findOneByUserId(userId: string) {
-    const user &#x3D; await throwNoExistsEntityWithSelectBy(
+    const user &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
       this.userRepository,
-      { userId },
-      this.userSelectOption,
+      {
+        where: { userId },
+        select: this.userSelectOption,
+      },
     );
 
     return user;
@@ -1035,27 +1148,70 @@ export class UsersService {
   async getMe(userTokenData: UserTokenData) {
     const id &#x3D; userTokenData.id;
 
-    const user &#x3D; await throwNoExistsEntityWithSelectBy(
+    const user &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
       this.userRepository,
-      { id },
-      this.userSelectOption,
+      {
+        where: { id },
+        select: this.userSelectOption,
+      },
     );
 
     return user;
   }
 
+  async getMeResrvations(
+    path: string,
+    userTokenData: UserTokenData,
+    page: number,
+    perPage: number,
+  ) {
+    const userId &#x3D; userTokenData.id;
+    const reservations &#x3D; await this.utilService.searchPagination(
+      this.reservationRepository,
+      path,
+      {
+        where: {
+          userId,
+        },
+        select: {
+          user: this.userSelectOption,
+        },
+        relations: {
+          restaurant: true,
+          reservationMenus: true,
+          user: true,
+        },
+        take: perPage,
+        skip: (page - 1) * perPage,
+        order: {
+          createdAt: &#x27;DESC&#x27;,
+        },
+      },
+      page,
+      perPage,
+    );
+    return reservations;
+  }
+
   async findOne(id: number) {
-    const user &#x3D; await throwNoExistsEntityWithSelectBy(
+    const user &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
       this.userRepository,
-      { id },
-      this.userSelectOption,
+      {
+        where: { id },
+        select: this.userSelectOption,
+      },
     );
 
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
+    const user &#x3D; await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { id },
+      },
+    );
 
     if (updateUserDto.email) {
       await this.isDuplicatedBy({ email: updateUserDto.email });
@@ -1066,13 +1222,23 @@ export class UsersService {
     if (updateUserDto.phone) {
       await this.isDuplicatedBy({ phone: updateUserDto.phone });
     }
-    return this.userRepository.update(id, updateUserDto);
+
+    if (updateUserDto.password) {
+      const hashedPassword &#x3D; this.utilService.createHashedPassword(
+        user.userId + updateUserDto.password,
+      );
+      updateUserDto.password &#x3D; hashedPassword;
+    }
+
+    await this.userRepository.update(id, updateUserDto);
+
+    const updatedUser &#x3D; await this.findOne(id);
+    return updatedUser;
   }
 
   async remove(id: number) {
-    await throwNoExistsEntityWithSelectBy(this.userRepository, { id });
-
-    return this.userRepository.softDelete(id);
+    await this.userRepository.softDelete(id);
+    return { id };
   }
 }
 </code></pre>

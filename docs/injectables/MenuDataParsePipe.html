@@ -79,16 +79,19 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content controller">
+               <div class="content injectable">
                    <div class="content-data">
 
 
 
 
 
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">컨트롤러</li>
-  <li class="breadcrumb-item" >AuthController</li>
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >MenuDataParsePipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -112,16 +115,8 @@
             <h3>파일</h3>
         </p>
         <p class="comment">
-            <code>src/auth/auth.controller.ts</code>
+            <code>src/restaurants/menus/menu-data-parse.pipe.ts</code>
         </p>
-
-            <p class="comment">
-                <h3>접두어</h3>
-            </p>
-            <p class="comment">
-                <code>auth</code>
-            </p>
-
 
 
 
@@ -141,26 +136,12 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#login" >login</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#getFlatErrorConstraints" >getFlatErrorConstraints</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#logout" >logout</a>
-                            </li>
-                            <li>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                    <span class="modifier"></span>
-                                <a href="#refresh" >refresh</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#transform" >transform</a>
                             </li>
                         </ul>
                     </td>
@@ -174,6 +155,7 @@
     </table>
 </section>
 
+
             <section data-compodoc="block-methods">
     
     <h3 id="methods">
@@ -183,36 +165,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="login"></a>
+                    <a name="getFlatErrorConstraints"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>login</b></span>
-                        <a href="#login"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Private</span>
+                        <span ><b>getFlatErrorConstraints</b></span>
+                        <a href="#getFlatErrorConstraints"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(res: Response, loginDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                    <code>getFlatErrorConstraints(errors: ValidationError[])</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({LoginResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/login&#x27;})<br />@ApiBodyWithModel({LoginDto: })<br />@ApiOperation({summary: &#x27;로그인&#x27;})<br />@Post(&#x27;login&#x27;)<br /></code>
-                </td>
-            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="31"
-                                    class="link-to-prism">src/auth/auth.controller.ts:31</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="40"
+                                    class="link-to-prism">src/restaurants/menus/menu-data-parse.pipe.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -233,21 +205,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>res</td>
+                                                <td>errors</td>
                                             <td>
-                                                        <code>Response</code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>loginDto</td>
-                                            <td>
-                                                            <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                                        <code>ValidationError[]</code>
                                             </td>
 
                                             <td>
@@ -274,36 +234,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="logout"></a>
+                    <a name="transform"></a>
                     <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>logout</b></span>
-                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Async</span>
+                        <span ><b>transform</b></span>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>logout(res: Response)</code>
+                    <code>transform(value: <a href="../classes/CreateMenuDto.html" target="_self">CreateMenuDto</a>, metadata: ArgumentMetadata)</code>
                 </td>
             </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({LogoutResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/logout&#x27;})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;로그아웃&#x27;})<br />@Post(&#x27;logout&#x27;)<br /></code>
-                </td>
-            </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="47"
-                                    class="link-to-prism">src/auth/auth.controller.ts:47</a></div>
+                            <div class="io-line">다음에 정의됨 <a href="" data-line="14"
+                                    class="link-to-prism">src/restaurants/menus/menu-data-parse.pipe.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -324,9 +274,21 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>res</td>
+                                                <td>value</td>
                                             <td>
-                                                        <code>Response</code>
+                                                            <code><a href="../classes/CreateMenuDto.html" target="_self" >CreateMenuDto</a></code>
+                                            </td>
+
+                                            <td>
+                                                    아니오
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>metadata</td>
+                                            <td>
+                                                        <code>ArgumentMetadata</code>
                                             </td>
 
                                             <td>
@@ -339,7 +301,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>반환 : </b>    <code>{ result: boolean; }</code>
+                            <b>반환 : </b>    <code>unknown</code>
 
                         </div>
                             <div class="io-description">
@@ -349,180 +311,59 @@
             </tr>
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="refresh"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                            <span class="modifier"></span>
-                        <span ><b>refresh</b></span>
-                        <a href="#refresh"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>refresh(req: Request, res: Response)</code>
-                </td>
-            </tr>
+</section>
 
-            <tr>
-                <td class="col-md-4">
-                    <b>데코레이터 : </b>
-                    <br />
-                    <code>@ApiResponseWithModel({RefreshResponse: undefined}, {ok: true, status: undefined, method: &#x27;POST&#x27;, path: &#x27;/auth/login&#x27;})<br />@ApiBearerAuth()<br />@ApiOperation({summary: &#x27;토큰 리프레시&#x27;})<br />@Roles()<br />@Post(&#x27;refresh&#x27;)<br /></code>
-                </td>
-            </tr>
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">다음에 정의됨 <a href="" data-line="69"
-                                    class="link-to-prism">src/auth/auth.controller.ts:69</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>매개변수 :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>이름</td>
-                                                <td>타입</td>
-                                            <td>선택적</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>req</td>
-                                            <td>
-                                                        <code>Request</code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                        <tr>
-                                                <td>res</td>
-                                            <td>
-                                                        <code>Response</code>
-                                            </td>
-
-                                            <td>
-                                                    아니오
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>반환 : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    </div>
+    </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Roles } from &#x27;@middleware/roles.decorator&#x27;;
-import { ApiBodyWithModel } from &#x27;@common/decorators/api.body.with.model&#x27;;
-import { ApiResponseWithModel } from &#x27;@common/decorators/api.response.with.model&#x27;;
-import { Body, Controller, HttpStatus, Post, Req, Res } from &#x27;@nestjs/common&#x27;;
-import { ApiBearerAuth, ApiOperation } from &#x27;@nestjs/swagger&#x27;;
-import { Request, Response } from &#x27;express&#x27;;
-import { AuthService } from &#x27;./auth.service&#x27;;
-import { LoginDto } from &#x27;./dto/login.dto&#x27;;
-import { EXAMPLE_JWT } from &#x27;@common/variables/environment&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  ArgumentMetadata,
+  BadRequestException,
+  Injectable,
+  PipeTransform,
+} from &#x27;@nestjs/common&#x27;;
+import { Protocol } from &#x27;@util/protocol&#x27;;
+import { plainToInstance } from &#x27;class-transformer&#x27;;
+import { validate, ValidationError } from &#x27;class-validator&#x27;;
+import { CreateMenuDto } from &#x27;./dto/create-menu.dto&#x27;;
 
-@Controller(&#x27;auth&#x27;)
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+@Injectable()
+export class MenuDataParsePipe implements PipeTransform {
+  async transform(value: CreateMenuDto, metadata: ArgumentMetadata) {
+    if (!metadata.metatype) {
+      return value;
+    }
 
-  @ApiResponseWithModel(
-    {
-      LoginResponse: {
-        accessToken: EXAMPLE_JWT,
-      },
-    },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/login&#x27;,
-    },
-  )
-  @ApiBodyWithModel({ LoginDto })
-  @ApiOperation({ summary: &#x27;로그인&#x27; })
-  @Post(&#x27;login&#x27;)
-  login(@Res({ passthrough: true }) res: Response, @Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto, res);
+    const menuValidate &#x3D; async (menu) &#x3D;&gt; {
+      const object &#x3D; plainToInstance(CreateMenuDto, menu);
+      const errors &#x3D; await validate(object, { stopAtFirstError: true });
+      if (errors.length &gt; 0) {
+        const messages &#x3D; this.getFlatErrorConstraints(errors);
+        const errorProtocol &#x3D; Protocol.ArgsRequired;
+        throw new BadRequestException(errorProtocol, { cause: messages });
+      }
+    };
+
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        await menuValidate(item);
+      }
+    } else {
+      await menuValidate(value);
+    }
+
+    return value;
   }
 
-  @ApiResponseWithModel(
-    { LogoutResponse: { result: true } },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/logout&#x27;,
-    },
-  )
-  @ApiBearerAuth()
-  @ApiOperation({ summary: &#x27;로그아웃&#x27; })
-  @Post(&#x27;logout&#x27;)
-  logout(@Res({ passthrough: true }) res: Response) {
-    this.authService.logout(res);
-    return { result: true };
-  }
-
-  @ApiResponseWithModel(
-    {
-      RefreshResponse: {
-        accessToken: EXAMPLE_JWT,
-      },
-    },
-    {
-      ok: true,
-      status: HttpStatus.CREATED,
-      method: &#x27;POST&#x27;,
-      path: &#x27;/auth/login&#x27;,
-    },
-  )
-  @ApiBearerAuth()
-  @ApiOperation({ summary: &#x27;토큰 리프레시&#x27; })
-  @Roles()
-  @Post(&#x27;refresh&#x27;)
-  refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    return this.authService.refreshToken(req, res);
+  private getFlatErrorConstraints(errors: ValidationError[]) {
+    return errors.map((err) &#x3D;&gt; Object.values(err.constraints || {})).flat();
   }
 }
 </code></pre>
     </div>
+
 </div>
-
-
-
 
 
 
@@ -561,8 +402,8 @@ export class AuthController {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
-            var COMPODOC_CURRENT_PAGE_URL = 'AuthController.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'MenuDataParsePipe.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
