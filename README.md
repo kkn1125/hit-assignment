@@ -143,7 +143,7 @@ npm run start:prod
 
 > 아래 호스팅 API의 경우 cloudtype 특성상 새벽에 서버 다운이 됩니다. 아침마다 다시 실행 예정이며, 접근이 안될 시, 위 실행 방법에 따라 로컬에서 실행하시기 바랍니다.
 
-- 호스팅 API: https:port-0-hit-assignment-m8ai2uwf803314cf.sel4.cloudtype.app
+- 호스팅 API: http:43.201.15.151:8080
 - API: http://<host>:<port>/api
 - 인가: 헤더 Authorization: Bearer <token> 사용
 
