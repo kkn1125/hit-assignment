@@ -96,9 +96,7 @@ export class MenusController {
     required: false,
   })
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
-  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 메뉴 전체 조회' })
-  @Roles()
   @Get()
   findAll(
     @Req() req: Request,
@@ -147,9 +145,7 @@ export class MenusController {
   )
   @ApiParam({ name: 'restaurantId', type: Number, example: 1 })
   @ApiParam({ name: 'menuId', type: Number, example: 1 })
-  @ApiBearerAuth()
   @ApiOperation({ summary: '식당 메뉴 상세 조회' })
-  @Roles()
   @Get(':menuId')
   findOne(@Param('menuId') menuId: string) {
     return this.menusService.findOne(+menuId);
