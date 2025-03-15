@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { searchPagination } from '@util/utilFunction';
+import { UtilService } from '@util/util.service';
 import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
@@ -11,6 +11,7 @@ export class MenusService {
   constructor(
     @InjectRepository(Menu)
     private readonly menuRepository: Repository<Menu>,
+    private readonly utilService: UtilService,
   ) {}
 
   async createBulk(restaurantId: number, createMenuDto: CreateMenuDto[]) {
@@ -31,7 +32,7 @@ export class MenusService {
   }
 
   findAll(path: string, restaurantId: number, page: number, perPage: number) {
-    return searchPagination(
+    return this.utilService.searchPagination(
       this.menuRepository,
       path,
       { where: { restaurantId }, take: perPage, skip: (page - 1) * perPage },

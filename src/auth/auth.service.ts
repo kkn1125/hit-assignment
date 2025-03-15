@@ -9,7 +9,6 @@ import { User } from '@users/entities/user.entity';
 import { UsersService } from '@users/users.service';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import { throwNoExistsEntityWithSelectBy } from '@util/utilFunction';
 import { Request, Response } from 'express';
 import { Repository } from 'typeorm';
 import { LoginDto } from './dto/login.dto';
@@ -25,9 +24,12 @@ export class AuthService {
 
   async login(loginDto: LoginDto, res: Response) {
     /* 유저 조회 후 없으면 throw */
-    await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { userId: loginDto.userId },
-    });
+    await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { userId: loginDto.userId },
+      },
+    );
 
     /* 비밀번호 검증, 틀리면 throw */
     const user = await this.usersService.comparePassword(

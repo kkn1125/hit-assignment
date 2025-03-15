@@ -6,9 +6,8 @@ import {
 } from '@nestjs/common';
 import { Protocol } from '@util/protocol';
 import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
+import { validate, ValidationError } from 'class-validator';
 import { CreateMenuDto } from './dto/create-menu.dto';
-import { getFlatErrorConstraints } from '@util/utilFunction';
 
 @Injectable()
 export class MenuDataParsePipe implements PipeTransform {
@@ -21,7 +20,7 @@ export class MenuDataParsePipe implements PipeTransform {
       const object = plainToInstance(CreateMenuDto, menu);
       const errors = await validate(object, { stopAtFirstError: true });
       if (errors.length > 0) {
-        const messages = getFlatErrorConstraints(errors);
+        const messages = this.getFlatErrorConstraints(errors);
         const errorProtocol = Protocol.ArgsRequired;
         throw new BadRequestException(errorProtocol, { cause: messages });
       }
@@ -36,5 +35,9 @@ export class MenuDataParsePipe implements PipeTransform {
     }
 
     return value;
+  }
+
+  private getFlatErrorConstraints(errors: ValidationError[]) {
+    return errors.map((err) => Object.values(err.constraints || {})).flat();
   }
 }

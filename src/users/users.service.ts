@@ -7,10 +7,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Reservation } from '@restaurants/reservations/entities/reservation.entity';
 import { Protocol } from '@util/protocol';
 import { UtilService } from '@util/util.service';
-import {
-  searchPagination,
-  throwNoExistsEntityWithSelectBy,
-} from '@util/utilFunction';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -44,9 +40,12 @@ export class UsersService {
   }
 
   async comparePassword(userId: string, inputPassword: string) {
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { userId },
-    });
+    const user = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { userId },
+      },
+    );
     const message = userId + inputPassword;
     const isSamePassword = this.utilService.compareInputPasswordWith(
       message,
@@ -80,10 +79,13 @@ export class UsersService {
   }
 
   async findOneByUserId(userId: string) {
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { userId },
-      select: this.userSelectOption,
-    });
+    const user = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { userId },
+        select: this.userSelectOption,
+      },
+    );
 
     return user;
   }
@@ -91,10 +93,13 @@ export class UsersService {
   async getMe(userTokenData: UserTokenData) {
     const id = userTokenData.id;
 
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { id },
-      select: this.userSelectOption,
-    });
+    const user = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { id },
+        select: this.userSelectOption,
+      },
+    );
 
     return user;
   }
@@ -106,7 +111,7 @@ export class UsersService {
     perPage: number,
   ) {
     const userId = userTokenData.id;
-    const reservations = await searchPagination(
+    const reservations = await this.utilService.searchPagination(
       this.reservationRepository,
       path,
       {
@@ -134,18 +139,24 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { id },
-      select: this.userSelectOption,
-    });
+    const user = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { id },
+        select: this.userSelectOption,
+      },
+    );
 
     return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const user = await throwNoExistsEntityWithSelectBy(this.userRepository, {
-      where: { id },
-    });
+    const user = await this.utilService.throwNoExistsEntityWithSelectBy(
+      this.userRepository,
+      {
+        where: { id },
+      },
+    );
 
     if (updateUserDto.email) {
       await this.isDuplicatedBy({ email: updateUserDto.email });

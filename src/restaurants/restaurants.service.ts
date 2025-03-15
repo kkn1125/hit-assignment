@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Protocol } from '@util/protocol';
-import { searchPagination } from '@util/utilFunction';
+import { UtilService } from '@util/util.service';
 import { Like, Repository } from 'typeorm';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
@@ -12,6 +12,7 @@ export class RestaurantsService {
   constructor(
     @InjectRepository(Restaurant)
     private readonly restaurantRepository: Repository<Restaurant>,
+    private readonly utilService: UtilService,
   ) {}
 
   async create(userId: number, createRestaurantDto: CreateRestaurantDto) {
@@ -28,7 +29,7 @@ export class RestaurantsService {
     perPage: number,
     searchOption: SearchOption,
   ) {
-    return searchPagination(
+    return this.utilService.searchPagination(
       this.restaurantRepository,
       path,
       {

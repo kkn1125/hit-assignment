@@ -2,15 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Menu } from '@restaurants/menus/entities/menu.entity';
 import { ReservationMenu } from '@restaurants/reservations/entities/reservation-menu.entity';
-import {
-  searchPagination,
-  throwNoExistsEntityWithSelectBy,
-} from '@util/utilFunction';
+import { UtilService } from '@util/util.service';
 import {
   Between,
   LessThanOrEqual,
   Like,
-  MoreThan,
   MoreThanOrEqual,
   Repository,
 } from 'typeorm';
@@ -25,6 +21,7 @@ export class ReservationsService {
     private readonly menuRepository: Repository<Menu>,
     @InjectRepository(Reservation)
     private readonly reservationRepository: Repository<Reservation>,
+    private readonly utilService: UtilService,
   ) {}
 
   /* 
@@ -59,9 +56,12 @@ export class ReservationsService {
 
     /* 메뉴 데이터베이스 존재 검증 */
     for (const id of menu) {
-      const menu = await throwNoExistsEntityWithSelectBy(this.menuRepository, {
-        where: { id },
-      });
+      const menu = await this.utilService.throwNoExistsEntityWithSelectBy(
+        this.menuRepository,
+        {
+          where: { id },
+        },
+      );
 
       const reservationMenu = new ReservationMenu();
       reservationMenu.menuId = menu.id;
@@ -80,7 +80,7 @@ export class ReservationsService {
     perPage: number,
     searchOption: SearchOption,
   ) {
-    return searchPagination(
+    return this.utilService.searchPagination(
       this.reservationRepository,
       path,
       {
