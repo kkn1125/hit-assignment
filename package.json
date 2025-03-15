@@ -32,7 +32,7 @@
     "compodoc": "npx @compodoc/compodoc -p ./tsconfig.json --language ko-KR -d docs -n \"HIT Restaurant API Server Docs\" -s",
     "predocs": "rm -rf docs && mkdir docs",
     "docs": "concurrently \"npm run docs:svg\" \"npm run docs:png\" \"npm run docs:compodoc\"",
-    "publish": "cd swagger-publish && git init && git add -A && git commit -m \"gh pages\" && git push https://github.com/kkn1125/hit-assignment.git master:gh-pages -f"
+    "publish": "cd swagger-publish && npm run build && cd dist && git init && git add -A && git commit -m \"gh pages\" && git push https://github.com/kkn1125/hit-assignment.git master:gh-pages -f"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

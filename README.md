@@ -39,6 +39,8 @@ root/
 │   └── main.ts  # 메인 부트스트랩 실행
 │
 ├── swagger-publish/  # 스웨거 문서 깃허브 공개용
+├── coverage/  # 테스트 커버리지 결과
+├── dist/  # 빌드된 파일
 ├── docs/  # 프로젝트 문서
 ├── lib/  # 외부 라이브러리
 ├── sql/  # SQL 관련 쿼리 파일
