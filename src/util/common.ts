@@ -8,7 +8,7 @@ export const commonOption = {
       ? ['localhost:8080']
       : [
           /* production host */
-          'kkn1125.github.io:443',
+          'kkn1125.github.io/hit-assignment:443',
           '43.201.15.151:8080',
           'localhost:8080',
         ],
