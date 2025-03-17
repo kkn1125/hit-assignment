@@ -8,7 +8,7 @@ export const commonOption = {
       ? ['localhost:8080']
       : [
           /* production host */
-          'http://43.201.15.151:8080',
+          'http://43.202.247.4:8080',
           'http://localhost:8080',
         ],
 };
